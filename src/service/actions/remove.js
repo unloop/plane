@@ -16,9 +16,9 @@
 // from Last.Backend LLC.
 //
 
-import * as api from '../api';
-import {browserHistory} from 'react-router'
-import {SERVICE_REMOVE_REQUEST, SERVICE_REMOVE_SUCCESS, SERVICE_REMOVE_FAILURE} from '../constants';
+import * as api from "../api";
+import {browserHistory} from "react-router";
+import {SERVICE_REMOVE_FAILURE, SERVICE_REMOVE_REQUEST, SERVICE_REMOVE_SUCCESS} from "../constants";
 
 export const RequestAction = {
   type: SERVICE_REMOVE_REQUEST
@@ -34,16 +34,16 @@ export const FailureAction = (payload) => ({
   payload
 });
 
-export const RemoveActionCreators = (namespace, id) => (dispatch) => {
+export const RemoveActionCreators = (service) => (dispatch) => {
 
   dispatch(RequestAction);
 
   return new Promise((resolve, reject) => {
-    api.remove(namespace, id)
+    api.remove(service.meta.namespace, service.meta.name)
       .then(() => {
-        dispatch(SuccessAction({id: id}));
-        browserHistory.push("/ns/" + id);
-        resolve({id: id})
+        dispatch(SuccessAction({meta: {namespace: service.meta.namespace}}));
+        browserHistory.push("/ns/" + service.meta.namespace);
+        resolve({meta: {namespace: service.meta.namespace}})
       })
       .catch(error => {
         dispatch(FailureAction(error));

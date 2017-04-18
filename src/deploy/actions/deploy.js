@@ -44,7 +44,7 @@ export const DeployActionCreators = (namespace, data) => (dispatch) => {
     api.deploy(namespace, data)
       .then(response => {
         dispatch(SuccessAction(response));
-        browserHistory.push("/ns/" + namespace + "/s/" + response.name);
+        browserHistory.push("/ns/" + namespace + "/s/" + response.meta.name);
         resolve(response);
       })
       .catch(error => {

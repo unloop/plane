@@ -72,15 +72,13 @@ const ServiceHeader = (props) => {
                     : ""
                 }
 
+                <p>{(service.description) || "No description added yet"}</p>
               </div>
               <div className="col-md-7 col-xs-12 text-right">
                 <ServiceReplicasChart up={changeReplicas} down={changeReplicas} value={service.meta.replicas}/>
                 <ServiceMemoryChart up={changeMemory} down={changeMemory} replicas={service.meta.replicas} value={service.config.memory}/>
                 <ServiceCostChart replicas={service.meta.replicas} value={service.config.memory} />
               </div>
-            </div>
-            <div className="service-header-description">
-              {(service.description) || "No description added yet"}
             </div>
           </div>
           <div className="container header-tabs">
