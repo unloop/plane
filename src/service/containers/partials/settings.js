@@ -33,53 +33,53 @@ import serviceActions from "../../actions";
 
 const NamespaceSettingsContainer = (props) => {
 
-  function updateGeneralInfoHandler(e, namespace, service, name, description) {
+  function updateGeneralInfoHandler(e, service, name, description) {
     e.preventDefault();
-    props.dispatch(serviceActions.update.UpdateActionCreators(namespace, service, {
+    props.dispatch(serviceActions.update.UpdateActionCreators(service, {
       name: name,
       description: description
     }));
   }
 
-  function updateRunFormHandler(e, namespace, service, command) {
+  function updateRunFormHandler(e, service, command) {
     e.preventDefault();
-    props.dispatch(serviceActions.update.UpdateActionCreators(namespace, service, {
+    props.dispatch(serviceActions.update.UpdateActionCreators(service, {
       config: {
         command: command
       }
     }));
   }
 
-  function updatePortsFormHandler(e, namespace, service, ports) {
+  function updatePortsFormHandler(e, service, ports) {
     e.preventDefault();
-    props.dispatch(serviceActions.update.UpdateActionCreators(namespace, service, {
+    props.dispatch(serviceActions.update.UpdateActionCreators(service, {
       config: {
         ports: ports
       }
     }));
   }
 
-  function updateEnvsFormHandler(e, namespace, service, envs) {
+  function updateEnvsFormHandler(e, service, envs) {
     e.preventDefault();
-    props.dispatch(serviceActions.update.UpdateActionCreators(namespace, service, {
+    props.dispatch(serviceActions.update.UpdateActionCreators(service, {
       config: {
         env: envs
       }
     }));
   }
 
-  function updateVolumesFormHandler(e, namespace, service, volumes) {
+  function updateVolumesFormHandler(e, service, volumes) {
     e.preventDefault();
-    props.dispatch(serviceActions.update.UpdateActionCreators(namespace, service, {
+    props.dispatch(serviceActions.update.UpdateActionCreators(service, {
       config: {
         volumes: volumes
       }
     }));
   }
 
-  // function updateMaintenanceFormHandler(e, namespace, service, maintenance) {
+  // function updateMaintenanceFormHandler(e, service, maintenance) {
   //   e.preventDefault();
-  //   props.dispatch(serviceActions.update.UpdateActionCreators(namespace, service, {
+  //   props.dispatch(serviceActions.update.UpdateActionCreators(service, {
   //     config: {
   //       maintenance: maintenance
   //     }

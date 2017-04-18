@@ -50,7 +50,7 @@ class ServiceRunForm extends React.Component {
                      onChange={(e) => this.handleChangeCommand(e, cmd)}/>
           <br />
           <RaisedButton label="Save" primary={true}
-                        onClick={(e) => this.props.updateHandler(e, this.props.namespace.name, this.props.service.name, this.state.cmd)}/>
+                        onClick={(e) => this.props.updateHandler(e, this.props.service, this.state.cmd)}/>
         </div>
       </div>
     );

@@ -16,11 +16,11 @@
 // from Last.Backend LLC.
 //
 
-import * as api from '../api';
-import {getError} from '../../utils';
-import {toastr} from 'react-redux-toastr'
-import {SERVICE_FETCH_REQUEST, SERVICE_FETCH_SUCCESS, SERVICE_FETCH_FAILURE} from '../constants';
-import {browserHistory} from 'react-router'
+import * as api from "../api";
+import {getError} from "../../utils";
+import {toastr} from "react-redux-toastr";
+import {SERVICE_FETCH_FAILURE, SERVICE_FETCH_REQUEST, SERVICE_FETCH_SUCCESS} from "../constants";
+import {browserHistory} from "react-router";
 
 export const RequestAction = {
   type: SERVICE_FETCH_REQUEST
@@ -36,12 +36,12 @@ export const FailureAction = (payload) => ({
   payload
 });
 
-export const InfoActionCreators = (namespace, id) => (dispatch) => {
+export const InfoActionCreators = (namespace, name) => (dispatch) => {
 
   dispatch(RequestAction);
 
   return new Promise((resolve, reject) => {
-    api.get(namespace, id)
+    api.get(namespace, name)
       .then(response => {
         dispatch(SuccessAction(response));
         resolve(response);
@@ -53,7 +53,7 @@ export const InfoActionCreators = (namespace, id) => (dispatch) => {
         switch (error.status) {
           case "Not Found":
             content = error.message;
-            browserHistory.push("/ns/"+namespace);
+            browserHistory.push("/ns/" + namespace);
             break;
           case "Unauthorized":
           case "Unknown":

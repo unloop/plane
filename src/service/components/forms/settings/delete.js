@@ -16,9 +16,9 @@
 // from Last.Backend LLC.
 //
 
-import React, {} from 'react';
-import PropTypes from 'prop-types';
-import RaisedButton from 'material-ui/RaisedButton';
+import React from "react";
+import PropTypes from "prop-types";
+import RaisedButton from "material-ui/RaisedButton";
 
 const ServiceDeleteForm = (props) => (
   <div className="row">
@@ -33,7 +33,7 @@ const ServiceDeleteForm = (props) => (
       <br />
       <br />
       <RaisedButton label="Delete" secondary={true}
-                    onClick={(e) => props.removeHandler(e, props.namespace.name, props.service.meta.name)}/>
+                    onClick={(e) => props.removeHandler(e, props.service)}/>
     </div>
   </div>
 );

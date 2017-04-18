@@ -16,11 +16,11 @@
 // from Last.Backend LLC.
 //
 
-import React, {} from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import TextField from "material-ui/TextField";
+import RaisedButton from "material-ui/RaisedButton";
 
 
 class ServiceGeneralForm extends React.Component {
@@ -28,8 +28,8 @@ class ServiceGeneralForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: props.service.name,
-      desc: props.service.description,
+      name: props.service.meta.name,
+      desc: props.service.meta.description,
     }
   }
 
@@ -59,7 +59,7 @@ class ServiceGeneralForm extends React.Component {
                      hintText="description" value={this.state.desc} onChange={(e) => this.handleChangeDesc(e, desc)}/>
           <br />
           <RaisedButton label="Save" primary={true}
-                        onClick={(e) => this.props.updateHandler(e, this.props.namespace.name, this.props.service.name, this.state.name, this.state.desc)}/>
+                        onClick={(e) => this.props.updateHandler(e, this.props.service, this.state.name, this.state.desc)}/>
         </div>
       </div>
     );

@@ -51,7 +51,7 @@ class ServiceEnvsForm extends React.Component {
     let env = [this.state.key, this.state.value.trim()].join("=");
     this.state.envs.push(env);
     this.setState({envs: this.state.envs, key: "", value: ""});
-    this.props.updateHandler(e, this.props.namespace.name, this.props.service.name, this.state.envs)
+    this.props.updateHandler(e, this.props.service, this.state.envs)
   }
 
   handleRemoveEnv(e, index) {
@@ -60,7 +60,7 @@ class ServiceEnvsForm extends React.Component {
       this.state.envs.splice(index, 1);
       this.setState({envs: this.state.envs});
     }
-    this.props.updateHandler(e, this.props.namespace.name, this.props.service.name, this.state.envs)
+    this.props.updateHandler(e, this.props.service, this.state.envs)
   }
 
   render() {

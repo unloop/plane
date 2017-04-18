@@ -70,7 +70,7 @@ class ServicePortsForm extends React.Component {
       published: this.state.published
     });
     this.setState({ports: this.state.ports, external: "", internal: "", protocol: "tcp", published: false});
-    this.props.updateHandler(e, this.props.namespace.name, this.props.service.name, this.state.ports)
+    this.props.updateHandler(e, this.props.service, this.state.ports)
   }
 
   handleRemoveEnv(e, index) {
@@ -79,7 +79,7 @@ class ServicePortsForm extends React.Component {
       this.state.ports.splice(index, 1);
       this.setState({ports: this.state.ports});
     }
-    this.props.updateHandler(e, this.props.namespace.name, this.props.service.name, this.state.ports)
+    this.props.updateHandler(e, this.props.service, this.state.ports)
   }
 
   render() {
