@@ -1,0 +1,337 @@
+/*
+//
+// Last.Backend LLC CONFIDENTIAL
+// __________________
+//
+// [2014] - [2017] Last.Backend LLC
+// All Rights Reserved.
+//
+// NOTICE:  All information contained herein is, and remains
+// the property of Last.Backend LLC and its suppliers,
+// if any.  The intellectual and technical concepts contained
+// herein are proprietary to Last.Backend LLC
+// and its suppliers and may be covered by Russian Federation and Foreign Patents,
+// patents in process, and are protected by trade secret or copyright law.
+// Dissemination of this information or reproduction of this material
+// is strictly forbidden unless prior written permission is obtained
+// from Last.Backend LLC.
+//
+ */
+
+body {
+  padding: 0 0 20px 0;
+  font-family: Roboto, serif;
+  background-color: #f5f5f5;
+  margin: 0 auto;
+  max-width: 1600px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+}
+
+.navbar {
+  margin-bottom: 0;
+}
+
+.navbar-default {
+  padding-top: 20px;
+  padding-bottom: 0;
+  background-color: transparent;
+  border: 0;
+}
+
+.breadcrumb {
+  background-color: transparent;
+  color: #737373;
+  margin-bottom: 0;
+  padding-top: 10px;
+}
+
+.breadcrumb > li + li:before {
+  font-size: 20px;
+  padding: 3px;
+  margin-left: 3px;
+}
+
+.breadcrumb a {
+  color: #737373;
+  text-transform: capitalize;
+}
+
+.breadcrumb a:hover {
+  text-decoration: none;
+}
+
+.breadcrumb span {
+  margin-top: 0;
+  padding-top: 5px;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.header {
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.header-container {
+  padding: 0 50px;
+  position: relative;
+  min-height: 175px;
+}
+
+.header-container a {
+  margin: 10px 0;
+  font-size: 14px;
+  padding-top: 2px;
+}
+
+.header-container .fa {
+  font-size: 16px;
+  width: 18px;
+}
+
+.header-container .header-add-button {
+  position: absolute;
+  right: 65px;
+  top: 145px;
+}
+
+.header-settings-button {
+  right: 30px;
+}
+
+.header-tabs {
+  position: absolute;
+  bottom: 0;
+}
+
+.header-tabs a:first-child {
+  margin-left: 0;
+}
+
+.header-tabs a:last-child {
+  margin-right: 0;
+}
+
+.header-tabs a {
+  display: inline-block;
+  margin: 0 10px;
+  padding: 10px 25px;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.tab-active {
+  color: #2275dc;
+  border-bottom: 3px solid #2275dc;
+}
+
+.container-wrapper {
+  padding-left: 70px;
+  padding-right: 70px;
+}
+
+.label-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.label-chip {
+  margin: 4px !important;
+}
+
+.label-chip span {
+  font-size: 12px !important;
+  color: #737373 !important;
+}
+
+hr {
+  margin: 8px 0;
+}
+
+.table > tbody > tr > td {
+  border: none;
+}
+
+.overview-block {
+  margin-bottom: 50px;
+}
+
+.detail-info .detail-info-header:first-child {
+  padding: 10px 0;
+}
+
+.detail-info-header {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 20px;
+  padding: 20px 0 10px;
+}
+
+.detail-info-block {
+  margin: 10px 0;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.detail-info-block table tr td:first-child {
+  color: #737373;
+  padding: 5px 0;
+}
+
+.card {
+  margin-bottom: 30px;
+}
+
+.detail-info .detail-info-header:first-child {
+  padding: 10px 0;
+}
+
+.detail-info-header {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 20px;
+  padding: 20px 0 10px;
+}
+
+.detail-info-block {
+  margin: 10px 0;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.detail-info-block table tr td:first-child {
+  color: #737373;
+  padding: 5px 0;
+}
+
+.card-active {
+  border: 2px dotted;
+  border-color: #2275dc;
+}
+
+.card-status {
+  margin: 25px 18px 0;
+}
+
+.card-build-section {
+
+}
+
+.card-build-section span {
+
+}
+
+.card-build-action {
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .card-build-action {
+    text-align: right;
+  }
+}
+
+.card-table {
+  font-weight: 300;
+}
+
+.card-table td {
+  color: #737373;
+}
+
+.logs-container {
+  height: calc(100vh - 300px);
+  background-color: #0f0f0f;
+  border-radius: 5px;
+  overflow: scroll;
+}
+
+.activity-row {
+  border-bottom: 1px solid #737373;
+}
+
+.activity-row div {
+  padding: 10px;
+}
+
+.activity-row div.activity-action {
+  margin: -10px;
+}
+
+.activity-row div.activity-message {
+  padding-top: 20px;
+  padding-left: 40px;
+}
+
+.settings-block-item {
+  padding: 20px 0;
+}
+
+.settings-block-title {
+
+}
+
+.settings-block-table {
+
+}
+
+.deploy-create-header {
+  padding: 50px 0;
+}
+
+.form-create-block {
+
+}
+
+.form-create-block-left-item {
+  padding: 20px 0 20px 0;
+}
+
+.form-create-block-right-item {
+  padding: 0 0 20px 0;
+}
+
+.form-create-block-title {
+
+}
+
+.form-create-block-desc {
+  font-size: 12px;
+  color: #737373;
+}
+
+.settings-block-desc {
+  color: #737373;
+  font-size: 12px;
+}
+
+@media (min-width: 992px) {
+  .container-info {
+    display: block;
+    padding: 0 62px;
+  }
+
+  .form-create-block-left-item {
+    padding: 20px 40px 0 0;
+  }
+
+  .form-create-block-right-item {
+    padding: 20px 0 20px 40px;
+  }
+}
+
+.gravatar {
+  margin-right: 10px;
+}
+
+.container-border-bottom {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border: 0;
+  border-bottom: 1px solid #eee;
+}
