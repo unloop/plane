@@ -24,7 +24,7 @@ import Timestamp from 'react-timestamp';
 
 
 const ServiceDetailInfo = (props) => {
-  const {namespace, service} = props;
+  const {service} = props;
 
   return (
     <div className="detail-info">
@@ -35,15 +35,15 @@ const ServiceDetailInfo = (props) => {
           <tbody>
           <tr>
             <td>Name</td>
-            <td>{service.name}</td>
+            <td>{service.meta.name}</td>
           </tr>
           <tr>
             <td>Namespace</td>
-            <td>{namespace.name}</td>
+            <td>{service.meta.namespace}</td>
           </tr>
           <tr>
             <td>Created</td>
-            <td><Timestamp time={service.created} format='date' /></td>
+            <td><Timestamp time={service.meta.created} format='date' /></td>
           </tr>
           </tbody>
         </table>
@@ -53,9 +53,9 @@ const ServiceDetailInfo = (props) => {
       <div className="detail-info-block">
         <div className="label-wrapper">
           {
-            (!!service.labels)
-              ? Object.keys(service.labels).map((key) => {
-                return <Chip key={key} className="label-chip">{key+": "+service.labels[key]}</Chip> 
+            (!!service.meta.labels)
+              ? Object.keys(service.meta.labels).map((key) => {
+                return <Chip key={key} className="label-chip">{key+": "+service.meta.labels[key]}</Chip>
               })
               : "None"
           }
@@ -67,7 +67,6 @@ const ServiceDetailInfo = (props) => {
 };
 
 ServiceDetailInfo.propTypes = {
-  namespace: PropTypes.object.isRequired,
   service: PropTypes.object.isRequired
 };
 

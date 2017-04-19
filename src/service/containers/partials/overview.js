@@ -32,7 +32,7 @@ class ServiceOverviewContainer extends React.Component {
   }
 
   render() {
-    const {namespace, service, volume} = this.props;
+    const  {service, volume} = this.props;
     return (
       <div className="container-fluid">
         <div className="row">
@@ -49,7 +49,7 @@ class ServiceOverviewContainer extends React.Component {
             </div>
           </div>
           <div className="col-md-4">
-            <ServiceDetailInfo namespace={namespace} service={service}/>
+            <ServiceDetailInfo service={service}/>
           </div>
         </div>
       </div>
@@ -59,7 +59,6 @@ class ServiceOverviewContainer extends React.Component {
 
 const mapStateToProps = (state, props) => {
   return ({
-    namespace: state.namespace.list[props.params.namespace],
     service: state.service.list[props.params.service],
     volume: state.volume,
   });
