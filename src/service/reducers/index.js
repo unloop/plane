@@ -47,12 +47,26 @@ const initialState = {
 };
 
 function convert(payload) {
+
+  let containers = {};
+  payload.pods && payload.pods.forEach(function (pod) {
+    pod.containers && pod.containers.forEach(function (container) {
+      if (!containers[container.spec]) containers[container.spec] = [];
+      containers[container.spec].push(container);
+    })
+  });
+
+  let spec = payload.spec || {};
+  for (let key in spec) {
+    if (spec.hasOwnProperty(key)) spec[key].containers = containers[spec[key].meta.id] || [];
+  }
+
   return {
     meta: payload.meta,
     dns: payload.dns || {},
     sources: payload.sources || {},
     pods: payload.pods || [],
-    config: payload.config || {},
+    spec: spec,
   };
 }
 

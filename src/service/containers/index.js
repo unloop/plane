@@ -15,25 +15,24 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Last.Backend LLC.
 //
-
 //Page
-import ServiceInfoPage from './pages/info'
-
+import ServiceInfoPage from "./pages/info";
 // Partial
-import ServiceOverviewContainer from './partials/overview'
-import ServiceBuildsContainer from './partials/builds'
-import ServiceDeployContainer from './partials/deploy'
-import ServiceMetricsContainer from './partials/metrics'
-import ServiceLogsContainer from './partials/logs'
-import ServiceActivityContainer from './partials/activity'
-import ServiceSettingsContainer from './partials/settings'
-
+import ServiceOverviewContainer from "./partials/overview";
+import ServiceBuildsContainer from "./partials/builds";
+import ServiceDeployContainer from "./partials/deploy";
+import ServiceMetricsContainer from "./partials/metrics";
+import ServiceLogsContainer from "./partials/logs";
+import ServiceActivityContainer from "./partials/activity";
+import ServiceSettingsContainer from "./partials/settings";
 //Elements
-import ServiceCardList from './elements/list'
+import ServiceCardList from "./elements/list";
+import PodDetailInfo from "./elements/pod/detail";
 
 export {
   ServiceInfoPage,
   ServiceOverviewContainer, ServiceBuildsContainer, ServiceDeployContainer,
   ServiceLogsContainer, ServiceMetricsContainer, ServiceActivityContainer, ServiceSettingsContainer,
-  ServiceCardList
+  ServiceCardList,
+  PodDetailInfo
 }

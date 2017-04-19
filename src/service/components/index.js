@@ -15,34 +15,31 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Last.Backend LLC.
 //
-
 // Elements
-import ServiceCard from './elements/card'
-import ActivityItemElement from './elements/activity'
-import ServiceGitSources from './elements/git'
-import ServiceHeader from './elements/header'
-import ServiceDetailInfo from './elements/detail'
-import PodItemElement from './elements/pod'
-
+import ServiceCard from "./elements/card";
+import ActivityItemElement from "./elements/activity";
+import ServiceGitSources from "./elements/git";
+import ServiceHeader from "./elements/header";
+import ServiceDetailInfo from "./elements/detail";
+import SpecCard from "./elements/spec/card";
 // Forms
-import ServiceCreateForm from './forms/create'
-import ServiceInputFilter from './forms/filter'
-import ServiceGeneralForm from './forms/settings/general';
-import ServiceRunForm from './forms/settings/run';
-import ServicePortsForm from './forms/settings/ports';
-import ServiceEnvsForm from './forms/settings/envs';
-import ServiceVolumesForm from './forms/settings/volumes';
-import ServiceMaintenanceForm from './forms/settings/maintenance';
-import ServiceDeleteForm from './forms/settings/delete';
-
+import ServiceCreateForm from "./forms/create";
+import ServiceInputFilter from "./forms/filter";
+import ServiceGeneralForm from "./forms/settings/general";
+import ServiceRunForm from "./forms/settings/run";
+import ServicePortsForm from "./forms/settings/ports";
+import ServiceEnvsForm from "./forms/settings/envs";
+import ServiceVolumesForm from "./forms/settings/volumes";
+import ServiceMaintenanceForm from "./forms/settings/maintenance";
+import ServiceDeleteForm from "./forms/settings/delete";
 // Charts
-import ServiceCostChart from './charts/cost'
-import ServiceMemoryChart from './charts/memory'
-import ServiceReplicasChart from './charts/replicas'
+import ServiceCostChart from "./charts/cost";
+import ServiceMemoryChart from "./charts/memory";
+import ServiceReplicasChart from "./charts/replicas";
 
 export {
   ServiceCard, ActivityItemElement, ServiceGitSources, ServiceHeader, ServiceDetailInfo,
-  PodItemElement,
+  SpecCard,
   ServiceCreateForm, ServiceInputFilter,
   ServiceGeneralForm, ServiceRunForm, ServicePortsForm, ServiceEnvsForm,
   ServiceVolumesForm, ServiceMaintenanceForm, ServiceDeleteForm,

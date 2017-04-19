@@ -18,50 +18,38 @@
 
 import React from "react";
 import PropTypes from 'prop-types';
+import Toggle from "material-ui/Toggle";
 
-import TextField from "material-ui/TextField";
-import RaisedButton from "material-ui/RaisedButton";
-
-class ServiceRunForm extends React.Component {
+class ServiceMaintenanceForm extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      cmd: props.service.spec.command || "",
-    }
-  }
-
-  handleChangeCommand(e, cmd) {
-    e.preventDefault();
-    this.setState({cmd: cmd.input.value})
+    this.state = {}
   }
 
   render() {
-    let cmd;
     return (
       <div className="row">
         <div className="col-md-4 col-xs-12">
-          <h3>Run settings</h3>
-          <desc>Service runtime settings</desc>
+          <h3>Maintenance mode</h3>
+          <desc>Turn your service into maintenance mode</desc>
         </div>
         <div className="col-md-8 col-xs-12">
-          <TextField ref={val => cmd = val} fullWidth={true} floatingLabelText="CMD" hintText="cmd"
-                     value={this.state.cmd}
-                     onChange={(e) => this.handleChangeCommand(e, cmd)}/>
           <br />
-          <RaisedButton label="Save" primary={true}
-                        onClick={(e) => this.props.updateHandler(e, this.props.service, this.state.cmd)}/>
+          <br />
+          <Toggle label="Maintenance mode" labelPosition="right" defaultToggled={false} />
         </div>
       </div>
     );
+
   }
 }
 
-ServiceRunForm.propTypes = {
+ServiceMaintenanceForm.propTypes = {
   namespace: PropTypes.object.isRequired,
   service: PropTypes.object.isRequired,
   updateHandler: PropTypes.func.isRequired
 };
 
-export default ServiceRunForm;
+export default ServiceMaintenanceForm;
 

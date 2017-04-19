@@ -30,9 +30,9 @@ export function list(namespace) {
   return request("GET", uri, null, true);
 }
 
-export function update(namespace, id, config) {
+export function update(namespace, id, spec) {
   let uri = [api_host, "namespace", namespace, "service", id].join("/");
-  return request("PUT", uri, config, true);
+  return request("PUT", uri, spec, true);
 }
 
 export function remove(namespace, id) {

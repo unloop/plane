@@ -44,7 +44,7 @@ const NamespaceSettingsContainer = (props) => {
   function updateRunFormHandler(e, service, command) {
     e.preventDefault();
     props.dispatch(serviceActions.update.UpdateActionCreators(service, {
-      config: {
+      spec: {
         command: command
       }
     }));
@@ -53,7 +53,7 @@ const NamespaceSettingsContainer = (props) => {
   function updatePortsFormHandler(e, service, ports) {
     e.preventDefault();
     props.dispatch(serviceActions.update.UpdateActionCreators(service, {
-      config: {
+      spec: {
         ports: ports
       }
     }));
@@ -62,7 +62,7 @@ const NamespaceSettingsContainer = (props) => {
   function updateEnvsFormHandler(e, service, envs) {
     e.preventDefault();
     props.dispatch(serviceActions.update.UpdateActionCreators(service, {
-      config: {
+      spec: {
         env: envs
       }
     }));
@@ -71,7 +71,7 @@ const NamespaceSettingsContainer = (props) => {
   function updateVolumesFormHandler(e, service, volumes) {
     e.preventDefault();
     props.dispatch(serviceActions.update.UpdateActionCreators(service, {
-      config: {
+      spec: {
         volumes: volumes
       }
     }));
@@ -80,7 +80,7 @@ const NamespaceSettingsContainer = (props) => {
   // function updateMaintenanceFormHandler(e, service, maintenance) {
   //   e.preventDefault();
   //   props.dispatch(serviceActions.update.UpdateActionCreators(service, {
-  //     config: {
+  //     spec: {
   //       maintenance: maintenance
   //     }
   //   }));
