@@ -36,12 +36,12 @@ export const FailureAction = (payload) => ({
   payload
 });
 
-export const UpdateActionCreators = (service, config) => (dispatch) => {
+export const UpdateActionCreators = (service, spec) => (dispatch) => {
 
   dispatch(RequestAction);
 
   return new Promise((resolve, reject) => {
-    api.update(service.meta.namespace, service.meta.name, config)
+    api.update(service.meta.namespace, service.meta.name, spec)
       .then(response => {
         dispatch(SuccessAction(response));
         resolve(response)

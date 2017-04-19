@@ -16,40 +16,77 @@
 // from Last.Backend LLC.
 //
 
-import React from 'react';
-import {connect} from 'react-redux';
+import React from "react";
+import {connect} from "react-redux";
 
-import {ServiceDetailInfo} from '../../components'
-import {PodItemElement} from '../../components'
-import {VolumesList} from '../../../volume/components'
+import {Table, TableBody, TableRow, TableRowColumn} from "material-ui/Table";
 
+import {ServiceDetailInfo, SpecCard} from "../../components";
+import {PodDetailInfo} from "../../containers";
+import {VolumesList} from "../../../volume/components";
+
+function getStateContainerColor(status) {
+  const statuses = {
+    running: "green",
+    terminated: "red",
+    waiting: "blue"
+  };
+  return statuses[status.toLowerCase()] || "green";
+}
 
 class ServiceOverviewContainer extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      pod: null
+    }
   }
 
+  handleSelectCard = (e, pod) => {
+    e.preventDefault();
+    this.setState({pod: pod});
+  };
+
   render() {
-    const {namespace, service, volume} = this.props;
+    const {service, volume} = this.props;
     return (
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-8">
             <div className="overview-block">
-              {
-                service.pods.map((pod, index)=>{
-                  return <PodItemElement key={index} pod={pod}/>
-                })
-              }
+              <h5>Pods</h5>
+              <Table selectable={false}>
+                <TableBody displayRowCheckbox={false}>
+                  {service.pods.map((pod, index) => {
+                    return (
+                      <TableRow key={index}>
+                        <TableRowColumn>{pod.meta.id}</TableRowColumn>
+                        <TableRowColumn
+                          style={{textAlign: "right", color: getStateContainerColor(pod.state.state)}}>
+                          {pod.state.state}
+                        </TableRowColumn>
+                      </TableRow>
+                    )
+                  })}
+                </TableBody>
+              </Table>
+            </div>
+            <div className="overview-block">
+              <h5>Specs</h5>
+              {service.spec.map((spec, index) => <SpecCard selectHandle={this.handleSelectCard} key={index}
+                                                           service={service} spec={spec}/>)}
             </div>
             <div className="overview-block">
               <VolumesList service={service} volume={volume}/>
             </div>
           </div>
           <div className="col-md-4">
-            <ServiceDetailInfo namespace={namespace} service={service}/>
+            {
+              (!this.state.pod)
+                ? <ServiceDetailInfo service={service}/>
+                : <PodDetailInfo pod={this.state.pod} spec={service.spec}/>
+            }
           </div>
         </div>
       </div>
@@ -59,7 +96,6 @@ class ServiceOverviewContainer extends React.Component {
 
 const mapStateToProps = (state, props) => {
   return ({
-    namespace: state.namespace.list[props.params.namespace],
     service: state.service.list[props.params.service],
     volume: state.volume,
   });

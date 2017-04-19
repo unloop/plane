@@ -25,7 +25,7 @@ import deployActions from "./../../actions";
 import {DeployHeader} from "../../components";
 import {DeployDockerContainer, DeployGitContainer, DeployGitPushContainer, DeployTemplateContainer} from "../index";
 
-const initConfig = {
+const initSpec = {
   name: "",
   memory: 126,
   template: "",
@@ -39,46 +39,46 @@ class DeployCreatePage extends React.Component {
     super(props);
     this.state = {
       tab: 'template',
-      config: initConfig,
+      spec: initSpec,
     };
   }
 
-  config = Object.assign({}, initConfig);
+  spec = Object.assign({}, initSpec);
 
   handleTabChange = (e, value) => {
     e.stopPropagation();
-    this.config = Object.assign({}, initConfig);
+    this.spec = Object.assign({}, initSpec);
     this.setState({
       tab: value,
     });
   };
 
   setName = (name) => {
-    this.config.name = name;
+    this.spec.name = name;
   };
 
   setMemory = (memory) => {
-    this.config.memory = memory;
+    this.spec.memory = memory;
   };
 
   setResource = (resource) => {
-    this.config.resource = resource;
+    this.spec.resource = resource;
   };
 
   setTemplate = (template, version) => {
-    this.config.template = template + ":" + (version || "latest");
+    this.spec.template = template + ":" + (version || "latest");
   };
 
   setImage = (owner, image, version) => {
-    this.config.image = (owner || "library") + "/" + image + ":" + (version || "latest");
+    this.spec.image = (owner || "library") + "/" + image + ":" + (version || "latest");
   };
 
   setUrl = (url, branch) => {
-    this.config.url = !!url.length ? [url, branch || "master"].join("#") : "";
+    this.spec.url = !!url.length ? [url, branch || "master"].join("#") : "";
   };
 
   onClickToDeploy = () => {
-    this.props.dispatch(deployActions.deploy.DeployActionCreators(this.props.namespace, this.config))
+    this.props.dispatch(deployActions.deploy.DeployActionCreators(this.props.namespace, this.spec))
   };
 
   render() {

@@ -22,7 +22,7 @@ import {IndexLink, Link} from "react-router";
 import Paper from "material-ui/Paper";
 
 import {CommonHeaderContainer} from "../../../common/containers";
-import {ServiceCostChart, ServiceMemoryChart, ServiceReplicasChart} from "../../components";
+import {ServiceCostChart, ServiceReplicasChart} from "../../components";
 import serviceActions from "../../actions";
 
 
@@ -32,11 +32,6 @@ const ServiceHeader = (props) => {
   function changeReplicas(e, value) {
     e.preventDefault();
     props.dispatch(serviceActions.update.UpdateActionCreators(service, {replicas: value}));
-  }
-
-  function changeMemory(e, value) {
-    e.preventDefault();
-    props.dispatch(serviceActions.update.UpdateActionCreators(service, {config: {memory: value}}));
   }
 
   return (
@@ -76,8 +71,7 @@ const ServiceHeader = (props) => {
               </div>
               <div className="col-md-7 col-xs-12 text-right">
                 <ServiceReplicasChart up={changeReplicas} down={changeReplicas} value={service.meta.replicas}/>
-                <ServiceMemoryChart up={changeMemory} down={changeMemory} replicas={service.meta.replicas} value={service.config.memory}/>
-                <ServiceCostChart replicas={service.meta.replicas} value={service.config.memory} />
+                <ServiceCostChart replicas={service.meta.replicas} value={service.spec.memory} />
               </div>
             </div>
           </div>

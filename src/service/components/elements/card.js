@@ -36,7 +36,7 @@ const ServiceCard = (props) => {
 
   function changeMemory(e, value) {
     e.preventDefault();
-    props.dispatch(serviceActions.update.UpdateActionCreators(service, {config: {memory: value}}));
+    props.dispatch(serviceActions.update.UpdateActionCreators(service, {spec: {memory: value}}));
   }
 
   return (
@@ -80,7 +80,7 @@ const ServiceCard = (props) => {
         <div className="row">
           <div className="col-md-6 col-xs-12">
             <ServiceReplicasChart up={changeReplicas} down={changeReplicas} value={service.meta.replicas}/>
-            <ServiceMemoryChart up={changeMemory} down={changeMemory} replicas={service.meta.replicas} value={service.config.memory}/>
+            <ServiceMemoryChart up={changeMemory} down={changeMemory} replicas={service.meta.replicas} value={service.spec.memory}/>
           </div>
           <div className="col-md-6 col-xs-12">
             <table className="table card-table">
