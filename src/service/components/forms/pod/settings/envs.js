@@ -24,7 +24,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
 import ContentRemove from "material-ui/svg-icons/content/clear";
 
-class ServiceEnvsForm extends React.Component {
+class SpecEnvsForm extends React.Component {
 
   constructor(props) {
     super(props);
@@ -67,16 +67,7 @@ class ServiceEnvsForm extends React.Component {
     let key, value;
     return (
       <div className="row">
-        <div className="col-md-4 col-xs-12">
-          <h3>Config variables</h3>
-          <desc>
-            Here you can set config variables to pass it to the running app.
-            It contains some system envs and you can add a custom your.
-            Please note, that you can not overwrite system variables.
-          </desc>
-        </div>
-
-        <div className="col-md-8 col-xs-12">
+        <div className="col-xs-12">
           <Table selectable={false} style={{background: "none"}}>
             <TableBody displayRowCheckbox={false}>
               <TableRow displayBorder={false}>
@@ -139,11 +130,10 @@ class ServiceEnvsForm extends React.Component {
   }
 }
 
-ServiceEnvsForm.propTypes = {
-  namespace: PropTypes.object.isRequired,
+SpecEnvsForm.propTypes = {
   service: PropTypes.object.isRequired,
   updateHandler: PropTypes.func.isRequired
 };
 
-export default ServiceEnvsForm;
+export default SpecEnvsForm;
 

@@ -42,13 +42,13 @@ class PodDetailInfo extends React.Component {
   };
 
   render() {
-    const {pod, spec} = this.props;
+    const {service, pod, spec} = this.props;
     return (
       <div>
         {
           (this.state.edit)
-            ? <PodSpecEditor disableEditorHandler={this.handleDisableEditor} pod={pod}/>
-            : <PodSpecInfo enableEditorHandler={this.handleEnableEditor} pod={pod} spec={spec} />
+            ? <PodSpecEditor disableEditorHandler={this.handleDisableEditor} {...this.props} />
+            : <PodSpecInfo enableEditorHandler={this.handleEnableEditor} {...this.props}/>
         }
       </div>
     );
@@ -56,6 +56,7 @@ class PodDetailInfo extends React.Component {
 }
 
 PodDetailInfo.propTypes = {
+  service: React.PropTypes.object.isRequired,
   pod: React.PropTypes.object.isRequired,
 };
 

@@ -32,6 +32,10 @@ import ServiceEnvsForm from "./forms/settings/envs";
 import ServiceVolumesForm from "./forms/settings/volumes";
 import ServiceMaintenanceForm from "./forms/settings/maintenance";
 import ServiceDeleteForm from "./forms/settings/delete";
+
+import SpecEnvsForm from "./forms/pod/settings/envs";
+import SpecPortsForm from "./forms/pod/settings/ports";
+import SpecRunForm from "./forms/pod/settings/run";
 // Charts
 import ServiceCostChart from "./charts/cost";
 import ServiceMemoryChart from "./charts/memory";
@@ -43,5 +47,6 @@ export {
   ServiceCreateForm, ServiceInputFilter,
   ServiceGeneralForm, ServiceRunForm, ServicePortsForm, ServiceEnvsForm,
   ServiceVolumesForm, ServiceMaintenanceForm, ServiceDeleteForm,
-  ServiceCostChart, ServiceMemoryChart, ServiceReplicasChart
+  ServiceCostChart, ServiceMemoryChart, ServiceReplicasChart,
+  SpecEnvsForm, SpecPortsForm, SpecRunForm
 }

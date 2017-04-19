@@ -22,7 +22,7 @@ import PropTypes from 'prop-types';
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
 
-class ServiceRunForm extends React.Component {
+class SpecRunForm extends React.Component {
 
   constructor(props) {
     super(props);
@@ -40,11 +40,7 @@ class ServiceRunForm extends React.Component {
     let cmd;
     return (
       <div className="row">
-        <div className="col-md-4 col-xs-12">
-          <h3>Run settings</h3>
-          <desc>Service runtime settings</desc>
-        </div>
-        <div className="col-md-8 col-xs-12">
+        <div className="col-xs-12">
           <TextField ref={val => cmd = val} fullWidth={true} floatingLabelText="CMD" hintText="cmd"
                      value={this.state.cmd}
                      onChange={(e) => this.handleChangeCommand(e, cmd)}/>
@@ -57,11 +53,10 @@ class ServiceRunForm extends React.Component {
   }
 }
 
-ServiceRunForm.propTypes = {
-  namespace: PropTypes.object.isRequired,
+SpecRunForm.propTypes = {
   service: PropTypes.object.isRequired,
   updateHandler: PropTypes.func.isRequired
 };
 
-export default ServiceRunForm;
+export default SpecRunForm;
 
