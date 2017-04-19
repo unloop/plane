@@ -19,16 +19,65 @@
 import React from "react";
 import RaisedButton from "material-ui/RaisedButton";
 
+import {SpecEnvsForm, SpecPortsForm, SpecRunForm} from "./../../../components";
+import serviceActions from "../../../actions";
+
 class PodSpecEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
+  updateRunFormHandler = (e, service, command) => {
+    e.preventDefault();
+    this.props.dispatch(serviceActions.update.UpdateActionCreators(service, {
+      spec: {
+        command: command
+      }
+    }));
+  };
+
+  updatePortsFormHandler = (e, service, ports) => {
+    e.preventDefault();
+    this.props.dispatch(serviceActions.update.UpdateActionCreators(service, {
+      spec: {
+        ports: ports
+      }
+    }));
+  };
+
+  updateEnvsFormHandler = (e, service, envs) => {
+    e.preventDefault();
+    this.props.dispatch(serviceActions.update.UpdateActionCreators(service, {
+      spec: {
+        env: envs
+      }
+    }));
+  };
+
   render() {
-    const {pod} = this.props;
+    const {spec} = this.props;
     return (
       <div>
+
+        <div className="settings-block-item">
+          <SpecRunForm updateHandler={this.updateRunFormHandler} {...this.props} />
+        </div>
+
+        <hr />
+
+        <div className="settings-block-item">
+          <SpecPortsForm updateHandler={this.updatePortsFormHandler} {...this.props} />
+        </div>
+
+        <hr />
+
+        <div className="settings-block-item">
+          <SpecEnvsForm updateHandler={this.updateEnvsFormHandler} {...this.props} />
+        </div>
+
+        <hr />
+
         <RaisedButton label="Cancel" primary={true}
                       onClick={this.props.disableEditorHandler}/>
       </div>

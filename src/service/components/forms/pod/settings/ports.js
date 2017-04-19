@@ -27,7 +27,7 @@ import MenuItem from "material-ui/MenuItem";
 import Checkbox from "material-ui/Checkbox";
 import ContentRemove from "material-ui/svg-icons/content/clear";
 
-class ServicePortsForm extends React.Component {
+class SpecPortsForm extends React.Component {
 
   constructor(props) {
     super(props);
@@ -86,15 +86,7 @@ class ServicePortsForm extends React.Component {
     let external, internal;
 
     return (<div className="row">
-        <div className="col-md-4 col-xs-12">
-          <h3>Ports</h3>
-          <desc>
-            You can expose your application and it will became a special port.
-            You can add as much ports as you need for your service
-          </desc>
-        </div>
-
-        <div className="col-md-8 col-xs-12">
+        <div className="col-xs-12">
           <Table selectable={false} style={{background: "none"}}>
             <TableBody displayRowCheckbox={false}>
               <TableRow displayBorder={false}>
@@ -178,11 +170,10 @@ class ServicePortsForm extends React.Component {
   }
 }
 
-ServicePortsForm.propTypes = {
-  namespace: PropTypes.object.isRequired,
+SpecPortsForm.propTypes = {
   service: PropTypes.object.isRequired,
   updateHandler: PropTypes.func.isRequired
 };
 
-export default ServicePortsForm;
+export default SpecPortsForm;
 
