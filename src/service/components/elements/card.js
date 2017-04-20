@@ -34,10 +34,10 @@ const ServiceCard = (props) => {
     props.dispatch(serviceActions.update.UpdateActionCreators(service, {replicas: value}));
   }
 
-  function changeMemoryHandler(e, value) {
-    e.preventDefault();
-    props.dispatch(serviceActions.update.UpdateActionCreators(service, {spec: {memory: value}}));
-  }
+  // function changeMemoryHandler(e, value) {
+  //   e.preventDefault();
+  //   props.dispatch(serviceActions.update.UpdateActionCreators(service, {spec: {memory: value}}));
+  // }
 
   return (
     <Paper className="card">
@@ -79,7 +79,8 @@ const ServiceCard = (props) => {
       <div className='container-fluid'>
         <div className="row">
           <div className="col-md-6 col-xs-12">
-            <ServiceReplicasChart up={changeReplicasHandler} down={changeReplicasHandler} value={service.meta.replicas}/>
+            <ServiceReplicasChart up={changeReplicasHandler} down={changeReplicasHandler}
+                                  value={service.meta.replicas}/>
             {/*<ServiceMemoryChart up={changeMemoryHandler} down={changeMemoryHandler} replicas={service.meta.replicas} value={service.spec.memory}/>*/}
           </div>
           <div className="col-md-6 col-xs-12">
