@@ -80,8 +80,8 @@ const ServiceHeader = (props) => {
               Overview </IndexLink>
             <Link activeClassName="tab-active" to={`/ns/${namespace.meta.name}/s/${service.meta.name}/builds`}>
               Builds </Link>
-            <Link activeClassName="tab-active" to={`/ns/${namespace.meta.name}/s/${service.meta.name}/deploy`}>
-              Deploy </Link>
+            {/*<Link activeClassName="tab-active" to={`/ns/${namespace.meta.name}/s/${service.meta.name}/deploy`}>*/}
+              {/*Deploy </Link>*/}
             <Link activeClassName="tab-active" to={`/ns/${namespace.meta.name}/s/${service.meta.name}/logs`}>
               Logs </Link>
             <Link activeClassName="tab-active" to={`/ns/${namespace.meta.name}/s/${service.meta.name}/activity`}>

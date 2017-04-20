@@ -40,7 +40,7 @@ const CommonBreadcrumbsHeader = (props) => {
       {
         service && service.meta && service.meta.name ?
           <li>
-            <Link to={`/s/${service.meta.name}`}>
+            <Link to={`/ns/${namespace.meta.name}/s/${service.meta.name}`}>
               <span>{service.meta.name} </span>
             </Link>
           </li> : null

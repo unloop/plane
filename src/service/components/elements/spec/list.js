@@ -40,7 +40,7 @@ const SpecCardList = (props) => {
 
 
 SpecCardList.propTypes = {
-  spec: React.PropTypes.object.isRequired,
+  spec: React.PropTypes.array.isRequired,
   replicas: React.PropTypes.number.isRequired,
   changeMemoryHandler: React.PropTypes.func.isRequired,
   selectCardHandler: React.PropTypes.func.isRequired

@@ -64,9 +64,9 @@ function convert(payload) {
     })
   });
 
-  let spec = payload.spec || {};
+  let spec = payload.spec || [];
   for (let key in spec) {
-    if (spec.hasOwnProperty(key)) spec[key].containers = containers[spec[key].meta.id] || [];
+    spec[key].containers = containers[spec[key].meta.id] || [];
   }
 
   return {
