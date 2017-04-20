@@ -16,7 +16,7 @@
 // from Last.Backend LLC.
 //
 
-import React, { } from 'react';
+import React from "react";
 
 const NamespaceCostChart = (props) => (
   <svg width="180px" height="150px" viewBox="0 0 150 150">
@@ -28,7 +28,7 @@ const NamespaceCostChart = (props) => (
 );
 
 NamespaceCostChart.propTypes = {
-
+  cost: React.PropTypes.number.isRequired
 };
 
 export default NamespaceCostChart;

@@ -64,7 +64,6 @@ class ServiceCardList extends React.Component {
           </div>
 
           {Object.keys(service.list).map((name) => {
-              console.log(name, service.list[name].meta, namespace.meta.name)
               return (service.list[name].meta.namespace === namespace.meta.name && name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
                 ? <ServiceCard key={name}
                                namespace={namespace}

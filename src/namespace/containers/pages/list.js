@@ -22,7 +22,6 @@ import {CommonHeaderContainer} from "../../../common/containers";
 import {NamespaceCardList} from "../../containers";
 
 
-
 const NamespaceListPage = (props) => {
   return (
     <div>

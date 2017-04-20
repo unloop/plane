@@ -49,6 +49,12 @@ class NamespaceSettingsContainer extends React.Component {
     this.setState({desc: desc.input.value})
   }
 
+  checkDifferencesHandler() {
+    let meta = this.props.namespaceItem.meta;
+    let state = this.state;
+    return (!state.name || (state.name === meta.name && state.desc === meta.description))
+  }
+
   render() {
     let err = this.props.namespace.action.update.error;
     let name, desc;
@@ -71,7 +77,8 @@ class NamespaceSettingsContainer extends React.Component {
 
                        onChange={(e) => this.changeDescHandler(e, desc)}/>
             <br />
-            <RaisedButton label="Save" primary={true} disabled={this.props.namespace.action.update.pending}
+            <RaisedButton label="Save" primary={true}
+                          disabled={this.props.namespace.action.update.pending || this.checkDifferencesHandler()}
                           onClick={(e) => this.props.onSaveButtonClick(e, this.props.params.namespace, this.state.name, this.state.desc)}/>
           </div>
         </div>
@@ -86,7 +93,8 @@ class NamespaceSettingsContainer extends React.Component {
           <div className="col-md-8 col-xs-12">
             <br />
             <br />
-            <RaisedButton label="Delete" secondary={true} disabled={this.props.namespace.action.remove.pending}
+            <RaisedButton label="Delete" secondary={true}
+                          disabled={this.props.namespace.action.remove.pending}
                           onClick={(e) => this.props.onRemoveNamespaceClick(e, this.props.params.namespace)}/>
           </div>
         </div>

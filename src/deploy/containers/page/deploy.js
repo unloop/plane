@@ -16,10 +16,11 @@
 // from Last.Backend LLC.
 //
 import React from "react";
-import RaisedButton from "material-ui/RaisedButton";
-import FlatButton from "material-ui/FlatButton";
-import {Link} from "react-router";
 import {connect} from "react-redux";
+
+import RaisedButton from "material-ui/RaisedButton";
+import {Link} from "react-router";
+import Divider from "material-ui/Divider";
 
 import deployActions from "./../../actions";
 import {DeployHeader} from "../../components";
@@ -27,7 +28,7 @@ import {DeployDockerContainer, DeployGitContainer, DeployGitPushContainer, Deplo
 
 const initSpec = {
   name: "",
-  memory: 126,
+  memory: 128,
   template: "",
   image: "",
   url: "",
@@ -87,13 +88,15 @@ class DeployCreatePage extends React.Component {
       <div>
         <DeployHeader setName={this.setName} setMemory={this.setMemory}
                       setResource={this.setResource} {...this.props} />
+
         <container className="container-info">
           <div className="container">
             <div className="row">
 
               <div className="col-xs-8 col-md-offset-2 text-center">
                 <RaisedButton style={{margin: "0 10px"}} buttonStyle={{width: "160px", height: "55px"}}
-                              onClick={e => this.tabChangeHandler(e, "template")} primary={this.state.tab === "template"}
+                              onClick={e => this.tabChangeHandler(e, "template")}
+                              primary={this.state.tab === "template"}
                               label="TEMPLATES"/>
                 <RaisedButton style={{margin: "0 10px"}} buttonStyle={{width: "160px", height: "55px"}}
                               onClick={e => this.tabChangeHandler(e, "push")} primary={this.state.tab === "push"}
@@ -105,12 +108,11 @@ class DeployCreatePage extends React.Component {
                               onClick={e => this.tabChangeHandler(e, "docker")} primary={this.state.tab === "docker"}
                               label="DOCKER HUB"/>
               </div>
+            </div>
 
-              <br/>
-              <br/>
-              <br/>
-              <br/>
+            <br/>
 
+            <div className="row">
               <div className="container-fluid">
                 {
                   (this.state.tab === "template")
@@ -138,19 +140,21 @@ class DeployCreatePage extends React.Component {
               </div>
             </div>
 
-            <hr />
+            <Divider/>
 
-            <div className="row text-center">
-              <br />
-              {
-                (this.state.tab !== "push")
-                  ? <RaisedButton label="Deploy" primary={true} onClick={this.onClickToDeploy}/>
-                  : ""
-              }
-              <br />
-              <br />
-              <FlatButton containerElement={<Link to={`/ns/${namespace}`}/>} label="Cancel"/>
+            <div className="row">
+              <div className="settings-block-item text-center">
+                {
+                  (this.state.tab !== "push")
+                    ? <RaisedButton label="Deploy" primary={true} style={{margin: "0 10px"}}
+                                    onClick={this.onClickToDeploy}/>
+                    : ""
+                }
+                <RaisedButton label="Cancel" style={{margin: "0 10px"}}
+                              containerElement={<Link to={`/ns/${namespace}`}/>}/>
+              </div>
             </div>
+
           </div>
         </container>
       </div>

@@ -16,13 +16,13 @@
 // from Last.Backend LLC.
 //
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import React from "react";
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
-import {Preloader} from '../../../common/components'
-import namespaceActions from '../../actions';
-import {NamespaceHeader} from  '../../components'
+import {Preloader} from "../../../common/components";
+import {NamespaceHeader} from "../../components";
+import namespaceActions from "../../actions";
 
 
 class NamespaceInfoPage extends React.Component {
@@ -33,11 +33,7 @@ class NamespaceInfoPage extends React.Component {
   }
 
   componentDidMount() {
-    // Injected into props by React Redux `connect()` call:
-    let {dispatch} = this.props;
-    let {namespace} = this.props.params;
-    // Reducer can react to this action by setting `isFetching` and thus letting us show a spinner.
-    dispatch(namespaceActions.info.InfoActionCreators(namespace));
+    this.props.dispatch(namespaceActions.info.InfoActionCreators(this.props.params.namespace));
   }
 
   render() {

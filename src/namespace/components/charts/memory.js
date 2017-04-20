@@ -16,7 +16,7 @@
 // from Last.Backend LLC.
 //
 
-import React from 'react';
+import React from "react";
 
 const NamespaceMemoryChart = (props) => (
   <svg width="150px" height="150px" viewBox="0 0 150 150">
@@ -26,5 +26,9 @@ const NamespaceMemoryChart = (props) => (
     <text x="75" y="95" fill="black" fontSize="14" textAnchor="middle">Memory</text>
   </svg>
 );
+
+NamespaceMemoryChart.propTypes = {
+  memory: React.PropTypes.number.isRequired
+};
 
 export default NamespaceMemoryChart;

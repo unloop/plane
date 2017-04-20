@@ -16,14 +16,14 @@
 // from Last.Backend LLC.
 //
 
-import React, {} from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
 
-import Paper from 'material-ui/Paper';
-import NamespaceMemoryChart from '../charts/memory';
-import NamespaceCostChart from '../charts/cost';
+import Paper from "material-ui/Paper";
+import {Link} from "react-router";
 
-import {Link} from 'react-router'
+import NamespaceMemoryChart from "../charts/memory";
+import NamespaceCostChart from "../charts/cost";
+
 
 const NamespaceCard = (props) => {
   const {namespace} = props;
@@ -33,14 +33,15 @@ const NamespaceCard = (props) => {
         <div className="row">
           <div className="col-md-6 col-xs-12">
             <h3 className="namespace-card-title">{namespace.meta.name}</h3>
-            { props.description
-              ? <span className="namespace-card-description">{namespace.meta.description}</span>
-              : <span className="namespace-card-description">No description added yet</span>
+            {
+              (!!namespace.meta.description)
+                ? <span className="namespace-card-description">{namespace.meta.description}</span>
+                : <span className="namespace-card-description">No description added yet</span>
             }
           </div>
           <div className="col-md-6 col-xs-12 namespace-card-charts">
-            <NamespaceMemoryChart memory={namespace.meta.memory}/>
-            <NamespaceCostChart cost={namespace.cost}/>
+            <NamespaceMemoryChart memory={namespace.meta.memory || 0}/>
+            <NamespaceCostChart cost={namespace.cost || 0}/>
           </div>
         </div>
       </Paper>
@@ -49,7 +50,7 @@ const NamespaceCard = (props) => {
 };
 
 NamespaceCard.propTypes = {
-  namespace: PropTypes.object.isRequired
+  namespace: React.PropTypes.object.isRequired
 };
 
 export default NamespaceCard;
