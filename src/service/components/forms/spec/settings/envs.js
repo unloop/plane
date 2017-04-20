@@ -17,50 +17,50 @@
 //
 
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from "material-ui/Table";
 import RaisedButton from "material-ui/RaisedButton";
 import TextField from "material-ui/TextField";
 import ContentRemove from "material-ui/svg-icons/content/clear";
 
-class ServiceEnvsForm extends React.Component {
+class ServiceSpecEnvForm extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       key: "",
       value: "",
-      envs: props.service.spec.env || []
+      env: props.spec.env || []
     }
   }
 
-  handleChangeKey(e, v) {
+  changeKeyHandler(e, v) {
     e.preventDefault();
     this.setState({key: v.input.value.replace(/\s+/g, '').toUpperCase()})
   }
 
-  handleChangeValue(e, v) {
+  changeValueHandler(e, v) {
     e.preventDefault();
     this.setState({value: v.input.value})
   }
 
-  handleAddEnv(e) {
+  addEnvHandler(e) {
     e.preventDefault();
     if (!this.state.key.length) return;
     let env = [this.state.key, this.state.value.trim()].join("=");
-    this.state.envs.push(env);
-    this.setState({envs: this.state.envs, key: "", value: ""});
-    this.props.updateHandler(e, this.props.service, this.state.envs)
+    this.state.env.push(env);
+    this.setState({env: this.state.env, key: "", value: ""});
+    this.props.updateHandler(this.state.env)
   }
 
-  handleRemoveEnv(e, index) {
+  removeEnvHandler(e, index) {
     e.preventDefault();
-    if (this.state.envs.length > index) {
-      this.state.envs.splice(index, 1);
-      this.setState({envs: this.state.envs});
+    if (this.state.env.length > index) {
+      this.state.env.splice(index, 1);
+      this.setState({env: this.state.env});
     }
-    this.props.updateHandler(e, this.props.service, this.state.envs)
+    this.props.updateHandler(this.state.env)
   }
 
   render() {
@@ -71,7 +71,7 @@ class ServiceEnvsForm extends React.Component {
           <h3>Config variables</h3>
           <desc>
             Here you can set config variables to pass it to the running app.
-            It contains some system envs and you can add a custom your.
+            It contains some system environments and you can add a custom your.
             Please note, that you can not overwrite system variables.
           </desc>
         </div>
@@ -83,16 +83,16 @@ class ServiceEnvsForm extends React.Component {
                 <TableRowColumn style={{textAlign: "center"}}>
                   <TextField ref={val => key = val} fullWidth={true} floatingLabelText="Key"
                              value={this.state.key}
-                             onChange={(e) => this.handleChangeKey(e, key)}/>
+                             onChange={(e) => this.changeKeyHandler(e, key)}/>
                 </TableRowColumn>
                 <TableRowColumn style={{textAlign: "center"}}>
                   <TextField ref={val => value = val} fullWidth={true} floatingLabelText="Value"
                              value={this.state.value}
-                             onChange={(e) => this.handleChangeValue(e, value)}/>
+                             onChange={(e) => this.changeValueHandler(e, value)}/>
                 </TableRowColumn>
                 <TableRowColumn style={{width: "150px", textAlign: "center"}}>
                   <RaisedButton disabled={!this.state.key.length} fullWidth={true} label="ADD" primary={true}
-                                onClick={(e) => this.handleAddEnv(e)}/>
+                                onClick={(e) => this.addEnvHandler(e)}/>
                 </TableRowColumn>
               </TableRow>
             </TableBody>
@@ -101,7 +101,7 @@ class ServiceEnvsForm extends React.Component {
           <br/>
 
           {
-            (!!this.state.envs.length)
+            (!!this.state.env.length)
               ? (
               <Table selectable={false} style={{background: "none"}}>
                 <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
@@ -113,16 +113,16 @@ class ServiceEnvsForm extends React.Component {
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
                   {
-                    Object.keys(this.state.envs).map((index) => {
+                    Object.keys(this.state.env).map((index) => {
                       return <TableRow key={index} displayBorder={false}>
                         <TableRowColumn style={{textAlign: "center"}}>
-                          {this.state.envs[index].split("=")[0]}
+                          {this.state.env[index].split("=")[0]}
                         </TableRowColumn>
                         <TableRowColumn style={{textAlign: "center"}}>
-                          {this.state.envs[index].split("=")[1]}
+                          {this.state.env[index].split("=")[1]}
                         </TableRowColumn>
                         <TableRowColumn style={{width: "150px", textAlign: "center"}}>
-                          <ContentRemove className="cursor-pointer" onClick={(e) => this.handleRemoveEnv(e, index)}/>
+                          <ContentRemove className="cursor-pointer" onClick={(e) => this.removeEnvHandler(e, index)}/>
                         </TableRowColumn>
                       </TableRow>
                     })
@@ -139,11 +139,9 @@ class ServiceEnvsForm extends React.Component {
   }
 }
 
-ServiceEnvsForm.propTypes = {
-  namespace: PropTypes.object.isRequired,
-  service: PropTypes.object.isRequired,
+ServiceSpecEnvForm.propTypes = {
   updateHandler: PropTypes.func.isRequired
 };
 
-export default ServiceEnvsForm;
+export default ServiceSpecEnvForm;
 

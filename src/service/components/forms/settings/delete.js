@@ -17,31 +17,39 @@
 //
 
 import React from "react";
-import PropTypes from "prop-types";
+
 import RaisedButton from "material-ui/RaisedButton";
 
-const ServiceDeleteForm = (props) => (
-  <div className="row">
-    <div className="col-md-4 col-xs-12">
-      <h3>Delete service</h3>
-      <desc>
-        This action CANNOT be undone. This will permanently delete
-        your namespace and delete all attached services
-      </desc>
+const ServiceDeleteForm = (props) => {
+
+  function removeHandler(e) {
+    e.stopPropagation();
+    props.removeHandler(props.service);
+  }
+
+  return (
+    <div className="row">
+
+      <div className="col-md-4 col-xs-12">
+        <h3>Delete service</h3>
+        <desc>
+          This action CANNOT be undone. This will permanently delete
+          your namespace and delete all attached services
+        </desc>
+      </div>
+
+      <div className="col-md-8 col-xs-12">
+        <br/>
+        <br/>
+        <RaisedButton label="Delete" secondary={true} onClick={removeHandler}/>
+      </div>
     </div>
-    <div className="col-md-8 col-xs-12">
-      <br />
-      <br />
-      <RaisedButton label="Delete" secondary={true}
-                    onClick={(e) => props.removeHandler(e, props.service)}/>
-    </div>
-  </div>
-);
+  )
+};
 
 ServiceDeleteForm.propTypes = {
-  namespace: PropTypes.object.isRequired,
-  service: PropTypes.object.isRequired,
-  removeHandler: PropTypes.func.isRequired
+  service: React.PropTypes.object.isRequired,
+  removeHandler: React.PropTypes.func.isRequired
 };
 
 export default ServiceDeleteForm;

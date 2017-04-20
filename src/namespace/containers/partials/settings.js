@@ -39,12 +39,12 @@ class NamespaceSettingsContainer extends React.Component {
     this.props.dispatch(namespaceActions.update.ClearAction)
   }
 
-  onChangeName(e, name) {
+  changeNameHandler(e, name) {
     e.preventDefault();
     this.setState({name: name.input.value})
   }
 
-  onChangeDesc(e, desc) {
+  changeDescHandler(e, desc) {
     e.preventDefault();
     this.setState({desc: desc.input.value})
   }
@@ -63,13 +63,13 @@ class NamespaceSettingsContainer extends React.Component {
             <TextField ref={val => name = val} floatingLabelText="Namespace name" hintText="name"
                        errorText={err.name} fullWidth={true}
                        value={this.state.name}
-                       onChange={(e) => this.onChangeName(e, name)}/>
+                       onChange={(e) => this.changeNameHandler(e, name)}/>
             <br />
             <TextField ref={val => desc = val} fullWidth={true} floatingLabelText="Namespace description"
                        hintText="description" errorText={err.description}
                        value={this.state.desc}
 
-                       onChange={(e) => this.onChangeDesc(e, desc)}/>
+                       onChange={(e) => this.changeDescHandler(e, desc)}/>
             <br />
             <RaisedButton label="Save" primary={true} disabled={this.props.namespace.action.update.pending}
                           onClick={(e) => this.props.onSaveButtonClick(e, this.props.params.namespace, this.state.name, this.state.desc)}/>

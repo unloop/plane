@@ -29,12 +29,12 @@ class UrlContainer extends React.Component {
     };
   }
 
-  urlUpdate = (e) => {
+  urlUpdateHandler = (e) => {
     this.setState({url: e.target.value});
     this.props.setUrl(e.target.value, this.state.branch)
   };
 
-  branchUpdate = (e) => {
+  branchUpdateHandler = (e) => {
     this.setState({branch: e.target.value});
     this.props.setUrl(this.state.url, e.target.value)
   };
@@ -44,10 +44,10 @@ class UrlContainer extends React.Component {
       <div className="row">
         <div className="col-xs-12">
           <TextField floatingLabelText={"Git repo url"} fullWidth={true} value={this.state.url}
-                     onChange={this.urlUpdate}/>
+                     onChange={this.urlUpdateHandler}/>
           <br />
           <TextField floatingLabelText={"Git repo branch"} fullWidth={true} value={this.state.branch}
-                     onChange={this.branchUpdate}/>
+                     onChange={this.branchUpdateHandler}/>
           <br />
           {/*<Toggle label="private repository" labelPosition="right" defaultToggled={true}/>*/}
         </div>

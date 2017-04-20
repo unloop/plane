@@ -19,33 +19,34 @@
 import React from "react";
 import {connect} from "react-redux";
 
-import {Table, TableBody, TableRow, TableRowColumn} from "material-ui/Table";
+import {PodCardList, ServiceDetailInfo, SpecCardList, SpecSettingsContainer} from "../../components";
+import {VolumeCardList} from "../../../volume/components";
+import specActions from "./../../actions/spec";
 
-import {ServiceDetailInfo, SpecCard} from "../../components";
-import {PodDetailInfo} from "../../containers";
-import {VolumesList} from "../../../volume/components";
-
-function getStateContainerColor(status) {
-  const statuses = {
-    running: "green",
-    terminated: "red",
-    waiting: "blue"
-  };
-  return statuses[status.toLowerCase()] || "green";
-}
 
 class ServiceOverviewContainer extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      pod: null
+      selected: null
     }
   }
 
-  handleSelectCard = (e, pod) => {
-    e.preventDefault();
-    this.setState({pod: pod});
+  selectSpecHandler = (val) => {
+    this.setState({selected: val});
+  };
+
+  changeMemoryHandler = (spec, memory) => {
+    this.props.dispatch(specActions.update.UpdateActionCreators(this.props.service, spec, {memory: memory}));
+  };
+
+  applySpecHandler = (spec, newSpec) => {
+    this.props.dispatch(specActions.update.UpdateActionCreators(this.props.service, spec, newSpec));
+  };
+
+  refuseSpecHandler = () => {
+    this.setState({selected: null});
   };
 
   render() {
@@ -53,40 +54,40 @@ class ServiceOverviewContainer extends React.Component {
     return (
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-8">
-            <div className="overview-block">
-              <h5>Pods</h5>
-              <Table selectable={false}>
-                <TableBody displayRowCheckbox={false}>
-                  {service.pods.map((pod, index) => {
-                    return (
-                      <TableRow key={index}>
-                        <TableRowColumn>{pod.meta.id}</TableRowColumn>
-                        <TableRowColumn
-                          style={{textAlign: "right", color: getStateContainerColor(pod.state.state)}}>
-                          {pod.state.state}
-                        </TableRowColumn>
-                      </TableRow>
-                    )
-                  })}
-                </TableBody>
-              </Table>
-            </div>
-            <div className="overview-block">
-              <h5>Specs</h5>
-              {service.spec.map((spec, index) => <SpecCard selectHandle={this.handleSelectCard} key={index}
-                                                           service={service} spec={spec}/>)}
-            </div>
-            <div className="overview-block">
-              <VolumesList service={service} volume={volume}/>
-            </div>
-          </div>
+          {
+            (!this.state.selected)
+              ? (
+
+              <div className="col-md-8">
+
+                <div className="overview-block">
+                  <PodCardList pods={service.pods}/>
+                </div>
+
+                <div className="overview-block">
+                  <SpecCardList spec={service.spec}
+                                replicas={service.meta.replicas}
+                                changeMemoryHandler={this.changeMemoryHandler}
+                                selectCardHandler={this.selectSpecHandler}/>
+                </div>
+
+                <div className="overview-block">
+                  <VolumeCardList service={service} volume={volume}/>
+                </div>
+
+              </div>
+            )
+              : (
+              <div className="col-md-8">
+                <SpecSettingsContainer spec={this.state.selected}
+                                       applyHandler={this.applySpecHandler}
+                                       cancelHandler={this.refuseSpecHandler}/>
+              </div>
+            )
+          }
+
           <div className="col-md-4">
-            {
-              (!this.state.pod)
-                ? <ServiceDetailInfo service={service}/>
-                : <PodDetailInfo service={service} pod={this.state.pod} spec={service.spec}/>
-            }
+            <ServiceDetailInfo service={service}/>
           </div>
         </div>
       </div>

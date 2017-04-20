@@ -19,7 +19,6 @@ import React from "react";
 import {connect} from "react-redux";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import Url from "./../element/git/url";
-import deployActions from "./../../actions";
 
 
 const vcs = {
@@ -44,10 +43,10 @@ class DeployGitContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(deployActions.integration.IntegrationActionCreators());
+    // this.props.dispatch(deployActions.integration.IntegrationActionCreators());
   }
 
-  handleChangeTab = (e, value) => {
+  changeTabHandler = (e, value) => {
     console.log("value", value);
     e.stopPropagation();
     this.setState({tab: value});
@@ -58,22 +57,22 @@ class DeployGitContainer extends React.Component {
       <div className="row">
         <div className="col-xs-8 col-md-offset-2 text-center">
 
-          <FloatingActionButton style={{margin: "0 10px"}} onClick={e => this.handleChangeTab(e, "url")}
+          <FloatingActionButton style={{margin: "0 10px"}} onClick={e => this.changeTabHandler(e, "url")}
                                 backgroundColor={(this.state.tab === "url") ? "#2275dc" : "#afafaf"}>
             <i className="fa fa-2x fa-external-link"></i>
           </FloatingActionButton>
 
-          <FloatingActionButton style={{margin: "0 10px"}} onClick={e => this.handleChangeTab(e, "github")}
+          <FloatingActionButton style={{margin: "0 10px"}} onClick={e => this.changeTabHandler(e, "github")}
                                 backgroundColor={(this.state.tab === "github") ? "#2275dc" : "#afafaf"}>
             <i className="fa fa-2x fa-github"></i>
           </FloatingActionButton>
 
-          <FloatingActionButton style={{margin: "0 10px"}} onClick={e => this.handleChangeTab(e, "bitbucket")}
+          <FloatingActionButton style={{margin: "0 10px"}} onClick={e => this.changeTabHandler(e, "bitbucket")}
                                 backgroundColor={(this.state.tab === "bitbucket") ? "#2275dc" : "#afafaf"}>
             <i className="fa fa-2x fa-bitbucket"></i>
           </FloatingActionButton>
 
-          <FloatingActionButton style={{margin: "0 10px"}} onClick={e => this.handleChangeTab(e, "gitlab")}
+          <FloatingActionButton style={{margin: "0 10px"}} onClick={e => this.changeTabHandler(e, "gitlab")}
                                 backgroundColor={(this.state.tab === "gitlab") ? "#2275dc" : "#afafaf"}>
             <i className="fa fa-2x fa-gitlab"></i>
           </FloatingActionButton>

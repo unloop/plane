@@ -16,31 +16,7 @@
 // from Last.Backend LLC.
 //
 
-import {request} from "../../utils";
+import service from "./service";
+import spec from "./spec";
 
-const api_host = process.env.REACT_APP_API_HOST;
-
-export function get(namespace, id) {
-  let uri = [api_host, "namespace", namespace, "service", id].join("/");
-  return request("GET", uri, null, true);
-}
-
-export function list(namespace) {
-  let uri = [api_host, "namespace", namespace, "service"].join("/");
-  return request("GET", uri, null, true);
-}
-
-export function update(namespace, id, spec) {
-  let uri = [api_host, "namespace", namespace, "service", id].join("/");
-  return request("PUT", uri, spec, true);
-}
-
-export function remove(namespace, id) {
-  let uri = [api_host, "namespace", namespace, "service", id].join("/");
-  return request("DELETE", uri, null, true);
-}
-
-export function logs(namespace, service, pod) {
-  let uri = [api_host, "namespace", namespace, "service", service, "logs"].join("/") + "?pod=" + pod;
-  return request("GET", uri, null, true);
-}
+export default {service, spec}

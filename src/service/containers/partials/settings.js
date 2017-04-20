@@ -19,76 +19,24 @@
 import React from "react";
 import {connect} from "react-redux";
 
-import {
-  ServiceDeleteForm,
-  ServiceEnvsForm,
-  ServiceGeneralForm,
-  // ServiceMaintenanceForm,
-  ServicePortsForm,
-  ServiceRunForm,
-  ServiceVolumesForm
-} from "../../components";
-import serviceActions from "../../actions";
+import Divider from "material-ui/Divider";
+
+import {ServiceDeleteForm, ServiceGeneralForm, ServiceVolumesForm} from "../../components";
+import serviceActions from '../../actions/service';
 
 
 const NamespaceSettingsContainer = (props) => {
 
-  function updateGeneralInfoHandler(e, service, name, description) {
-    e.preventDefault();
-    props.dispatch(serviceActions.update.UpdateActionCreators(service, {
-      name: name,
-      description: description
-    }));
+  function updateGeneralInfoHandler(service, name, desc) {
+    props.dispatch(serviceActions.update.UpdateActionCreators(service, {name: name, description: desc}));
   }
 
-  function updateRunFormHandler(e, service, command) {
-    e.preventDefault();
-    props.dispatch(serviceActions.update.UpdateActionCreators(service, {
-      spec: {
-        command: command
-      }
-    }));
+  function updateVolumesFormHandler(service, volumes) {
+    props.dispatch(serviceActions.update.UpdateActionCreators(service, {spec: {volumes: volumes}}));
   }
 
-  function updatePortsFormHandler(e, service, ports) {
-    e.preventDefault();
-    props.dispatch(serviceActions.update.UpdateActionCreators(service, {
-      spec: {
-        ports: ports
-      }
-    }));
-  }
-
-  function updateEnvsFormHandler(e, service, envs) {
-    e.preventDefault();
-    props.dispatch(serviceActions.update.UpdateActionCreators(service, {
-      spec: {
-        env: envs
-      }
-    }));
-  }
-
-  function updateVolumesFormHandler(e, service, volumes) {
-    e.preventDefault();
-    props.dispatch(serviceActions.update.UpdateActionCreators(service, {
-      spec: {
-        volumes: volumes
-      }
-    }));
-  }
-
-  // function updateMaintenanceFormHandler(e, service, maintenance) {
-  //   e.preventDefault();
-  //   props.dispatch(serviceActions.update.UpdateActionCreators(service, {
-  //     spec: {
-  //       maintenance: maintenance
-  //     }
-  //   }));
-  // }
-
-  function removeHandler(e, namespace, service) {
-    e.preventDefault();
-    props.dispatch(serviceActions.remove.RemoveActionCreators(namespace, service));
+  function removeHandler(service) {
+    props.dispatch(serviceActions.remove.RemoveActionCreators(service));
   }
 
   return (
@@ -101,34 +49,10 @@ const NamespaceSettingsContainer = (props) => {
       <hr />
 
       <div className="settings-block-item">
-        <ServiceRunForm updateHandler={updateRunFormHandler} {...props} />
-      </div>
-
-      <hr />
-
-      <div className="settings-block-item">
-        <ServicePortsForm updateHandler={updatePortsFormHandler} {...props} />
-      </div>
-
-      <hr />
-
-      <div className="settings-block-item">
-        <ServiceEnvsForm updateHandler={updateEnvsFormHandler} {...props} />
-      </div>
-
-      <hr />
-
-      <div className="settings-block-item">
         <ServiceVolumesForm updateHandler={updateVolumesFormHandler} {...props} />
       </div>
 
-      <hr />
-
-      {/*<div className="settings-block-item">*/}
-        {/*<ServiceMaintenanceForm updateHandler={updateMaintenanceFormHandler} {...props} />*/}
-      {/*</div>*/}
-
-      {/*<hr />*/}
+      <Divider/>
 
       <div className="settings-block-item">
         <ServiceDeleteForm removeHandler={removeHandler} {...props} />
@@ -143,6 +67,5 @@ const mapStateToProps = (state, props) => {
     service: state.service.list[props.params.service]
   });
 };
-
 
 export default connect(mapStateToProps)(NamespaceSettingsContainer);

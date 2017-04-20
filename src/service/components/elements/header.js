@@ -23,13 +23,13 @@ import Paper from "material-ui/Paper";
 
 import {CommonHeaderContainer} from "../../../common/containers";
 import {ServiceCostChart, ServiceReplicasChart} from "../../components";
-import serviceActions from "../../actions";
+import serviceActions from "../../actions/service";
 
 
 const ServiceHeader = (props) => {
   const {namespace, service} = props;
 
-  function changeReplicas(e, value) {
+  function changeReplicasHandler(e, value) {
     e.preventDefault();
     props.dispatch(serviceActions.update.UpdateActionCreators(service, {replicas: value}));
   }
@@ -42,7 +42,6 @@ const ServiceHeader = (props) => {
           <div className="container-fluid">
             <div className="row">
               <div className="col-md-5 col-xs-12">
-                <h3>{service.meta.name}</h3>
                 {
                   (!!service.dns.primary)
                     ? (
@@ -67,22 +66,28 @@ const ServiceHeader = (props) => {
                     : ""
                 }
 
-                <p>{(service.description) || "No description added yet"}</p>
+                <p>{(service.meta.description) || "No description added yet"}</p>
               </div>
               <div className="col-md-7 col-xs-12 text-right">
-                <ServiceReplicasChart up={changeReplicas} down={changeReplicas} value={service.meta.replicas}/>
-                <ServiceCostChart replicas={service.meta.replicas} value={service.spec.memory} />
+                <ServiceReplicasChart up={changeReplicasHandler} down={changeReplicasHandler}
+                                      value={service.meta.replicas}/>
+                <ServiceCostChart replicas={service.meta.replicas} value={service.spec.memory}/>
               </div>
             </div>
           </div>
           <div className="container header-tabs">
             <IndexLink activeClassName="tab-active" to={`/ns/${namespace.meta.name}/s/${service.meta.name}`}>
               Overview </IndexLink>
-            <Link activeClassName="tab-active" to={`/ns/${namespace.meta.name}/s/${service.meta.name}/builds`}> Builds </Link>
-            <Link activeClassName="tab-active" to={`/ns/${namespace.meta.name}/s/${service.meta.name}/deploy`}> Deploy </Link>
-            <Link activeClassName="tab-active" to={`/ns/${namespace.meta.name}/s/${service.meta.name}/logs`}> Logs </Link>
-            <Link activeClassName="tab-active" to={`/ns/${namespace.meta.name}/s/${service.meta.name}/activity`}> Activity </Link>
-            <Link activeClassName="tab-active" to={`/ns/${namespace.meta.name}/s/${service.meta.name}/settings`}> Settings </Link>
+            <Link activeClassName="tab-active" to={`/ns/${namespace.meta.name}/s/${service.meta.name}/builds`}>
+              Builds </Link>
+            <Link activeClassName="tab-active" to={`/ns/${namespace.meta.name}/s/${service.meta.name}/deploy`}>
+              Deploy </Link>
+            <Link activeClassName="tab-active" to={`/ns/${namespace.meta.name}/s/${service.meta.name}/logs`}>
+              Logs </Link>
+            <Link activeClassName="tab-active" to={`/ns/${namespace.meta.name}/s/${service.meta.name}/activity`}>
+              Activity </Link>
+            <Link activeClassName="tab-active" to={`/ns/${namespace.meta.name}/s/${service.meta.name}/settings`}>
+              Settings </Link>
           </div>
         </div>
       </Paper>

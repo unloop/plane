@@ -32,7 +32,7 @@ class DeployCreateForm extends React.Component {
     };
   }
 
-  handleChangeResource = (e, val) => {
+  changeResourceHandler = (e, val) => {
     e.preventDefault();
     this.setState({memory: val});
     this.props.setMemory(val);
@@ -52,7 +52,7 @@ class DeployCreateForm extends React.Component {
               <div className="col-xs-2" style={{textAlign: "left", paddingTop: "20px"}}>Resources</div>
               <div className="col-xs-6">
                 <Slider min={32} max={1024} step={this.state.step} value={this.state.value}
-                        onChange={this.handleChangeResource}/>
+                        onChange={this.changeResourceHandler}/>
               </div>
               <div className="col-xs-2 text-center" style={{paddingTop: "20px"}}>{this.state.memory + " MB"}</div>
               <div className="col-xs-2 text-center"

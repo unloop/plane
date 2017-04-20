@@ -17,7 +17,7 @@
 //
 
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from "material-ui/Table";
 import RaisedButton from "material-ui/RaisedButton";
@@ -27,7 +27,7 @@ import MenuItem from "material-ui/MenuItem";
 import Checkbox from "material-ui/Checkbox";
 import ContentRemove from "material-ui/svg-icons/content/clear";
 
-class ServicePortsForm extends React.Component {
+class ServiceSpecPortsForm extends React.Component {
 
   constructor(props) {
     super(props);
@@ -35,33 +35,39 @@ class ServicePortsForm extends React.Component {
       external: "",
       internal: "",
       protocol: "tcp",
-      published: false,
-      ports: props.service.spec.ports || []
+      published: true,
+      ports: props.spec.ports || []
     }
   }
 
-  handleChangeExternal(e, v) {
+  changeExternalHandler(e, v) {
     e.preventDefault();
-    this.setState({external: v.input.value})
+    let port = parseInt(v.input.value, 10) || null;
+    if (!port) this.setState({external: ""});
+    if (typeof port !== "number" || port < 0 || port > 65535) return;
+    this.setState({external: port})
   }
 
-  handleChangeInternal(e, v) {
+  changeInternalHandler(e, v) {
     e.preventDefault();
-    this.setState({internal: v.input.value})
+    let port = parseInt(v.input.value, 10) || null;
+    if (!port) this.setState({internal: ""});
+    if (typeof port !== "number" || port < 0 || port > 65535) return;
+    this.setState({internal: port})
   }
 
-  handleChangeProtocol = (e, index, v) => {
+  changeProtocolHandler = (e, index, v) => {
     e.preventDefault();
-    this.setState({protocol: v})
+    this.setState({protocol: v || "tcp"})
   };
 
-  handleChangePublished(e) {
+  changePublishedHandler(e) {
     e.preventDefault();
     let v = !this.state.published;
     this.setState({published: v})
   }
 
-  handleAddPort(e) {
+  addPortHandler(e) {
     e.preventDefault();
     this.state.ports.push({
       external: parseInt(this.state.external, 10),
@@ -69,17 +75,17 @@ class ServicePortsForm extends React.Component {
       protocol: this.state.protocol,
       published: this.state.published
     });
-    this.setState({ports: this.state.ports, external: "", internal: "", protocol: "tcp", published: false});
-    this.props.updateHandler(e, this.props.service, this.state.ports)
+    this.setState({ports: this.state.ports, external: "", internal: "", protocol: "tcp", published: true});
+    this.props.updateHandler(this.state.ports)
   }
 
-  handleRemoveEnv(e, index) {
+  removePortHandler(e, index) {
     e.preventDefault();
     if (this.state.ports.length > index) {
       this.state.ports.splice(index, 1);
       this.setState({ports: this.state.ports});
     }
-    this.props.updateHandler(e, this.props.service, this.state.ports)
+    this.props.updateHandler(this.state.ports)
   }
 
   render() {
@@ -95,22 +101,23 @@ class ServicePortsForm extends React.Component {
         </div>
 
         <div className="col-md-8 col-xs-12">
+
           <Table selectable={false} style={{background: "none"}}>
             <TableBody displayRowCheckbox={false}>
               <TableRow displayBorder={false}>
                 <TableRowColumn style={{textAlign: "center"}}>
                   <TextField ref={val => external = val} fullWidth={true} floatingLabelText="External"
                              value={this.state.external}
-                             onChange={(e) => this.handleChangeExternal(e, external)}/>
+                             onChange={(e) => this.changeExternalHandler(e, external)}/>
                 </TableRowColumn>
                 <TableRowColumn style={{textAlign: "center"}}>
-                  <TextField ref={val => internal = val} fullWidth={true} floatingLabelText="External"
+                  <TextField ref={val => internal = val} fullWidth={true} floatingLabelText="Internal"
                              value={this.state.internal}
-                             onChange={(e) => this.handleChangeInternal(e, internal)}/>
+                             onChange={(e) => this.changeInternalHandler(e, internal)}/>
                 </TableRowColumn>
                 <TableRowColumn>
                   <SelectField floatingLabelText="Protocol" value={this.state.protocol}
-                               onChange={this.handleChangeProtocol}>
+                               onChange={this.changeProtocolHandler}>
                     <MenuItem key={"tcp"} value={"tcp"} primaryText={"tcp"}/>
                     <MenuItem key={"udp"} value={"udp"} primaryText={"udp"}/>
                   </SelectField>
@@ -118,11 +125,12 @@ class ServicePortsForm extends React.Component {
                 <TableRowColumn style={{width: "80px", textAlign: "center"}}>
                   <label
                     style={{color: "rgba(0, 0, 0, 0.298039)", fontSize: "12px", fontWeight: "bold"}}>Published</label>
-                  <Checkbox checked={this.state.published} onClick={(e) => this.handleChangePublished(e)}/>
+                  <Checkbox checked={this.state.published} onClick={(e) => this.changePublishedHandler(e)}/>
                 </TableRowColumn>
                 <TableRowColumn style={{width: "150px", textAlign: "center"}}>
                   <RaisedButton label="ADD" primary={true}
-                                onClick={(e) => this.handleAddPort(e)}/>
+                                disabled={!this.state.external && !this.state.internal}
+                                onClick={(e) => this.addPortHandler(e)}/>
                 </TableRowColumn>
               </TableRow>
             </TableBody>
@@ -161,7 +169,7 @@ class ServicePortsForm extends React.Component {
                             <Checkbox checked={this.state.ports[index].published}/>
                           </TableRowColumn>
                           <TableRowColumn style={{width: "150px", textAlign: "center"}}>
-                            <ContentRemove className="cursor-pointer" onClick={(e) => this.handleRemoveEnv(e, index)}/>
+                            <ContentRemove className="cursor-pointer" onClick={(e) => this.removePortHandler(e, index)}/>
                           </TableRowColumn>
                         </TableRow>
                       )
@@ -173,16 +181,14 @@ class ServicePortsForm extends React.Component {
               : ""
           }
         </div>
-      </ div >
+      </div>
     );
   }
 }
 
-ServicePortsForm.propTypes = {
-  namespace: PropTypes.object.isRequired,
-  service: PropTypes.object.isRequired,
+ServiceSpecPortsForm.propTypes = {
   updateHandler: PropTypes.func.isRequired
 };
 
-export default ServicePortsForm;
+export default ServiceSpecPortsForm;
 

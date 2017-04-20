@@ -43,11 +43,11 @@ class SourceContainer extends React.Component {
     this.props.dispatch(deployActions.vcs.ReposActionCreators(this.props.vendor));
   }
 
-  handleRepoChange = (e) => {
+  repoChangeHandler = (e) => {
     this.setState({repo: e.target.value});
   };
 
-  handleBranchChange = (e) => {
+  branchChangeHandler = (e) => {
     this.setState({branch: e.target.value});
   };
 
@@ -58,7 +58,7 @@ class SourceContainer extends React.Component {
           <TextField disabled floatingLabelText={"Username"} value={this.state.username}/>
         </div>
         <div className="col-xs-12">
-          <SelectField floatingLabelText="Repository" value={this.state.repo} onChange={this.handleRepoChange}>
+          <SelectField floatingLabelText="Repository" value={this.state.repo} onChange={this.repoChangeHandler}>
             <MenuItem value={1} primaryText="Never"/>
             <MenuItem value={2} primaryText="Every Night"/>
             <MenuItem value={3} primaryText="Weeknights"/>
@@ -67,7 +67,7 @@ class SourceContainer extends React.Component {
           </SelectField>
         </div>
         <div className="col-xs-12">
-          <SelectField floatingLabelText="Branch" value={this.state.branch} onChange={this.handleBranchChange}>
+          <SelectField floatingLabelText="Branch" value={this.state.branch} onChange={this.branchChangeHandler}>
             <MenuItem value={1} primaryText="Never"/>
             <MenuItem value={2} primaryText="Every Night"/>
             <MenuItem value={3} primaryText="Weeknights"/>

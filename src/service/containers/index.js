@@ -27,12 +27,10 @@ import ServiceActivityContainer from "./partials/activity";
 import ServiceSettingsContainer from "./partials/settings";
 //Elements
 import ServiceCardList from "./elements/list";
-import PodDetailInfo from "./elements/pod/detail";
 
 export {
   ServiceInfoPage,
   ServiceOverviewContainer, ServiceBuildsContainer, ServiceDeployContainer,
   ServiceLogsContainer, ServiceMetricsContainer, ServiceActivityContainer, ServiceSettingsContainer,
-  ServiceCardList,
-  PodDetailInfo
+  ServiceCardList
 }

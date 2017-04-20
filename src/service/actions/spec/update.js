@@ -1,3 +1,4 @@
+
 //
 // Last.Backend LLC CONFIDENTIAL
 // __________________
@@ -16,44 +17,45 @@
 // from Last.Backend LLC.
 //
 
-import * as api from "../api";
-import {getError} from "../../utils";
+import * as api from "./../../api/spec";
+import {getError} from "../../../utils";
 import {toastr} from "react-redux-toastr";
-import {SERVICE_FETCH_FAILURE, SERVICE_FETCH_REQUEST, SERVICE_FETCH_SUCCESS} from "../constants";
-import {browserHistory} from "react-router";
+import {SERVICE_SPEC_UPDATE_FAILURE, SERVICE_SPEC_UPDATE_REQUEST, SERVICE_SPEC_UPDATE_SUCCESS} from "../../constants";
 
 export const RequestAction = {
-  type: SERVICE_FETCH_REQUEST
+  type: SERVICE_SPEC_UPDATE_REQUEST
 };
 
 export const SuccessAction = (payload) => ({
-  type: SERVICE_FETCH_SUCCESS,
+  type: SERVICE_SPEC_UPDATE_SUCCESS,
   payload
 });
 
 export const FailureAction = (payload) => ({
-  type: SERVICE_FETCH_FAILURE,
+  type: SERVICE_SPEC_UPDATE_FAILURE,
   payload
 });
 
-export const InfoActionCreators = (namespace, name) => (dispatch) => {
+export const UpdateActionCreators = (service, spec, newSpec) => (dispatch) => {
+
+  const header = "Service spec update!";
 
   dispatch(RequestAction);
 
   return new Promise((resolve, reject) => {
-    api.get(namespace, name)
-      .then(response => {
-        dispatch(SuccessAction(response));
-        resolve(response);
+    api.update(service.meta.namespace, service.meta.name, spec.meta.id, newSpec)
+      .then(() => {
+        dispatch(SuccessAction(service));
+        toastr.success(header, "successfully!");
+        resolve(service)
       })
       .catch(error => {
-        const header = "Service load!";
+
         let content = error.message;
 
         switch (error.status) {
           case "Not Found":
             content = error.message;
-            browserHistory.push("/ns/" + namespace);
             break;
           case "Unauthorized":
           case "Unknown":
@@ -72,4 +74,4 @@ export const InfoActionCreators = (namespace, name) => (dispatch) => {
   });
 };
 
-export default {RequestAction, SuccessAction, FailureAction, InfoActionCreators}
+export default {RequestAction, SuccessAction, FailureAction, UpdateActionCreators}

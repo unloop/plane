@@ -16,30 +16,32 @@
 // from Last.Backend LLC.
 //
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
 import RaisedButton from "material-ui/RaisedButton";
 
 const ServiceVolumesForm = (props) => (
   <div className="row">
+
     <div className="col-md-4 col-xs-12">
       <h3>Volumes</h3>
       <desc>
-       You can attach to service volume to storing persistend data
+        You can attach to service volume to storing persistend data
       </desc>
     </div>
+
     <div className="col-md-8 col-xs-12">
       <br/>
       <br/>
-      <RaisedButton disabled={true} label="ATTACH VOLUME" primary={true} />
+      <RaisedButton disabled={true} label="ATTACH VOLUME" primary={true}/>
     </div>
+
   </div>
 );
 
 ServiceVolumesForm.propTypes = {
-  namespace: PropTypes.object.isRequired,
-  service: PropTypes.object.isRequired,
-  updateHandler: PropTypes.func.isRequired
+  namespace: React.PropTypes.object.isRequired,
+  service: React.PropTypes.object.isRequired,
+  updateHandler: React.PropTypes.func.isRequired
 };
 
 export default ServiceVolumesForm;

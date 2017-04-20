@@ -45,7 +45,7 @@ class DeployCreatePage extends React.Component {
 
   spec = Object.assign({}, initSpec);
 
-  handleTabChange = (e, value) => {
+  tabChangeHandler = (e, value) => {
     e.stopPropagation();
     this.spec = Object.assign({}, initSpec);
     this.setState({
@@ -93,16 +93,16 @@ class DeployCreatePage extends React.Component {
 
               <div className="col-xs-8 col-md-offset-2 text-center">
                 <RaisedButton style={{margin: "0 10px"}} buttonStyle={{width: "160px", height: "55px"}}
-                              onClick={e => this.handleTabChange(e, "template")} primary={this.state.tab === "template"}
+                              onClick={e => this.tabChangeHandler(e, "template")} primary={this.state.tab === "template"}
                               label="TEMPLATES"/>
                 <RaisedButton style={{margin: "0 10px"}} buttonStyle={{width: "160px", height: "55px"}}
-                              onClick={e => this.handleTabChange(e, "push")} primary={this.state.tab === "push"}
+                              onClick={e => this.tabChangeHandler(e, "push")} primary={this.state.tab === "push"}
                               label="GIT PUSH"/>
                 <RaisedButton style={{margin: "0 10px"}} buttonStyle={{width: "160px", height: "55px"}}
-                              onClick={e => this.handleTabChange(e, "git")} primary={this.state.tab === "git"}
+                              onClick={e => this.tabChangeHandler(e, "git")} primary={this.state.tab === "git"}
                               label="GIT REPOSITORIES"/>
                 <RaisedButton style={{margin: "0 10px"}} buttonStyle={{width: "160px", height: "55px"}}
-                              onClick={e => this.handleTabChange(e, "docker")} primary={this.state.tab === "docker"}
+                              onClick={e => this.tabChangeHandler(e, "docker")} primary={this.state.tab === "docker"}
                               label="DOCKER HUB"/>
               </div>
 

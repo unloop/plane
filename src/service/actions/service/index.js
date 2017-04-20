@@ -16,17 +16,9 @@
 // from Last.Backend LLC.
 //
 
-import React, { PropTypes } from 'react';
+import list from './list';
+import info from './info';
+import update from './update';
+import remove from './remove';
 
-const ServiceSourcesForm = (props) => (
-  <div>
-
-  </div>
-);
-
-ServiceSourcesForm.propTypes = {
-
-};
-
-export default ServiceSourcesForm;
-
+export default {list, info, update, remove}

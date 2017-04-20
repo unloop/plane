@@ -17,51 +17,53 @@
 //
 
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import TextField from "material-ui/TextField";
-import RaisedButton from "material-ui/RaisedButton";
 
-class ServiceRunForm extends React.Component {
+class ServiceSpecRunForm extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      cmd: props.service.spec.command || "",
+      command: props.spec.command || "",
     }
   }
 
-  handleChangeCommand(e, cmd) {
+  opts = {};
+
+  changeCommandHandler(e, elem) {
     e.preventDefault();
-    this.setState({cmd: cmd.input.value})
+    this.setState({command: elem.input.value});
+    this.opts.command = elem.input.value;
+    this.props.updateHandler(this.opts);
   }
 
   render() {
-    let cmd;
+    let command;
     return (
       <div className="row">
+
         <div className="col-md-4 col-xs-12">
           <h3>Run settings</h3>
-          <desc>Service runtime settings</desc>
+          <desc>Spec runtime settings</desc>
         </div>
+
         <div className="col-md-8 col-xs-12">
-          <TextField ref={val => cmd = val} fullWidth={true} floatingLabelText="CMD" hintText="cmd"
-                     value={this.state.cmd}
-                     onChange={(e) => this.handleChangeCommand(e, cmd)}/>
-          <br />
-          <RaisedButton label="Save" primary={true}
-                        onClick={(e) => this.props.updateHandler(e, this.props.service, this.state.cmd)}/>
+          <TextField fullWidth={true} floatingLabelText="CMD" hintText="cmd"
+                     ref={val => command = val}
+                     value={this.state.command}
+                     onChange={(e) => this.changeCommandHandler(e, command)}/>
         </div>
+
       </div>
     );
   }
 }
 
-ServiceRunForm.propTypes = {
-  namespace: PropTypes.object.isRequired,
-  service: PropTypes.object.isRequired,
+ServiceSpecRunForm.propTypes = {
   updateHandler: PropTypes.func.isRequired
 };
 
-export default ServiceRunForm;
+export default ServiceSpecRunForm;
 
