@@ -53,7 +53,7 @@ class ServiceOverviewContainer extends React.Component {
     return (
       <div className="container-fluid">
         <div className="row">
-          <div className={!this.state.pod ?"col-md-8":"col-md-6"}>
+          <div className="col-md-8">
             <div className="overview-block">
               <h5>Pods</h5>
               <Table selectable={false}>
@@ -81,7 +81,7 @@ class ServiceOverviewContainer extends React.Component {
               <VolumesList service={service} volume={volume}/>
             </div>
           </div>
-          <div className={!this.state.pod ?"col-md-4":"col-md-6"}>
+          <div className="col-md-4">
             {
               (!this.state.pod)
                 ? <ServiceDetailInfo service={service}/>

@@ -18,6 +18,7 @@
 
 import React from "react";
 import RaisedButton from "material-ui/RaisedButton";
+import Divider from "material-ui/Divider";
 
 import {SpecEnvsForm, SpecPortsForm, SpecRunForm} from "./../../../components";
 import serviceActions from "../../../actions";
@@ -61,22 +62,25 @@ class PodSpecEditor extends React.Component {
       <div>
 
         <div className="settings-block-item">
+          <div className="detail-info-header">Run commands</div>
+          <Divider/>
           <SpecRunForm updateHandler={this.updateRunFormHandler} {...this.props} />
         </div>
 
-        <hr />
 
         <div className="settings-block-item">
+          <div className="detail-info-header">Ports</div>
+          <Divider/>
           <SpecPortsForm updateHandler={this.updatePortsFormHandler} {...this.props} />
         </div>
 
-        <hr />
-
         <div className="settings-block-item">
+          <div className="detail-info-header">Environments</div>
+          <Divider/>
           <SpecEnvsForm updateHandler={this.updateEnvsFormHandler} {...this.props} />
         </div>
 
-        <hr />
+        <Divider/>
 
         <RaisedButton label="Cancel" primary={true}
                       onClick={this.props.disableEditorHandler}/>
