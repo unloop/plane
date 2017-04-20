@@ -43,6 +43,7 @@ class ServiceOverviewContainer extends React.Component {
 
   applySpecHandler = (spec, newSpec) => {
     this.props.dispatch(specActions.update.UpdateActionCreators(this.props.service, spec, newSpec));
+    this.refuseSpecHandler()
   };
 
   refuseSpecHandler = () => {
