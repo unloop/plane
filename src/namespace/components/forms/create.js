@@ -36,7 +36,7 @@ const NamespaceCreateForm = (props) => {
       </div>
       <div className="container text-center">
         <form className="create-namespace"
-              onSubmit={(e) => props.onCreateNamespaceSubmit(e, name.input.value, desc.input.value)}>
+              onSubmit={(e) => props.createHandler(e, name.input.value, desc.input.value)}>
           <div className="row">
             <TextField ref={ (val) => name = val } fullWidth={true} errorText={err.name}
                        floatingLabelText="Namespace name" hintText="name"/>
@@ -61,7 +61,7 @@ const NamespaceCreateForm = (props) => {
 };
 
 NamespaceCreateForm.propTypes = {
-  onCreateNamespaceSubmit: PropTypes.func.isRequired
+  createHandler: PropTypes.func.isRequired
 };
 
 export default NamespaceCreateForm;

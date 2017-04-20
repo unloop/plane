@@ -16,14 +16,14 @@
 // from Last.Backend LLC.
 //
 
-import React, {} from 'react';
-import TemplateList from '../element/template/list'
+import React from "react";
+
+import TemplateList from "../element/template/list";
+
 
 const DeployTemplateContainer = (props) => (
   <TemplateList {...props} />
 );
-
-DeployTemplateContainer.propTypes = {};
 
 export default DeployTemplateContainer;
 

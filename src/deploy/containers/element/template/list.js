@@ -16,14 +16,14 @@
 // from Last.Backend LLC.
 //
 
-import React, {} from 'react';
-import {connect} from 'react-redux';
-import TextField from 'material-ui/TextField';
-import TemplateCard from './../../../components/template/card';
-import deployActions from './../../../actions';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
+import React from "react";
+import {connect} from "react-redux";
+import TextField from "material-ui/TextField";
+import TemplateCard from "./../../../components/template/card";
+import deployActions from "./../../../actions";
+import SelectField from "material-ui/SelectField";
+import MenuItem from "material-ui/MenuItem";
+import RaisedButton from "material-ui/RaisedButton";
 
 class TemplateList extends React.Component {
 
@@ -65,8 +65,17 @@ class TemplateList extends React.Component {
     return (
       <div className="row">
         <div className="col-xs-8 col-md-offset-2">
-          <TextField floatingLabelText={"Filter templates"} fullWidth={true} value={this.state.search}
-                     onChange={this.searchUpdateHandler}/>
+          {
+            (!!Object.keys(this.props.template.list).length)
+              ? (
+              <TextField floatingLabelText={"Filter templates"} fullWidth={true} value={this.state.search}
+                         onChange={this.searchUpdateHandler}/>
+            )
+              : (
+              <div className="text-center">Templates not found</div>
+            )
+          }
+
         </div>
         <br />
         <br />
@@ -74,25 +83,25 @@ class TemplateList extends React.Component {
           {
             (this.state.template === null)
               ? Object.keys(this.props.template.list).map((key, index) => {
-                return (key.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
-                  ? (<div className="col-xs-6 col-md-4" key={index}
-                          onClick={e => this.selectTemplateHandler(e, key, this.props.template.list[key])}>
-                    <TemplateCard name={key} template={this.props.template.list[key]}
-                                  setTemplate={this.props.setTemplate}/>
-                  </div>)
-                  : ""
-              })
+              return (key.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
+                ? (<div className="col-xs-6 col-md-4" key={index}
+                        onClick={e => this.selectTemplateHandler(e, key, this.props.template.list[key])}>
+                  <TemplateCard name={key} template={this.props.template.list[key]}
+                                setTemplate={this.props.setTemplate}/>
+                </div>)
+                : ""
+            })
               : <div style={{textAlign: "center"}}>
-                <SelectField floatingLabelText="Version" value={this.state.version} onChange={this.changeVersionHandler}>
-                  <MenuItem key={"latest"} value={"latest"} primaryText={"latest"}/>
-                  {this.state.template.versions.map((val) => {
-                    return (val.toLowerCase() !== "latest")
-                      ? <MenuItem key={val} value={val} primaryText={val}/>
-                      : ""
-                  })}
-                </SelectField>
-                <RaisedButton label="Cancel" secondary={true} onClick={this.clearTemplateHandler}/>
-              </div>
+              <SelectField floatingLabelText="Version" value={this.state.version} onChange={this.changeVersionHandler}>
+                <MenuItem key={"latest"} value={"latest"} primaryText={"latest"}/>
+                {this.state.template.versions.map((val) => {
+                  return (val.toLowerCase() !== "latest")
+                    ? <MenuItem key={val} value={val} primaryText={val}/>
+                    : ""
+                })}
+              </SelectField>
+              <RaisedButton label="Cancel" secondary={true} onClick={this.clearTemplateHandler}/>
+            </div>
           }
         </div>
       </div>

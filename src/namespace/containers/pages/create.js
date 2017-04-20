@@ -16,11 +16,11 @@
 // from Last.Backend LLC.
 //
 
-import React from 'react';
-import {connect} from 'react-redux';
+import React from "react";
+import {connect} from "react-redux";
 
-import {NamespaceCreateForm} from  '../../components'
-import namespaceActions from '../../actions';
+import {NamespaceCreateForm} from "../../components";
+import namespaceActions from "../../actions";
 
 
 class NamespaceCreateFormContainer extends React.Component {
@@ -35,9 +35,7 @@ class NamespaceCreateFormContainer extends React.Component {
   }
 
   render() {
-    return (
-      <NamespaceCreateForm {...this.props} />
-    );
+    return <NamespaceCreateForm {...this.props} />;
   }
 }
 
@@ -45,7 +43,7 @@ const mapStateToProps = (state) => state;
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onCreateNamespaceSubmit: (e, name, desc) => {
+    createHandler: (e, name, desc) => {
       e.preventDefault();
 
       let error = {};
