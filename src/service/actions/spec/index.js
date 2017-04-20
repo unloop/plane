@@ -16,17 +16,8 @@
 // from Last.Backend LLC.
 //
 
-import React from 'react';
+import create from './create';
+import update from './update';
+import remove from './remove';
 
-const ServiceGitSources = (props) => (
-  <div>
-
-  </div>
-);
-
-ServiceGitSources.propTypes = {
-
-};
-
-export default ServiceGitSources;
-
+export default {create, update, remove}

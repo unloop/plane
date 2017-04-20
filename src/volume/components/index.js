@@ -16,12 +16,12 @@
 // from Last.Backend LLC.
 //
 
-import VolumesList from './list';
+import VolumeCardList from './list';
 import VolumeListItem from './elements/item';
 import VolumeAttachForm from './forms/attach';
 
 
 export {
-  VolumesList, VolumeListItem,
+  VolumeCardList, VolumeListItem,
   VolumeAttachForm
 }

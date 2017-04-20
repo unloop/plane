@@ -23,7 +23,7 @@ import {connect} from 'react-redux';
 import {Preloader} from '../../../common/components'
 import {ServiceHeader} from  '../../components'
 import namespaceActions from '../../../namespace/actions';
-import serviceActions from '../../actions';
+import serviceActions from '../../actions/service';
 
 
 class ServiceInfoPage extends React.Component {

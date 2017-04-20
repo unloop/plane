@@ -35,7 +35,7 @@ class ServiceLogsContainer extends React.Component {
     };
   }
 
-  handleChangePod = (e, index, value) => {
+  changePodHandler = (e, index, value) => {
     e.preventDefault();
     this.setState({pod: value});
   };
@@ -71,7 +71,7 @@ class ServiceLogsContainer extends React.Component {
             <div className="pull-right">
               {/*<FlatButton label="download" default={true}/>*/}
               <SelectField autoWidth={true} fullWidth={true} value={this.state.pod} style={{fontSize: "10px"}}
-                           onChange={this.handleChangePod}>
+                           onChange={this.changePodHandler}>
                 {
                   Object.keys(this.props.service.pods).map((key, index) => {
                     return <MenuItem key={index} value={index} primaryText={this.props.service.pods[key].name}/>

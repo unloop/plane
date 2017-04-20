@@ -17,7 +17,6 @@
 //
 
 import React from "react";
-import PropTypes from "prop-types";
 
 import TextField from "material-ui/TextField";
 import RaisedButton from "material-ui/RaisedButton";
@@ -33,33 +32,55 @@ class ServiceGeneralForm extends React.Component {
     }
   }
 
-  handleChangeName(e, name) {
+  changeNameHandler(e, name) {
     e.preventDefault();
-    this.setState({name: name.input.value})
+    this.setState({name: name.input.value});
   }
 
-  handleChangeDesc(e, desc) {
+  changeDescriptionHandler(e, desc) {
     e.preventDefault();
-    this.setState({desc: desc.input.value})
+    this.setState({desc: desc.input.value});
+  }
+
+  updateHandler(e, service, name, desc) {
+    e.preventDefault();
+    this.props.updateHandler(service, name, desc);
+  }
+
+  checkDifferencesHandler() {
+    let meta = this.props.service.meta;
+    let state = this.state;
+    return (!state.name || (state.name === meta.name && state.desc === meta.description))
   }
 
   render() {
     let name, desc;
     return (
       <div className="row">
+
         <div className="col-md-4 col-xs-12">
           <h3>General settings</h3>
           <desc>Main service settings</desc>
         </div>
+
         <div className="col-md-8 col-xs-12">
-          <TextField ref={(val) => name = val} fullWidth={true} floatingLabelText="Service name"
-                     hintText="name" value={this.state.name} onChange={(e) => this.handleChangeName(e, name)}/>
-          <br />
-          <TextField ref={(val) => desc = val} fullWidth={true} floatingLabelText="Service description"
-                     hintText="description" value={this.state.desc} onChange={(e) => this.handleChangeDesc(e, desc)}/>
-          <br />
+          <TextField fullWidth={true} floatingLabelText="Service name" hintText="name"
+                     ref={(val) => name = val}
+                     value={this.state.name}
+                     onChange={(e) => this.changeNameHandler(e, name)}/>
+
+          <br/>
+
+          <TextField fullWidth={true} floatingLabelText="Service description" hintText="description"
+                     ref={(val) => desc = val}
+                     value={this.state.desc}
+                     onChange={(e) => this.changeDescriptionHandler(e, desc)}/>
+
+          <br/>
+
           <RaisedButton label="Save" primary={true}
-                        onClick={(e) => this.props.updateHandler(e, this.props.service, this.state.name, this.state.desc)}/>
+                        disabled={this.checkDifferencesHandler()}
+                        onClick={e => this.updateHandler(e, this.props.service, this.state.name, this.state.desc)}/>
         </div>
       </div>
     );
@@ -67,9 +88,9 @@ class ServiceGeneralForm extends React.Component {
 }
 
 ServiceGeneralForm.propTypes = {
-  namespace: PropTypes.object.isRequired,
-  service: PropTypes.object.isRequired,
-  updateHandler: PropTypes.func.isRequired
+  namespace: React.PropTypes.object.isRequired,
+  service: React.PropTypes.object.isRequired,
+  updateHandler: React.PropTypes.func.isRequired
 };
 
 export default ServiceGeneralForm;

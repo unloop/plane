@@ -20,7 +20,7 @@ import React, { } from 'react';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow} from 'material-ui/Table';
 import {VolumeListItem} from './';
 
-const VolumesList = (props) => {
+const VolumeCardList = (props) => {
   const {namespace, volume} = props;
   return (
     <div>
@@ -46,9 +46,9 @@ const VolumesList = (props) => {
   );
 };
 
-VolumesList.propTypes = {
+VolumeCardList.propTypes = {
 
 };
 
-export default VolumesList;
+export default VolumeCardList;
 

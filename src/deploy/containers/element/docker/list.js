@@ -50,7 +50,7 @@ class SourcesDockerImagesList extends React.Component {
     this.setState({ pending: false, image: null });
   }
 
-  handleSelectImage = (e, image) => {
+  selectImageHandler = (e, image) => {
     if (image === null) return;
     e.preventDefault();
     image.tags = image.tags || [{ name: "latest" }];
@@ -58,11 +58,13 @@ class SourcesDockerImagesList extends React.Component {
     this.props.setImage(image.owner, image.name, "latest");
     this.props.dispatch(deployActions.docker.TagsActionCreators(image.owner, image.name));
   };
-  handleClearTemplate = (e) => {
+
+  clearTemplateHandler = (e) => {
     e.preventDefault();
     this.setState({ image: null, version: "latest" });
   };
-  handleChangeVersion = (e, index, value) => {
+
+  changeVersionHandler = (e, index, value) => {
     e.preventDefault();
     this.setState({ version: value });
     this.props.setImage(this.state.image.owner, this.state.image.name, value)
@@ -104,13 +106,13 @@ class SourcesDockerImagesList extends React.Component {
               : (this.state.image === null)
                 ? Object.keys(this.props.registry.list).map((key, index) => {
                   return (<div className="col-xs-6 col-md-4" key={index}
-                    onClick={e => this.handleSelectImage(e, this.props.registry.list[key])}>
+                    onClick={e => this.selectImageHandler(e, this.props.registry.list[key])}>
                     <DockerImageCard name={key} image={this.props.registry.list[key]}
                       setTemplate={this.props.setTemplate} />
                   </div>)
                 })
                 : <div style={{ textAlign: "center" }}>
-                  <SelectField floatingLabelText="Version" value={this.state.version} onChange={this.handleChangeVersion}>
+                  <SelectField floatingLabelText="Version" value={this.state.version} onChange={this.changeVersionHandler}>
                     <MenuItem key={"latest"} value={"latest"} primaryText={"latest"} />
                     {Object.keys(this.state.image.tags).map((val) => {
                       return (this.state.image.tags[val].name.toLowerCase() !== "latest")
@@ -119,7 +121,7 @@ class SourcesDockerImagesList extends React.Component {
                         : ""
                     })}
                   </SelectField>
-                  <RaisedButton label="Cancel" secondary={true} onClick={this.handleClearTemplate} />
+                  <RaisedButton label="Cancel" secondary={true} onClick={this.clearTemplateHandler} />
                 </div>
           }
         </div>

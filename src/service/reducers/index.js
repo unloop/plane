@@ -27,7 +27,15 @@ import {
   SERVICE_REMOVE_FAILURE,
   SERVICE_REMOVE_REQUEST,
   SERVICE_REMOVE_SUCCESS,
-  SERVICE_SET_SELECT,
+  SERVICE_SPEC_CREATE_FAILURE,
+  SERVICE_SPEC_CREATE_REQUEST,
+  SERVICE_SPEC_CREATE_SUCCESS,
+  SERVICE_SPEC_REMOVE_FAILURE,
+  SERVICE_SPEC_REMOVE_REQUEST,
+  SERVICE_SPEC_REMOVE_SUCCESS,
+  SERVICE_SPEC_UPDATE_FAILURE,
+  SERVICE_SPEC_UPDATE_REQUEST,
+  SERVICE_SPEC_UPDATE_SUCCESS,
   SERVICE_UPDATE_FAILURE,
   SERVICE_UPDATE_REQUEST,
   SERVICE_UPDATE_SUCCESS,
@@ -71,6 +79,11 @@ function convert(payload) {
 }
 
 export default createReducer(initialState, {
+
+  // ****************************
+  // SERVICE REDUCER METHODS
+  // ****************************
+
   [SERVICE_FETCH_REQUEST]: (state) => {
     let newState = Object.assign({}, state);
     newState.action.load.pending = true;
@@ -158,7 +171,36 @@ export default createReducer(initialState, {
   [SERVICE_REMOVE_FAILURE]: (state) => {
     return state;
   },
-  [SERVICE_SET_SELECT]: (state, payload) => {
-    return Object.assign({}, state, {selected: payload});
+
+  // ****************************
+  // SERVICE SPEC REDUCER METHODS
+  // ****************************
+
+  [SERVICE_SPEC_CREATE_REQUEST]: (state) => {
+    return state;
+  },
+  [SERVICE_SPEC_CREATE_SUCCESS]: (state, payload) => {
+    return state;
+  },
+  [SERVICE_SPEC_CREATE_FAILURE]: (state) => {
+    return state;
+  },
+  [SERVICE_SPEC_UPDATE_REQUEST]: (state) => {
+    return state;
+  },
+  [SERVICE_SPEC_UPDATE_SUCCESS]: (state, payload) => {
+    return state;
+  },
+  [SERVICE_SPEC_UPDATE_FAILURE]: (state) => {
+    return state;
+  },
+  [SERVICE_SPEC_REMOVE_REQUEST]: (state) => {
+    return state;
+  },
+  [SERVICE_SPEC_REMOVE_SUCCESS]: (state, payload) => {
+    return state;
+  },
+  [SERVICE_SPEC_REMOVE_FAILURE]: (state) => {
+    return state;
   }
 });

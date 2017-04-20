@@ -40,19 +40,22 @@ class TemplateList extends React.Component {
     this.props.dispatch(deployActions.template.ListActionCreators());
   }
 
-  searchUpdate = (e) => {
+  searchUpdateHandler = (e) => {
     this.setState({search: e.target.value.substr(0, 20)});
   };
-  handleSelectTemplate = (e, name, versions) => {
+
+  selectTemplateHandler = (e, name, versions) => {
     e.preventDefault();
     this.setState({template: {name: name, versions: versions || []}, version: "latest"});
     this.props.setTemplate(name, "latest");
   };
-  handleClearTemplate = (e) => {
+
+  clearTemplateHandler = (e) => {
     e.preventDefault();
     this.setState({template: null, version: "latest"});
   };
-  handleChangeVersion = (e, index, value) => {
+
+  changeVersionHandler = (e, index, value) => {
     e.preventDefault();
     this.setState({version: value});
     this.props.setTemplate(this.state.template.name, value)
@@ -63,7 +66,7 @@ class TemplateList extends React.Component {
       <div className="row">
         <div className="col-xs-8 col-md-offset-2">
           <TextField floatingLabelText={"Filter templates"} fullWidth={true} value={this.state.search}
-                     onChange={this.searchUpdate}/>
+                     onChange={this.searchUpdateHandler}/>
         </div>
         <br />
         <br />
@@ -73,14 +76,14 @@ class TemplateList extends React.Component {
               ? Object.keys(this.props.template.list).map((key, index) => {
                 return (key.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
                   ? (<div className="col-xs-6 col-md-4" key={index}
-                          onClick={e => this.handleSelectTemplate(e, key, this.props.template.list[key])}>
+                          onClick={e => this.selectTemplateHandler(e, key, this.props.template.list[key])}>
                     <TemplateCard name={key} template={this.props.template.list[key]}
                                   setTemplate={this.props.setTemplate}/>
                   </div>)
                   : ""
               })
               : <div style={{textAlign: "center"}}>
-                <SelectField floatingLabelText="Version" value={this.state.version} onChange={this.handleChangeVersion}>
+                <SelectField floatingLabelText="Version" value={this.state.version} onChange={this.changeVersionHandler}>
                   <MenuItem key={"latest"} value={"latest"} primaryText={"latest"}/>
                   {this.state.template.versions.map((val) => {
                     return (val.toLowerCase() !== "latest")
@@ -88,7 +91,7 @@ class TemplateList extends React.Component {
                       : ""
                   })}
                 </SelectField>
-                <RaisedButton label="Cancel" secondary={true} onClick={this.handleClearTemplate}/>
+                <RaisedButton label="Cancel" secondary={true} onClick={this.clearTemplateHandler}/>
               </div>
           }
         </div>

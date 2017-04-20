@@ -22,19 +22,19 @@ import Timestamp from "react-timestamp";
 import Paper from "material-ui/Paper";
 import FlatButton from "material-ui/FlatButton";
 
-import {ServiceMemoryChart, ServiceReplicasChart} from "../../components";
-import serviceActions from "../../actions";
+import {ServiceReplicasChart} from "../../components";
+import serviceActions from "../../actions/service";
 
 
 const ServiceCard = (props) => {
   const {service} = props;
 
-  function changeReplicas(e, value) {
+  function changeReplicasHandler(e, value) {
     e.preventDefault();
     props.dispatch(serviceActions.update.UpdateActionCreators(service, {replicas: value}));
   }
 
-  function changeMemory(e, value) {
+  function changeMemoryHandler(e, value) {
     e.preventDefault();
     props.dispatch(serviceActions.update.UpdateActionCreators(service, {spec: {memory: value}}));
   }
@@ -79,8 +79,8 @@ const ServiceCard = (props) => {
       <div className='container-fluid'>
         <div className="row">
           <div className="col-md-6 col-xs-12">
-            <ServiceReplicasChart up={changeReplicas} down={changeReplicas} value={service.meta.replicas}/>
-            <ServiceMemoryChart up={changeMemory} down={changeMemory} replicas={service.meta.replicas} value={service.spec.memory}/>
+            <ServiceReplicasChart up={changeReplicasHandler} down={changeReplicasHandler} value={service.meta.replicas}/>
+            {/*<ServiceMemoryChart up={changeMemoryHandler} down={changeMemoryHandler} replicas={service.meta.replicas} value={service.spec.memory}/>*/}
           </div>
           <div className="col-md-6 col-xs-12">
             <table className="table card-table">

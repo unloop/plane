@@ -16,44 +16,44 @@
 // from Last.Backend LLC.
 //
 
-import * as api from '../api';
-import {getError} from '../../utils';
-import {toastr} from 'react-redux-toastr'
-import {SERVICE_UPDATE_REQUEST, SERVICE_UPDATE_SUCCESS, SERVICE_UPDATE_FAILURE} from '../constants';
-import {browserHistory} from 'react-router'
+import * as api from "./../../api/service";
+import {getError} from "../../../utils";
+import {toastr} from "react-redux-toastr";
+import {SERVICE_FETCH_FAILURE, SERVICE_FETCH_REQUEST, SERVICE_FETCH_SUCCESS} from "../../constants";
+import {browserHistory} from "react-router";
 
 export const RequestAction = {
-  type: SERVICE_UPDATE_REQUEST,
+  type: SERVICE_FETCH_REQUEST
 };
 
 export const SuccessAction = (payload) => ({
-  type: SERVICE_UPDATE_SUCCESS,
+  type: SERVICE_FETCH_SUCCESS,
   payload
 });
 
 export const FailureAction = (payload) => ({
-  type: SERVICE_UPDATE_FAILURE,
+  type: SERVICE_FETCH_FAILURE,
   payload
 });
 
-export const UpdateActionCreators = (service, spec) => (dispatch) => {
+export const InfoActionCreators = (namespace, name) => (dispatch) => {
 
   dispatch(RequestAction);
 
   return new Promise((resolve, reject) => {
-    api.update(service.meta.namespace, service.meta.name, spec)
+    api.get(namespace, name)
       .then(response => {
         dispatch(SuccessAction(response));
-        resolve(response)
+        resolve(response);
       })
       .catch(error => {
-        const header = "Service update!";
+        const header = "Service load!";
         let content = error.message;
 
         switch (error.status) {
           case "Not Found":
             content = error.message;
-            browserHistory.push("/ns/" + service.meta.namespace);
+            browserHistory.push("/ns/" + namespace);
             break;
           case "Unauthorized":
           case "Unknown":
@@ -72,4 +72,4 @@ export const UpdateActionCreators = (service, spec) => (dispatch) => {
   });
 };
 
-export default {RequestAction, SuccessAction, FailureAction, UpdateActionCreators}
+export default {RequestAction, SuccessAction, FailureAction, InfoActionCreators}

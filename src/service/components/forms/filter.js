@@ -15,21 +15,15 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Last.Backend LLC.
 //
-import React, { } from 'react';
-import TextField from 'material-ui/TextField';
 
-const ServiceInputFilter = (props) => (
+import React from "react";
+import TextField from "material-ui/TextField";
+
+const ServiceInputFilterForm = (props) => (
   <div className="namespace-service-filter">
-    <TextField
-      hintText="Filter by label"
-      fullWidth={true}
-    />
+    <TextField hintText="Filter by label" fullWidth={true}/>
   </div>
 );
 
-ServiceInputFilter.propTypes = {
-
-};
-
-export default ServiceInputFilter;
+export default ServiceInputFilterForm;
 

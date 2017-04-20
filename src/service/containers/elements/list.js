@@ -16,17 +16,15 @@
 // from Last.Backend LLC.
 //
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import {Link} from "react-router";
+import {connect} from "react-redux";
 
-import {Link} from 'react-router'
-import {connect} from 'react-redux';
+import TextField from "material-ui/TextField";
+import RaisedButton from "material-ui/RaisedButton";
 
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-
-import {ServiceCard} from '../../components'
-import serviceActions from '../../../service/actions';
+import {ServiceCard} from "../../components";
+import serviceActions from "../../../service/actions/service";
 
 
 class ServiceCardList extends React.Component {
@@ -39,14 +37,10 @@ class ServiceCardList extends React.Component {
   }
 
   componentDidMount() {
-    // Injected into props by React Redux `connect()` call:
-    let {dispatch, namespace} = this.props;
-    // Reducer can react to this action by setting
-    // `isFetching` and thus letting us show a spinner.
-    dispatch(serviceActions.list.ListActionCreators(namespace.meta.name));
+    this.props.dispatch(serviceActions.list.ListActionCreators(this.props.namespace.meta.name));
   }
 
-  searchUpdate = (e) => {
+  searchUpdateHandler = (e) => {
     this.setState({search: e.target.value.substr(0, 20)});
   };
 
@@ -66,17 +60,16 @@ class ServiceCardList extends React.Component {
       : (
         <div>
           <div className="namespace-service-filter">
-            <TextField hintText="Filter" fullWidth={true}
-                       value={this.state.search}
-                       onChange={this.searchUpdate}/>
+            <TextField hintText="Filter" fullWidth={true} value={this.state.search} onChange={this.searchUpdateHandler}/>
           </div>
+
           {Object.keys(service.list).map((name) => {
-            console.log(name, service.list[name].meta, namespace.meta.name)
+              console.log(name, service.list[name].meta, namespace.meta.name)
               return (service.list[name].meta.namespace === namespace.meta.name && name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1)
                 ? <ServiceCard key={name}
                                namespace={namespace}
                                service={service.list[name]}
-                               dispatch={this.props.dispatch} />
+                               dispatch={this.props.dispatch}/>
                 : ""
             }
           )}
@@ -86,8 +79,8 @@ class ServiceCardList extends React.Component {
 }
 
 ServiceCardList.propTypes = {
-  namespace: PropTypes.object.isRequired,
-  service: PropTypes.object,
+  namespace: React.PropTypes.object.isRequired,
+  service: React.PropTypes.object,
 };
 
 const mapStateToProps = (state, props) => {

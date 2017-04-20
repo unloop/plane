@@ -16,32 +16,32 @@
 // from Last.Backend LLC.
 //
 
-import * as api from '../api';
-import {SERVICES_FETCH_REQUEST, SERVICES_FETCH_SUCCESS, SERVICES_FETCH_FAILURE} from '../constants';
+import * as api from "./../../api/spec";
+import {SERVICE_SPEC_CREATE_FAILURE, SERVICE_SPEC_CREATE_REQUEST, SERVICE_SPEC_CREATE_SUCCESS} from "../../constants";
 
 export const RequestAction = {
-  type: SERVICES_FETCH_REQUEST
+  type: SERVICE_SPEC_CREATE_REQUEST
 };
 
 export const SuccessAction = (payload) => ({
-  type: SERVICES_FETCH_SUCCESS,
+  type: SERVICE_SPEC_CREATE_SUCCESS,
   payload
 });
 
 export const FailureAction = (payload) => ({
-  type: SERVICES_FETCH_FAILURE,
+  type: SERVICE_SPEC_CREATE_FAILURE,
   payload
 });
 
-export const ListActionCreators = (namespace) => (dispatch) => {
+export const CreateActionCreators = (service, spec) => (dispatch) => {
 
   dispatch(RequestAction);
 
   return new Promise((resolve, reject) => {
-    api.list(namespace)
-      .then(response => {
-        dispatch(SuccessAction(response));
-        resolve(response);
+    api.create(service.meta.namespace, service.meta.name, spec)
+      .then(() => {
+        dispatch(SuccessAction(service));
+        resolve(service)
       })
       .catch(error => {
         dispatch(FailureAction(error));
@@ -50,4 +50,4 @@ export const ListActionCreators = (namespace) => (dispatch) => {
   });
 };
 
-export default {RequestAction, SuccessAction, FailureAction, ListActionCreators}
+export default {RequestAction, SuccessAction, FailureAction, CreateActionCreators}
