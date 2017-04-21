@@ -20,7 +20,6 @@ import {connect} from "react-redux";
 
 import RaisedButton from "material-ui/RaisedButton";
 import {Link} from "react-router";
-import Divider from "material-ui/Divider";
 
 import deployActions from "./../../actions";
 import {DeployHeader} from "../../components";
@@ -56,31 +55,52 @@ class DeployCreatePage extends React.Component {
 
   setName = (name) => {
     this.spec.name = name;
+    this.setState({spec: this.spec})
   };
 
   setMemory = (memory) => {
     this.spec.memory = memory;
+    this.setState({spec: this.spec})
   };
 
   setResource = (resource) => {
     this.spec.resource = resource;
+    this.setState({spec: this.spec})
   };
 
   setTemplate = (template, version) => {
     this.spec.template = template + ":" + (version || "latest");
+    this.setState({spec: this.spec})
   };
 
   setImage = (owner, image, version) => {
     this.spec.image = (owner || "library") + "/" + image + ":" + (version || "latest");
+    this.setState({spec: this.spec})
   };
 
   setUrl = (url, branch) => {
     this.spec.url = !!url.length ? [url, branch || "master"].join("#") : "";
+    this.setState({spec: this.spec})
   };
 
   onClickToDeploy = () => {
+    if (this.checkDisableDeployHandler()) return;
     this.props.dispatch(deployActions.deploy.DeployActionCreators(this.props.namespace, this.spec))
   };
+
+  checkDisableDeployHandler() {
+    console.log(this.state.tab, this.spec);
+    switch (this.state.tab) {
+      case "template":
+        return !this.spec.template;
+      case "git":
+        return !this.spec.url;
+      case "docker":
+        return !this.spec.image;
+      default:
+        return true;
+    }
+  }
 
   render() {
     const {namespace} = this.props;
@@ -140,18 +160,26 @@ class DeployCreatePage extends React.Component {
               </div>
             </div>
 
-            <Divider/>
-
             <div className="row">
               <div className="settings-block-item text-center">
                 {
                   (this.state.tab !== "push")
-                    ? <RaisedButton label="Deploy" primary={true} style={{margin: "0 10px"}}
+                    ? (
+                    <div>
+                      <RaisedButton label="Deploy" primary={true} style={{margin: "0 10px"}}
+                                    disabled={this.checkDisableDeployHandler()}
                                     onClick={this.onClickToDeploy}/>
-                    : ""
+
+                      <RaisedButton label="Cancel" style={{margin: "0 10px"}}
+                                    containerElement={<Link to={`/ns/${namespace}`}/>}/>
+                    </div>
+                  )
+                    : (
+                    <RaisedButton label="Back" style={{margin: "0 10px"}}
+                                  containerElement={<Link to={`/ns/${namespace}`}/>}/>
+                  )
                 }
-                <RaisedButton label="Cancel" style={{margin: "0 10px"}}
-                              containerElement={<Link to={`/ns/${namespace}`}/>}/>
+
               </div>
             </div>
 
