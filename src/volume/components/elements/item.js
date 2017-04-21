@@ -22,13 +22,13 @@ import {Link} from 'react-router';
 
 const VolumeListItem = (props) => {
 
-  const {volume, namespace} = props;
+  const {volume, service} = props;
 
   return (
     <TableRow key={volume.id}>
       <TableRowColumn>{volume.id}</TableRowColumn>
       <TableRowColumn>
-        <Link to={`/ns/${namespace.id}/v/${volume.id}`}>
+        <Link to={`/ns/${service.meta.namespace}/v/${volume.id}`}>
           {volume.name}
         </Link>
       </TableRowColumn>

@@ -23,13 +23,14 @@ import Timestamp from "react-timestamp";
 
 import {Table, TableBody, TableRow, TableRowColumn} from "material-ui/Table";
 import {Card, CardHeader, CardText} from "material-ui/Card";
+import Chip from "material-ui/Chip";
 
 import ServiceMemoryChart from "../../charts/memory";
-import {getStateColor} from "./../../../../utils"
+import {getStateColor} from "./../../../../utils";
 
 
 const SpecCard = (props) => {
-  const {spec} = props;
+  const {spec, replicas} = props;
 
   function resizeHandler(e, val) {
     e.stopPropagation();
@@ -50,12 +51,15 @@ const SpecCard = (props) => {
         </CardHeader>
         <CardText>
           <div className="row">
-            <div className="col-xs-3 taxt-left" style={{padding: "0 10px"}}>
+
+            <div className="col-md-3 col-xs-12" style={{padding: "0 10px"}}>
               <ServiceMemoryChart up={resizeHandler} down={resizeHandler}
-                                  replicas={props.replicas}
+                                  replicas={replicas}
                                   value={spec.memory}/>
             </div>
-            <div className="col-xs-9">
+
+
+            <div className="col-xs-9 col-xs-12">
               <div className="row" style={{padding: "5px 0"}}>
                 <div className="col-xs-4">
                   <i className="fa fa-circle" style={{color: "#D3D3D3"}} aria-hidden="true"/> Memory:
@@ -80,8 +84,8 @@ const SpecCard = (props) => {
                   {
                     (!!spec.ports && !!Object.keys(spec.ports).length)
                       ? Object.keys(spec.ports).map((key) => {
-                      return <span
-                        key={key}>{spec.ports[key].external + "/" + spec.ports[key].protocol}</span>
+                      return <Chip key={key}
+                                   style={{float: "left", marginRight: "5px"}}>{spec.ports[key].external + "/" + spec.ports[key].protocol}</Chip>
                     })
                       : "-"
                   }
