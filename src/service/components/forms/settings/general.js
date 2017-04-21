@@ -88,7 +88,6 @@ class ServiceGeneralForm extends React.Component {
 }
 
 ServiceGeneralForm.propTypes = {
-  namespace: React.PropTypes.object.isRequired,
   service: React.PropTypes.object.isRequired,
   updateHandler: React.PropTypes.func.isRequired
 };

@@ -29,13 +29,13 @@ import SpecCard from "./elements/spec/card";
 import SpecCardList from "./elements/spec/list";
 import SpecSettingsContainer from "./elements/spec/settings";
 // Forms
-import ServiceDeleteForm from "./forms/settings/delete";
-import ServiceGeneralForm from "./forms/settings/general";
 import ServiceInputFilterForm from "./forms/filter";
+import ServiceGeneralForm from "./forms/settings/general";
 import ServiceVolumesForm from "./forms/settings/volumes";
+import ServiceDeleteForm from "./forms/settings/delete";
+import ServiceSpecRunForm from "./forms/spec/settings/run";
 import ServiceSpecEnvForm from "./forms/spec/settings/envs";
 import ServiceSpecPortsForm from "./forms/spec/settings/ports";
-import ServiceSpecRunForm from "./forms/spec/settings/run";
 
 
 export {
@@ -50,10 +50,10 @@ export {
   SpecCard,
   SpecCardList,
   SpecSettingsContainer,
-  ServiceDeleteForm,
-  ServiceGeneralForm,
   ServiceInputFilterForm,
+  ServiceGeneralForm,
   ServiceVolumesForm,
+  ServiceDeleteForm,
   ServiceSpecEnvForm,
   ServiceSpecPortsForm,
   ServiceSpecRunForm,

@@ -22,7 +22,7 @@ import {connect} from "react-redux";
 import Divider from "material-ui/Divider";
 
 import {ServiceDeleteForm, ServiceGeneralForm, ServiceVolumesForm} from "../../components";
-import serviceActions from '../../actions/service';
+import serviceActions from "../../actions/service";
 
 
 const NamespaceSettingsContainer = (props) => {
@@ -46,7 +46,7 @@ const NamespaceSettingsContainer = (props) => {
         <ServiceGeneralForm updateHandler={updateGeneralInfoHandler} {...props} />
       </div>
 
-      <hr />
+      <Divider/>
 
       <div className="settings-block-item">
         <ServiceVolumesForm updateHandler={updateVolumesFormHandler} {...props} />
