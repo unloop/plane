@@ -185,6 +185,26 @@ export function request(method, url, body, auth) {
     });
 }
 
+export function getStateColor(status) {
+  const statuses = {
+    created: "blue",
+    warning: "blue",
+    ready: "green",
+    stop: "blue",
+    stopped: "blue",
+    started: "green",
+    running: "green",
+    restarted: "blue",
+    error: "red",
+    kill: "gray",
+    terminated: "gray",
+    exited: "gray",
+    destroy: "blue",
+    destroyed: "blue"
+  };
+  return statuses[status.toLowerCase()] || "gray";
+}
+
 export function getError(code) {
   return errMessages[code] || "";
 }

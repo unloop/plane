@@ -25,16 +25,8 @@ import {Table, TableBody, TableRow, TableRowColumn} from "material-ui/Table";
 import {Card, CardHeader, CardText} from "material-ui/Card";
 
 import ServiceMemoryChart from "../../charts/memory";
+import {getStateColor} from "./../../../../utils"
 
-
-function getStateContainerColor(status) {
-  const statuses = {
-    running: "green",
-    terminated: "red",
-    waiting: "blue"
-  };
-  return statuses[status.toLowerCase()] || "green";
-}
 
 const SpecCard = (props) => {
   const {spec} = props;
@@ -113,12 +105,12 @@ const SpecCard = (props) => {
                   return (
                     <TableRow key={index}>
                       <TableRowColumn className="text-left">
-                        <i className="fa fa-circle" style={{color: getStateContainerColor(container.status)}}
+                        <i className="fa fa-circle" style={{color: getStateColor(container.state)}}
                            aria-hidden="true"/>
                         <span> {container.id.substring(0, 12)}</span>
                       </TableRowColumn>
                       <TableRowColumn className="text-center"
-                                      style={{width: "120px", color: getStateContainerColor(container.state)}}>
+                                      style={{width: "120px", color: getStateColor(container.state)}}>
                         {container.state}
                       </TableRowColumn>
                       <TableRowColumn className="text-right" style={{width: "50px"}}>

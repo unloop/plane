@@ -17,16 +17,9 @@
 //
 
 import React from "react";
-import {Table, TableBody, TableRow, TableRowColumn} from "material-ui/Table";
+import {getStateColor} from "./../../../../utils"
 
-function getStateContainerColor(status) {
-  const statuses = {
-    running: "green",
-    terminated: "red",
-    waiting: "blue"
-  };
-  return statuses[status.toLowerCase()] || "green";
-}
+import {Table, TableBody, TableRow, TableRowColumn} from "material-ui/Table";
 
 const PodCardList = (props) => {
   const {pods} = props;
@@ -38,9 +31,16 @@ const PodCardList = (props) => {
           {pods.map((pod, index) => {
             return (
               <TableRow key={index}>
-                <TableRowColumn>{pod.meta.id}</TableRowColumn>
+                <TableRowColumn>
+                  {
+                    <i className={"fa fa-" + ((pod.state.provision) ? "refresh fa-spin" : "check")}
+                       style={{color: getStateColor(pod.state.state)}}
+                       aria-hidden="true"></i>
+                  }
+                  <span style={{paddingLeft: "5px"}}>{pod.meta.id}</span>
+                </TableRowColumn>
                 <TableRowColumn
-                  style={{textAlign: "right", color: getStateContainerColor(pod.state.state)}}>
+                  style={{textAlign: "right", color: getStateColor(pod.state.state)}}>
                   {pod.state.state}
                 </TableRowColumn>
               </TableRow>
