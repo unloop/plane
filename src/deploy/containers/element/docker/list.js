@@ -27,7 +27,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
 
 
-const DEBOUNCER_TIMEOUT = 2000;
+const DEBOUNCER_TIMEOUT = 1500;
 
 class SourcesDockerImagesList extends React.Component {
   constructor(props) {
@@ -71,7 +71,7 @@ class SourcesDockerImagesList extends React.Component {
   };
 
   render() {
-    const handleSearchRepos = (e) => {
+    const searchReposHandler = (e) => {
       e.preventDefault();
 
       let search = e.target.value;
@@ -79,24 +79,24 @@ class SourcesDockerImagesList extends React.Component {
       if (search === "") {
         this.props.registry.list = {};
         this.setState({ pending: false, image: null });
-        clearTimeout(handleSearchRepos.timeout);
+        clearTimeout(searchReposHandler.timeout);
         return
       }
 
-      clearTimeout(handleSearchRepos.timeout);
-      handleSearchRepos.timeout = setTimeout(() => {
+      clearTimeout(searchReposHandler.timeout);
+      searchReposHandler.timeout = setTimeout(() => {
         this.props.registry.list = {};
         this.setState({ pending: true, image: null });
         this.props.dispatch(deployActions.docker.ReposActionCreators(search))
       }, DEBOUNCER_TIMEOUT);
     };
-    handleSearchRepos.timeout = null;
+    searchReposHandler.timeout = null;
 
     return (
       <div className="row">
         <div className="col-xs-8 col-md-offset-2">
           <TextField disabled={this.state.pending} floatingLabelText={"Search image to the docker hub"} fullWidth={true}
-            onChange={handleSearchRepos} />
+            onChange={searchReposHandler} />
         </div>
         <br />
         <div className="row">
