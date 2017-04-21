@@ -89,7 +89,6 @@ class DeployCreatePage extends React.Component {
   };
 
   checkDisableDeployHandler() {
-    console.log(this.state.tab, this.spec);
     switch (this.state.tab) {
       case "template":
         return !this.spec.template;
