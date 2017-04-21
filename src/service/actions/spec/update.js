@@ -46,7 +46,6 @@ export const UpdateActionCreators = (service, spec, newSpec) => (dispatch) => {
     api.update(service.meta.namespace, service.meta.name, spec.meta.id, newSpec)
       .then(() => {
         dispatch(SuccessAction(service));
-        toastr.success(header, "successfully!");
         resolve(service)
       })
       .catch(error => {
