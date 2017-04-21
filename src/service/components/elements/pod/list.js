@@ -17,11 +17,21 @@
 //
 
 import React from "react";
-import {getStateColor} from "./../../../../utils"
+import {getStateColor} from "./../../../../utils";
 
 import {Table, TableBody, TableRow, TableRowColumn} from "material-ui/Table";
 
 const PodCardList = (props) => {
+
+  function getState(state) {
+    switch (true) {
+      case state.provision || !state.ready:
+        return "pending";
+      default:
+        return state.state;
+    }
+  }
+
   const {pods} = props;
   return (
     <div>
@@ -29,19 +39,20 @@ const PodCardList = (props) => {
       <Table selectable={false}>
         <TableBody displayRowCheckbox={false}>
           {pods.map((pod, index) => {
+            let status = getState(pod.state);
             return (
               <TableRow key={index}>
                 <TableRowColumn>
                   {
                     <i className={"fa fa-" + ((pod.state.provision) ? "refresh fa-spin" : "check")}
-                       style={{color: getStateColor(pod.state.state)}}
+                       style={{color: getStateColor(status)}}
                        aria-hidden="true"></i>
                   }
                   <span style={{paddingLeft: "5px"}}>{pod.meta.id}</span>
                 </TableRowColumn>
                 <TableRowColumn
-                  style={{textAlign: "right", color: getStateColor(pod.state.state)}}>
-                  {pod.state.state}
+                  style={{textAlign: "right", color: getStateColor(status)}}>
+                  {status}
                 </TableRowColumn>
               </TableRow>
             )

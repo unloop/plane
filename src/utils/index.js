@@ -136,21 +136,21 @@ export function configureStore() {
   );
 }
 
-export function sockets (store) {
+export function sockets(store) {
 
   store.dispatch(commonActions.sockets.SocketsConnectAction);
 
   const wss_host = process.env.REACT_APP_WSS_HOST;
-  let ws = new WebSocket([wss_host,"events"].join("/"));
+  let ws = new WebSocket([wss_host, "events"].join("/"));
   store.dispatch(commonActions.sockets.SocketsConnectedAction);
 
-  ws.onopen =  e => store.dispatch(commonActions.sockets.SocketsConnectedAction);
-  ws.onmessage = e =>  store.dispatch(commonActions.sockets.SocketsReceiveMessage(JSON.parse(e.data)));
+  ws.onopen = e => store.dispatch(commonActions.sockets.SocketsConnectedAction);
+  ws.onmessage = e => store.dispatch(commonActions.sockets.SocketsReceiveMessage(JSON.parse(e.data)));
 
-  ws.onerror = e => this.setState({ error: 'WebSocket error' });
+  ws.onerror = e => this.setState({error: 'WebSocket error'});
   ws.onclose = e => {
     store.dispatch(commonActions.sockets.SocketsDisconnectedAction(e));
-    setTimeout(function(){
+    setTimeout(function () {
       sockets(store);
     }, 1000);
   };
@@ -187,22 +187,24 @@ export function request(method, url, body, auth) {
 
 export function getStateColor(status) {
   const statuses = {
-    created: "blue",
-    warning: "blue",
-    ready: "green",
-    stop: "blue",
-    stopped: "blue",
-    started: "green",
-    running: "green",
-    restarted: "blue",
-    error: "red",
-    kill: "gray",
-    terminated: "gray",
-    exited: "gray",
-    destroy: "blue",
-    destroyed: "blue"
+    created: "#607D8B",
+    warning: "#FF9800",
+    pending: "#3F51B5",
+    stop: "#3F51B5",
+    stopped: "#3F51B5",
+    ready: "#4CAF50",
+    start: "#4CAF50",
+    started: "#4CAF50",
+    running: "#4CAF50",
+    restarted: "#4CAF50",
+    error: "#f44336",
+    kill: "#212121",
+    terminated: "#212121",
+    exited: "#212121",
+    destroy: "#212121",
+    destroyed: "#212121"
   };
-  return statuses[status.toLowerCase()] || "gray";
+  return statuses[status.toLowerCase()] || "#607D8B";
 }
 
 export function getError(code) {
