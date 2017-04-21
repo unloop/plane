@@ -25,13 +25,21 @@ import {CommonHeaderContainer} from "../../../common/containers";
 import {ServiceCostChart, ServiceReplicasChart} from "../../components";
 import serviceActions from "../../actions/service";
 
-
 const ServiceHeader = (props) => {
   const {namespace, service} = props;
 
   function changeReplicasHandler(e, value) {
     e.preventDefault();
     props.dispatch(serviceActions.update.UpdateActionCreators(service, {replicas: value}));
+  }
+
+  function getTotalMemoryHandler(service) {
+    if (!service || !service.spec || !service.spec.length) return 0;
+    let total = 0;
+    service.spec.forEach((spec) => {
+      total += (parseInt(spec.memory, 10) || 0);
+    });
+    return total;
   }
 
   return (
@@ -71,7 +79,7 @@ const ServiceHeader = (props) => {
               <div className="col-md-7 col-xs-12 text-right">
                 <ServiceReplicasChart up={changeReplicasHandler} down={changeReplicasHandler}
                                       value={service.meta.replicas}/>
-                <ServiceCostChart replicas={service.meta.replicas} value={service.spec.memory}/>
+                <ServiceCostChart replicas={service.meta.replicas} value={getTotalMemoryHandler(service)}/>
               </div>
             </div>
           </div>
@@ -81,7 +89,7 @@ const ServiceHeader = (props) => {
             <Link activeClassName="tab-active" to={`/ns/${namespace.meta.name}/s/${service.meta.name}/builds`}>
               Builds </Link>
             {/*<Link activeClassName="tab-active" to={`/ns/${namespace.meta.name}/s/${service.meta.name}/deploy`}>*/}
-              {/*Deploy </Link>*/}
+            {/*Deploy </Link>*/}
             <Link activeClassName="tab-active" to={`/ns/${namespace.meta.name}/s/${service.meta.name}/logs`}>
               Logs </Link>
             <Link activeClassName="tab-active" to={`/ns/${namespace.meta.name}/s/${service.meta.name}/activity`}>
