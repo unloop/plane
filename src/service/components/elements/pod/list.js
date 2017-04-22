@@ -26,7 +26,7 @@ const PodCardList = (props) => {
   function getState(state) {
     switch (true) {
       case state.provision || !state.ready:
-        return "pending";
+        return "provision";
       default:
         return state.state;
     }

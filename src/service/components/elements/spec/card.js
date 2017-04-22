@@ -33,7 +33,7 @@ const GetContainers = (props) => {
   let total = 0;
 
   if (!spec.ready) {
-    total = (spec.containers.old.map.length > replicas) ? spec.containers.old.map.length : replicas;
+    total = (spec.containers.old.length > replicas) ? spec.containers.old.length : replicas;
     let items = Array.apply(null, new Array(total));
     return (
       <Table selectable={false}>
@@ -42,12 +42,13 @@ const GetContainers = (props) => {
             items.map((item, i) => {
               if (!spec.containers.old[i]) {
                 spec.containers.old[i] = {
-                  state: "destroying",
+                  state: "provision",
                   id: ""
                 }
               }
+              spec.containers.old[i].state = "provision";
               return (
-                <GetContainer index={i} container={spec.containers.old[i]}/>
+                <GetContainer key={i} index={i} container={spec.containers.old[i]}/>
               )
             })
           }
@@ -55,7 +56,7 @@ const GetContainers = (props) => {
       </Table>
     )
   } else {
-    total = (spec.containers.new.map.length > replicas) ? spec.containers.new.map.length : replicas;
+    total = (spec.containers.new.length > replicas) ? spec.containers.new.length : replicas;
     let items = Array.apply(null, new Array(total));
     return (
       <Table selectable={false}>
@@ -64,12 +65,12 @@ const GetContainers = (props) => {
             items.map((item, i) => {
               if (!spec.containers.new[i]) {
                 spec.containers.new[i] = {
-                  state: "creating",
+                  state: "provision",
                   id: ""
                 }
               }
               return (
-                <GetContainer index={i} container={spec.containers.new[i]}/>
+                <GetContainer key={i} index={i} container={spec.containers.new[i]}/>
               )
             })
           }
@@ -85,7 +86,7 @@ const GetContainer = (props) => {
     <TableRow key={index}>
       <TableRowColumn className="text-left">
 
-        <i className={"fa fa-" + ((container.state === "creating" || container.state === "destroying") ?
+        <i className={"fa fa-" + ((container.state === "provision") ?
           "refresh fa-spin" : "circle")}
            style={{color: getStateColor(container.state)}}
            aria-hidden="true"/>
@@ -134,7 +135,6 @@ const SpecCard = (props) => {
         <div className="row">
           <div className="col-md-4 col-sm-6  col-xs-12" style={{padding: "0 25px"}}>
             <ServiceMemoryChart up={resizeHandler} down={resizeHandler}
-                                replicas={replicas}
                                 value={spec.memory}/>
           </div>
           <div className="col-xs-12  col-md-8 col-sm-6 col-xs-12">

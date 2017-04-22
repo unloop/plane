@@ -201,6 +201,7 @@ export function getStateColor(status) {
     error: "#f44336",
     kill: "#212121",
     terminated: "#212121",
+    provision: "#607D8B",
     exited: "#212121",
     destroy: "#212121",
     destroying: "#212121",
