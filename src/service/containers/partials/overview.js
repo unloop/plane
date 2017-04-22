@@ -30,7 +30,7 @@ class ServiceOverviewContainer extends React.Component {
     super(props);
     this.state = {
       selected: null
-    }
+    };
   }
 
   selectSpecHandler = (val) => {
@@ -43,7 +43,7 @@ class ServiceOverviewContainer extends React.Component {
 
   applySpecHandler = (spec, newSpec) => {
     this.props.dispatch(specActions.update.UpdateActionCreators(this.props.service, spec, newSpec)).then(() => {
-      this.refuseSpecHandler()
+      this.refuseSpecHandler();
     });
   };
 
@@ -53,6 +53,7 @@ class ServiceOverviewContainer extends React.Component {
 
   render() {
     const {service, volume} = this.props;
+    console.log(service);
     return (
       <div className="container-fluid">
         <div className="row">
@@ -67,7 +68,7 @@ class ServiceOverviewContainer extends React.Component {
                 </div>
 
                 <div className="overview-block">
-                  <SpecCardList spec={service.spec}
+                  <SpecCardList spec={service.spec} 
                                 replicas={service.meta.replicas}
                                 changeMemoryHandler={this.changeMemoryHandler}
                                 selectCardHandler={this.selectSpecHandler}/>
@@ -93,7 +94,7 @@ class ServiceOverviewContainer extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

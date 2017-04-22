@@ -22,12 +22,86 @@ import Paper from "material-ui/Paper";
 import Timestamp from "react-timestamp";
 
 import {Table, TableBody, TableRow, TableRowColumn} from "material-ui/Table";
-import {Card, CardHeader, CardText} from "material-ui/Card";
 import Chip from "material-ui/Chip";
 
 import ServiceMemoryChart from "../../charts/memory";
 import {getStateColor} from "./../../../../utils";
 
+
+const GetContainers = (props) => {
+  const {spec, replicas} = props;
+  let total = 0;
+
+  if (!spec.ready) {
+    total = (spec.containers.old.map.length > replicas) ? spec.containers.old.map.length : replicas;
+    let items = Array.apply(null, new Array(total));
+    return (
+      <Table selectable={false}>
+        <TableBody displayRowCheckbox={false}>
+          {
+            items.map((item, i) => {
+              if (!spec.containers.old[i]) {
+                spec.containers.old[i] = {
+                  state: "destroying",
+                  id: ""
+                }
+              }
+              return (
+                <GetContainer index={i} container={spec.containers.old[i]}/>
+              )
+            })
+          }
+        </TableBody>
+      </Table>
+    )
+  } else {
+    total = (spec.containers.new.map.length > replicas) ? spec.containers.new.map.length : replicas;
+    let items = Array.apply(null, new Array(total));
+    return (
+      <Table selectable={false}>
+        <TableBody displayRowCheckbox={false}>
+          {
+            items.map((item, i) => {
+              if (!spec.containers.new[i]) {
+                spec.containers.new[i] = {
+                  state: "creating",
+                  id: ""
+                }
+              }
+              return (
+                <GetContainer index={i} container={spec.containers.new[i]}/>
+              )
+            })
+          }
+        </TableBody>
+      </Table>
+    )
+  }
+};
+
+const GetContainer = (props) => {
+  const {index, container} = props;
+  return (
+    <TableRow key={index}>
+      <TableRowColumn className="text-left">
+
+        <i className={"fa fa-" + ((container.state === "creating" || container.state === "destroying") ?
+          "refresh fa-spin" : "circle")}
+           style={{color: getStateColor(container.state)}}
+           aria-hidden="true"/>
+
+        <span style={{color: "#999999"}}> {container.id.substring(0, 12)}</span>
+      </TableRowColumn>
+      <TableRowColumn className="text-center"
+                      style={{width: "120px", color: getStateColor(container.state)}}>
+        {container.state}
+      </TableRowColumn>
+      <TableRowColumn className="text-right" style={{width: "50px"}}>
+        <i className="fa fa-bars" aria-hidden="true"/>
+      </TableRowColumn>
+    </TableRow>
+  )
+};
 
 const SpecCard = (props) => {
   const {spec, replicas} = props;
@@ -41,94 +115,80 @@ const SpecCard = (props) => {
     e.stopPropagation();
     props.selectHandler(val);
   }
-
   return (
     <Paper className="card">
-      <Card>
-        <CardHeader title={spec.image}>
+      <div className="container-fluid container-border-bottom">
+        <div className="pull-right card-status">
           <span onClick={e => selectHandler(e, spec)} className=" cursor-pointer pull-right">settings</span>
-          <br/>
-        </CardHeader>
-        <CardText>
-          <div className="row">
-
-            <div className="col-md-3 col-xs-12" style={{padding: "0 10px"}}>
-              <ServiceMemoryChart up={resizeHandler} down={resizeHandler}
-                                  replicas={replicas}
-                                  value={spec.memory}/>
-            </div>
-
-
-            <div className="col-xs-9 col-xs-12">
-              <div className="row" style={{padding: "5px 0"}}>
-                <div className="col-xs-4">
-                  <i className="fa fa-circle" style={{color: "#D3D3D3"}} aria-hidden="true"/> Memory:
-                </div>
-                <div className="col-xs-8" style={{textAlign: "left"}}>
-                  {props.replicas * spec.memory} MB
-                </div>
-              </div>
-              <div className="row" style={{padding: "5px 0"}}>
-                <div className="col-xs-4">
-                  <i className="fa fa-circle" style={{color: "#D3D3D3"}} aria-hidden="true"/> Build:
-                </div>
-                <div className="col-xs-8" style={{textAlign: "left"}}>
-                  -
-                </div>
-              </div>
-              <div className="row" style={{padding: "5px 0"}}>
-                <div className="col-xs-4">
-                  <i className="fa fa-circle" style={{color: "#D3D3D3"}} aria-hidden="true"/> Ports:
-                </div>
-                <div className="col-xs-8" style={{textAlign: "left"}}>
-                  {
-                    (!!spec.ports && !!Object.keys(spec.ports).length)
-                      ? Object.keys(spec.ports).map((key) => {
-                      return <Chip key={key}
-                                   style={{float: "left", marginRight: "5px"}}>{spec.ports[key].external + "/" + spec.ports[key].protocol}</Chip>
-                    })
-                      : "-"
-                  }
-                </div>
-              </div>
-              <div className="row" style={{padding: "5px 0"}}>
-                <div className="col-xs-4">
-                  <i className="fa fa-circle" style={{color: "#D3D3D3"}} aria-hidden="true"/> Last Updated:
-                </div>
-                <div className="col-xs-8" style={{textAlign: "left"}}>
-                  <Timestamp time={new Date(spec.meta.created || "")}/>
-                </div>
-              </div>
-            </div>
+        </div>
+        <h3>
+          <i className={"fa fa-" + ((!spec.ready) ? "refresh fa-spin" : "check")}
+             style={{color: getStateColor((!spec.ready) ? "pending" : "started")}}
+             aria-hidden="true"/>
+          <span style={{marginLeft: "10px"}}>
+            {spec.image}
+          </span>
+        </h3>
+      </div>
+      <div className='container-fluid container-border-bottom'>
+        <div className="row">
+          <div className="col-md-4 col-sm-6  col-xs-12" style={{padding: "0 25px"}}>
+            <ServiceMemoryChart up={resizeHandler} down={resizeHandler}
+                                replicas={replicas}
+                                value={spec.memory}/>
           </div>
+          <div className="col-xs-12  col-md-8 col-sm-6 col-xs-12">
+            <div className="row" style={{padding: "5px 0"}}>
+              <div className="col-xs-5">
+                <i className="fa fa-circle" style={{color: "#D3D3D3"}} aria-hidden="true"/> Memory:
+              </div>
+              <div className="col-xs-7" style={{textAlign: "left"}}>
+                {spec.memory} MB
+              </div>
+            </div>
 
-          <Table selectable={false}>
-            <TableBody displayRowCheckbox={false}>
-              {
-                spec.containers.map((container, index) => {
-                  return (
-                    <TableRow key={index}>
-                      <TableRowColumn className="text-left">
-                        <i className="fa fa-circle" style={{color: getStateColor(container.state)}}
-                           aria-hidden="true"/>
-                        <span> {container.id.substring(0, 12)}</span>
-                      </TableRowColumn>
-                      <TableRowColumn className="text-center"
-                                      style={{width: "120px", color: getStateColor(container.state)}}>
-                        {container.state}
-                      </TableRowColumn>
-                      <TableRowColumn className="text-right" style={{width: "50px"}}>
-                        <i className="fa fa-bars" aria-hidden="true"/>
-                      </TableRowColumn>
-                    </TableRow>
-                  )
-                })
-              }
-            </TableBody>
-          </Table>
+            <div className="row" style={{padding: "5px 0"}}>
+              <div className="col-xs-5">
+                <i className="fa fa-circle" style={{color: "#D3D3D3"}} aria-hidden="true"/> Build:
+              </div>
+              <div className="col-xs-7" style={{textAlign: "left"}}>
+                -
+              </div>
+            </div>
 
-        </CardText>
-      </Card>
+            <div className="row" style={{padding: "5px 0"}}>
+              <div className="col-xs-5">
+                <i className="fa fa-circle" style={{color: "#D3D3D3"}} aria-hidden="true"/> Ports:
+              </div>
+              <div className="col-xs-7" style={{textAlign: "left"}}>
+                {
+                  (!!spec.ports && !!Object.keys(spec.ports).length)
+                    ? Object.keys(spec.ports).map((key) => {
+                      return <Chip key={key} style={{float: "left", marginRight: "5px"}}>
+                        {spec.ports[key].external + "/" + spec.ports[key].protocol}</Chip>;
+                  })
+                    : "-"
+                }
+              </div>
+            </div>
+
+            <div className="row" style={{padding: "5px 0"}}>
+              <div className="col-xs-5">
+                <i className="fa fa-circle" style={{color: "#D3D3D3"}} aria-hidden="true"/> Last Updated:
+              </div>
+              <div className="col-xs-7" style={{textAlign: "left"}}>
+                <Timestamp time={new Date(spec.meta.created || "")}/>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div className='container-fluid container-border-bottom'>
+        <div className="row">
+          <GetContainers spec={spec} replicas={replicas} />
+        </div>
+      </div>
     </Paper>
   )
 };

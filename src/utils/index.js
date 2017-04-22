@@ -188,6 +188,7 @@ export function request(method, url, body, auth) {
 export function getStateColor(status) {
   const statuses = {
     created: "#607D8B",
+    creating: "#607D8B",
     warning: "#FF9800",
     pending: "#3F51B5",
     stop: "#3F51B5",
@@ -202,8 +203,10 @@ export function getStateColor(status) {
     terminated: "#212121",
     exited: "#212121",
     destroy: "#212121",
+    destroying: "#212121",
     destroyed: "#212121"
   };
+  status = status || "pending";
   return statuses[status.toLowerCase()] || "#607D8B";
 }
 

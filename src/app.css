@@ -75,6 +75,10 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
 }
 
+.header > div {
+  padding-bottom:25px;
+}
+
 .header-container {
   padding: 0 50px;
   position: relative;
@@ -104,7 +108,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .header-tabs {
   position: absolute;
-  bottom: 0;
+  bottom: -25px;
 }
 
 .header-tabs a:first-child {
