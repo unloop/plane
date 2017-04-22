@@ -61,12 +61,17 @@ function convert(payload) {
     pod.containers && pod.containers.forEach(function (container) {
       if (!containers[container.spec]) containers[container.spec] = [];
       containers[container.spec].push(container);
-    })
+    });
   });
 
   let spec = payload.spec || [];
+
   for (let key in spec) {
-    spec[key].containers = containers[spec[key].meta.id] || [];
+    spec[key].containers = {
+      old: containers[spec[key].meta.parent] || [],
+      new: containers[spec[key].meta.id] || []
+    };
+    spec[key].ready = (spec[key].containers.old.length === 0);
   }
 
   return {
@@ -74,7 +79,7 @@ function convert(payload) {
     dns: payload.dns || {},
     sources: payload.sources || {},
     pods: payload.pods || [],
-    spec: spec,
+    spec: spec
   };
 }
 
@@ -102,12 +107,12 @@ export default createReducer(initialState, {
   [SERVICE_FETCH_FAILURE]: (state) => {
     let newState = Object.assign({}, state);
     newState.action.load.pending = false;
-    return newState
+    return newState;
   },
   [SERVICES_FETCH_REQUEST]: (state) => {
     let newState = Object.assign({}, state);
     newState.action.load.pending = true;
-    return newState
+    return newState;
   },
   [SERVICES_FETCH_SUCCESS]: (state, payload) => {
     let newState = Object.assign({}, state);
@@ -130,7 +135,7 @@ export default createReducer(initialState, {
   [SERVICES_FETCH_FAILURE]: (state) => {
     let newState = Object.assign({}, state);
     newState.action.load.pending = false;
-    return newState
+    return newState;
   },
   [SERVICE_CREATE_REQUEST]: (state) => {
     return state;

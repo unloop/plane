@@ -1,8 +1,9 @@
 .PHONY : build clean start stop restart logs
 
+run:
+	npm start
+
 restart: stop start logs
-
-
 
 build:
 	echo "build lastbackend dashboard image"

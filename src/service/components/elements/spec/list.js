@@ -28,14 +28,14 @@ const SpecCardList = (props) => {
       <h5>Specs</h5>
       {
         Object.keys(spec).map((index) => {
-          return <SpecCard key={index} spec={spec[index]}
+          return <SpecCard key={index} spec={spec[index]} parent={spec[index].meta.parent||{containers:[]}}
                            replicas={props.replicas}
                            changeMemoryHandler={props.changeMemoryHandler}
-                           selectHandler={props.selectCardHandler}/>
+          selectHandler={props.selectCardHandler}/>;
         })
       }
     </div>
-  )
+  );
 };
 
 
