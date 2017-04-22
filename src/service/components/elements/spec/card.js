@@ -90,7 +90,7 @@ const GetContainer = (props) => {
            style={{color: getStateColor(container.state)}}
            aria-hidden="true"/>
 
-        <span style={{color: "#999999"}}> {container.id.substring(0, 12)}</span>
+        <span> {container.id.substring(0, 12)}</span>
       </TableRowColumn>
       <TableRowColumn className="text-center"
                       style={{width: "120px", color: getStateColor(container.state)}}>
