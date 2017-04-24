@@ -78,7 +78,7 @@ const ServiceHeader = (props) => {
               </div>
               <div className="col-md-7 col-xs-12 text-right">
                 <ServiceReplicasChart up={changeReplicasHandler} down={changeReplicasHandler}
-                                      value={service.meta.replicas}/>
+                                      value={service.meta.replicas} state={service.state.replicas}/>
                 <ServiceCostChart replicas={service.meta.replicas} value={getTotalMemoryHandler(service)}/>
               </div>
             </div>

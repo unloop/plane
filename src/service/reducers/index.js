@@ -79,6 +79,7 @@ function convert(payload) {
     dns: payload.dns || {},
     sources: payload.sources || {},
     pods: payload.pods || [],
+    state: payload.state || {replicas:{}, resources:{}},
     spec: spec
   };
 }

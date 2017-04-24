@@ -24,7 +24,7 @@ const ServiceMemoryChart = (props) => (
        viewBox="0 0 160 150">
     <circle cx="55" cy="75" r="50" fill="transparent" strokeWidth="10" stroke="grey"/>
     <circle cx="55" cy="75" r="50" fill="transparent" strokeWidth="10" stroke="#2275dc"/>
-    <text x="55" y="75" fill="#2275dc" fontSize="16" textAnchor="middle">{props.value * props.replicas || 0}</text>
+    <text x="55" y="75" fill="#2275dc" fontSize="16" textAnchor="middle">{props.value || 0}</text>
     <text x="55" y="95" fill="black" fontSize="12" textAnchor="middle">RAM</text>
     <g className="cursor-pointer" transform="translate(110, 40)" onClick={(e) => props.up(e, props.value + 32)}>
       <path d="M18.221,7.206l9.585,9.585c0.879,0.879,0.879,2.317,0,3.195l-0.8,0.801c-0.877,0.878-2.316,0.878-3.194,0
@@ -43,8 +43,7 @@ const ServiceMemoryChart = (props) => (
 ServiceMemoryChart.propTypes = {
   up: PropTypes.func.isRequired,
   down: PropTypes.func.isRequired,
-  value: PropTypes.number.isRequired,
-  replicas: PropTypes.number.isRequired
+  value: PropTypes.number.isRequired
 };
 
 export default ServiceMemoryChart;
