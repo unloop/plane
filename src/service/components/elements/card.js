@@ -45,8 +45,8 @@ const ServiceCard = (props) => {
 
         <div className="pull-right card-status">
           {
-            (!!service.state)
-              ? service.state.toUpperCase()
+            (!!service.state.state)
+              ? service.state.state.toUpperCase()
               : "RUNNING"
           }
         </div>
@@ -80,7 +80,7 @@ const ServiceCard = (props) => {
         <div className="row">
           <div className="col-md-6 col-xs-12">
             <ServiceReplicasChart up={changeReplicasHandler} down={changeReplicasHandler}
-                                  value={service.meta.replicas}/>
+                                  value={service.meta.replicas} state={service.state.replicas}/>
             {/*<ServiceMemoryChart up={changeMemoryHandler} down={changeMemoryHandler} replicas={service.meta.replicas} value={service.spec.memory}/>*/}
           </div>
           <div className="col-md-6 col-xs-12">
