@@ -18,27 +18,33 @@
 
 import React from "react";
 import FloatingActionButton from "material-ui/FloatingActionButton";
-import ContentAdd from "material-ui/svg-icons/action/settings-applications";
+import ContentSettings from "material-ui/svg-icons/action/settings-applications";
 import CommonBreadcrumbsHeader from "./breadcrumbs";
 
 const CommonHeader = (props) => {
   return (
-  <nav className="navbar navbar-default">
-    <div className="container-fluid">
-      <div className="pull-right">
-        <div className="header-info">
-          <div className="header-logout pull-right">
-            <FloatingActionButton disabled={true} href={"/settings"}>
-              <ContentAdd />
-            </FloatingActionButton>
+    <nav className="navbar navbar-default">
+      <div className="container-fluid">
+        <div className="pull-right">
+          <div className="header-info">
+            {
+              (!props.settings)
+                ? (
+                <div className="header-logout pull-right">
+                  <FloatingActionButton href={"/settings"}>
+                    <ContentSettings />
+                  </FloatingActionButton>
+                </div>
+              )
+                : ""
+            }
           </div>
         </div>
+        <div className="pull-left">
+          <CommonBreadcrumbsHeader {...props}/>
+        </div>
       </div>
-      <div className="pull-left">
-        <CommonBreadcrumbsHeader {...props}/>
-      </div>
-    </div>
-  </nav>
+    </nav>
   );
 };
 

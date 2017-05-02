@@ -20,6 +20,7 @@ import {combineReducers} from "redux";
 
 import common from "../common/reducers";
 import namespace from "../namespace/reducers";
+import {node, vendor} from "../settings/reducers";
 import service from "../service/reducers";
 import build from "../build/reducers";
 import volume from "../volume/reducers";
@@ -31,6 +32,8 @@ function get() {
   let reducers = {};
   reducers["common"] = common;
   reducers["namespace"] = namespace;
+  reducers["node"] = node;
+  reducers["vendor"] = vendor;
   reducers["service"] = service;
   reducers["build"] = build;
   reducers["volume"] = volume;

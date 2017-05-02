@@ -15,20 +15,17 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Last.Backend LLC.
 //
-
 // Pages
-import NamespaceCreatePage from './pages/create';
-import NamespaceListPage from './pages/list';
-import NamespaceInfoPage from './pages/info';
-
+import NamespaceCreatePage from "./pages/create";
+import NamespaceListPage from "./pages/list";
+import NamespaceInfoPage from "./pages/info";
 // Partials
-import NamespaceAccessContainer from './partials/access'
-import NamespaceActivityContainer from './partials/activity'
-import NamespaceOverviewContainer from './partials/overview'
-import NamespaceSettingsContainer from './partials/settings'
-
+import NamespaceAccessContainer from "./partials/access";
+import NamespaceActivityContainer from "./partials/activity";
+import NamespaceOverviewContainer from "./partials/overview";
+import NamespaceSettingsContainer from "./partials/settings";
 // Elements
-import NamespaceCardList from './elements/list'
+import NamespaceCardList from "./elements/list";
 
 export {
   NamespaceCreatePage, NamespaceListPage, NamespaceInfoPage,

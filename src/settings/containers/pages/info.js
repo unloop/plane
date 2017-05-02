@@ -17,25 +17,37 @@
 //
 
 import React from "react";
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {SettingsHeader} from "../../components";
 
-class SettingsInfoPage extends React.Component {
+
+class NodeInfoPage extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {}
   }
 
   render() {
     return (
       <div>
+        <SettingsHeader {...this.props} />
         <container className="container-info">
           {this.props.children}
         </container>
       </div>
     )
   }
-
 }
 
-export default SettingsInfoPage;
+NodeInfoPage.propTypes = {
+  children: PropTypes.element.isRequired
+};
+
+const mapStateToProps = (state, props) => ({
+  location: props.location
+});
+
+export default connect(mapStateToProps)(NodeInfoPage);
 
