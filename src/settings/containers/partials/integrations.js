@@ -109,7 +109,7 @@ class IntegrationsContainer extends React.Component {
                                      onChange={(e) => this.changeTokenHandler(e, token)}/>
                           <RaisedButton label="Save" primary={true}
                                         onClick={e => this.connectHandler(e, key, this.state.token)}/>
-                          <RaisedButton label="Cancel" primary={true}
+                          <RaisedButton label="Cancel" secondary={true} style={{marginLeft: "10px"}}
                                         onClick={this.cancelHandler}/>
                         </div>
                       )
