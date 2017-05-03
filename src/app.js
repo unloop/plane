@@ -27,6 +27,7 @@ import './common/styles/main.css';
 import './deploy/styles/main.css';
 import './namespace/styles/main.css';
 import './service/styles/main.css';
+import './settings/styles/main.css';
 
 const MainThemeStyles = () => getMuiTheme({
   palette: {

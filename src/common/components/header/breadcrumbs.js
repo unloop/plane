@@ -21,7 +21,7 @@ import {Link} from "react-router";
 
 const CommonBreadcrumbsHeader = (props) => {
 
-  const {namespace, service, build, volume} = props;
+  const {namespace, service, build, volume, settings} = props;
 
   return (
     <ol className="breadcrumb">
@@ -59,6 +59,12 @@ const CommonBreadcrumbsHeader = (props) => {
             <Link to={`#`}>
               <span>{volume.name}</span>
             </Link>
+          </li> : null
+      }
+      {
+        settings ?
+          <li>
+            <span>Settings</span>
           </li> : null
       }
     </ol>

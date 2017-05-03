@@ -16,18 +16,37 @@
 // from Last.Backend LLC.
 //
 
-import React from 'react';
+import React from "react";
 
-import CircularProgress from 'material-ui/CircularProgress';
+import CircularProgress from "material-ui/CircularProgress";
 
-const Preloader = (props) => (
-  <div className="loader">
-    <div className="loader-container">
-      <h3><b>Please wait a moment while we are preparing the content !</b></h3>
-      <CircularProgress/>
-    </div>
-  </div>
-);
+
+class Preloader extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      show: true
+    };
+  }
+
+  componentWillUnmount() {
+    this.setState({show: false});
+  }
+
+  render() {
+    return (this.state.show)
+      ? (
+        <div className="loader">
+          <div className="loader-container">
+            <h3><b>Please wait a moment while we are preparing the content!</b></h3>
+            <CircularProgress/>
+          </div>
+        </div>
+      )
+      : "";
+  }
+}
 
 export default Preloader;
 

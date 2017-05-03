@@ -41,7 +41,7 @@ import {
   ServiceSettingsContainer
 } from "./service/containers";
 // Import settings containers
-import {SettingsInfoPage, SettingsIntegrationContainer} from "./settings/containers";
+import {IntegrationContainer, SettingsInfoPage, NodeOverviewContainer} from "./settings/containers";
 // Import build containers
 import {BuildInfoPage, BuildLogsContainer, BuildOverviewContainer} from "./build/containers";
 
@@ -84,14 +84,14 @@ export default () => {
       </Route>
 
       <Route path="/settings" components={{content: SettingsInfoPage}}>
-        <IndexRoute component={SettingsIntegrationContainer}/>
+        <IndexRoute component={NodeOverviewContainer}/>
+        <Route path="/settings/integrations" component={IntegrationContainer}/>
       </Route>
 
       <Route path="/ns/:namespace/v/:volume" components={{content: VolumeInfoPage}}>
         <IndexRoute component={VolumeOverviewContainer}/>
         <Route path="/ns/:namespace/v/:volume" component={VolumeOverviewContainer}/>
       </Route>
-
 
       <Route path='/404' components={{content: NotFoundPage}}/>
       <Redirect from='*' to='/404'/>

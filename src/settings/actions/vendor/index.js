@@ -16,32 +16,8 @@
 // from Last.Backend LLC.
 //
 
-import React from "react";
-import {connect} from "react-redux";
-import {CommonHeader} from "../../components";
+import connect from './connect';
+import disconnect from './disconnect';
+import list from './list';
 
-class CommonHeaderContainer extends React.Component {
-  render() {
-    return <CommonHeader {...this.props} />
-  }
-}
-
-const mapStateToProps = (state, props) => {
-  return ({
-      namespace: props.namespace || {},
-      service: props.service || {},
-      pod: props.pod || {},
-      build: props.build || {},
-      volume: props.volume || {},
-      settings: props.settings || false
-    }
-  );
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return ({
-    dispatch
-  });
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CommonHeaderContainer);
+export default {connect, disconnect, list}

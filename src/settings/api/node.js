@@ -16,32 +16,18 @@
 // from Last.Backend LLC.
 //
 
-import React from "react";
-import {connect} from "react-redux";
-import {CommonHeader} from "../../components";
+import {request} from "../../utils";
 
-class CommonHeaderContainer extends React.Component {
-  render() {
-    return <CommonHeader {...this.props} />
-  }
+const api_host = process.env.REACT_APP_API_HOST;
+
+export function get(id) {
+  let uri = [api_host, "node", id].join("/");
+  return request("GET", uri, null, true);
 }
 
-const mapStateToProps = (state, props) => {
-  return ({
-      namespace: props.namespace || {},
-      service: props.service || {},
-      pod: props.pod || {},
-      build: props.build || {},
-      volume: props.volume || {},
-      settings: props.settings || false
-    }
-  );
-};
+export function list() {
+  let uri = [api_host, "node"].join("/");
+  return request("GET", uri, null, true);
+}
 
-const mapDispatchToProps = (dispatch) => {
-  return ({
-    dispatch
-  });
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CommonHeaderContainer);
+export default {get, list}

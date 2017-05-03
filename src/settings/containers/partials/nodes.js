@@ -17,31 +17,41 @@
 //
 
 import React from "react";
+import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {CommonHeader} from "../../components";
 
-class CommonHeaderContainer extends React.Component {
-  render() {
-    return <CommonHeader {...this.props} />
+import {NodeCardList} from "../../../settings/containers";
+
+
+class NodeOverviewContainer extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {}
   }
+
+  render() {
+    const {node} = this.props;
+    return (
+      <div className="container-fluid">
+        <div className="row">
+          <NodeCardList node={node}/>
+        </div>
+      </div>
+    )
+  };
 }
 
+NodeOverviewContainer.propTypes = {
+  params: PropTypes.object.isRequired,
+  node: PropTypes.object,
+};
+
 const mapStateToProps = (state, props) => {
-  return ({
-      namespace: props.namespace || {},
-      service: props.service || {},
-      pod: props.pod || {},
-      build: props.build || {},
-      volume: props.volume || {},
-      settings: props.settings || false
-    }
-  );
+  return {
+    node: state.node.list[props.params.node]
+  }
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return ({
-    dispatch
-  });
-};
+export default connect(mapStateToProps)(NodeOverviewContainer);
 
-export default connect(mapStateToProps, mapDispatchToProps)(CommonHeaderContainer);
