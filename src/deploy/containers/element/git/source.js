@@ -17,7 +17,7 @@
 //
 
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 import {connect} from "react-redux";
 import SelectField from "material-ui/SelectField";
@@ -34,6 +34,7 @@ class SourceContainer extends React.Component {
     this.state = {
       vendor: props.vendor,
       username: props.service.username,
+      host: props.service.host,
       repo: '',
       branch: '',
     };
@@ -43,12 +44,22 @@ class SourceContainer extends React.Component {
     this.props.dispatch(deployActions.vcs.ReposActionCreators(this.props.vendor));
   }
 
-  repoChangeHandler = (e) => {
-    this.setState({repo: e.target.value});
+  repoClearHandler = (e) => {
+    e.stopPropagation();
+    this.setState({repo: "", branch: ""});
   };
 
-  branchChangeHandler = (e) => {
-    this.setState({branch: e.target.value});
+  repoChangeHandler = (e, index, value) => {
+    e.stopPropagation();
+    this.setState({repo: value, branch: ""});
+    this.props.dispatch(deployActions.vcs.BranchesActionCreators(this.props.vendor, value));
+  };
+
+  branchChangeHandler = (e, index, value) => {
+    e.stopPropagation();
+    this.setState({branch: value});
+    let url = "git@" + this.state.host + ":" + this.state.username + "/" + this.state.repo + ".git";
+    this.props.setUrl(url, value)
   };
 
   render() {
@@ -58,21 +69,21 @@ class SourceContainer extends React.Component {
           <TextField disabled floatingLabelText={"Username"} value={this.state.username}/>
         </div>
         <div className="col-xs-12">
-          <SelectField floatingLabelText="Repository" value={this.state.repo} onChange={this.repoChangeHandler}>
-            <MenuItem value={1} primaryText="Never"/>
-            <MenuItem value={2} primaryText="Every Night"/>
-            <MenuItem value={3} primaryText="Weeknights"/>
-            <MenuItem value={4} primaryText="Weekends"/>
-            <MenuItem value={5} primaryText="Weekly"/>
+          <SelectField floatingLabelText="Repository" value={this.state.repo}
+                       onClick={this.repoClearHandler}
+                       onChange={this.repoChangeHandler}>
+            {Object.keys(this.props.vcs.list).map((val) => {
+              return <MenuItem key={val} value={this.props.vcs.list[val].name}
+                               primaryText={this.props.vcs.list[val].name}/>
+            })}
           </SelectField>
         </div>
         <div className="col-xs-12">
-          <SelectField floatingLabelText="Branch" value={this.state.branch} onChange={this.branchChangeHandler}>
-            <MenuItem value={1} primaryText="Never"/>
-            <MenuItem value={2} primaryText="Every Night"/>
-            <MenuItem value={3} primaryText="Weeknights"/>
-            <MenuItem value={4} primaryText="Weekends"/>
-            <MenuItem value={5} primaryText="Weekly"/>
+          <SelectField disabled={!this.state.repo} floatingLabelText="Branch" value={this.state.branch}
+                       onChange={this.branchChangeHandler}>
+            {this.state.repo && this.props.vcs.list[this.state.repo].branches.map((val, index) => {
+              return <MenuItem key={index} value={val.name} primaryText={val.name}/>
+            })}
           </SelectField>
         </div>
       </div>
@@ -82,7 +93,7 @@ class SourceContainer extends React.Component {
 
 SourceContainer.propTypes = {
   vendor: PropTypes.string.isRequired,
-  //service: PropTypes.object.isRequired,
+  service: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state, props) => {

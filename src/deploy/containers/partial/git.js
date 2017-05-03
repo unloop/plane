@@ -18,7 +18,11 @@
 import React from "react";
 import {connect} from "react-redux";
 import FloatingActionButton from "material-ui/FloatingActionButton";
+import {Link} from "react-router";
+
+import deployActions from "./../../actions";
 import Url from "./../element/git/url";
+import Source from "./../element/git/source";
 
 
 const vcs = {
@@ -43,7 +47,7 @@ class DeployGitContainer extends React.Component {
   }
 
   componentDidMount() {
-    // this.props.dispatch(deployActions.integration.IntegrationActionCreators());
+    this.props.dispatch(deployActions.integration.IntegrationActionCreators());
   }
 
   changeTabHandler = (e, value) => {
@@ -88,16 +92,17 @@ class DeployGitContainer extends React.Component {
 
           {
             Object.keys(vcs).map((key, index) => {
-              return (
-                (this.state.tab === key)
-                  ? (
-                  <div key={index}>Coming soon
-                    {/*<Source key={index} vendor={key} setUrl={this.props.setUrl} service={this.props.integration.list[key]}>*/}
-                  </div>
-                )
-                  :
-                  ""
-              )
+              return (this.state.tab === key)
+                ? (!!this.props.integration.list[key]) ?
+                  <Source key={index} vendor={key}
+                          setUrl={this.props.setUrl}
+                          service={this.props.integration.list[key]}/>
+                  : (
+                    <div className="alert alert-warning" role="alert">
+                      For connect {key}, go to the <Link to={"/settings/integrations"}>integration</Link> settings.
+                    </div>
+                  )
+                : ""
             })
           }
         </div>

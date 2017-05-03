@@ -16,15 +16,27 @@
 // from Last.Backend LLC.
 //
 
-import {createReducer} from '../../utils';
+import {createReducer} from "../../utils";
 import {
-  INTEGRATION_FETCH_REQUEST, INTEGRATION_FETCH_SUCCESS, INTEGRATION_FETCH_FAILURE,
-  TEMPLATE_LIST_FETCH_REQUEST, TEMPLATE_LIST_FETCH_SUCCESS, TEMPLATE_LIST_FETCH_FAILURE,
-  VCS_REPO_LIST_FETCH_REQUEST, VCS_REPO_LIST_FETCH_SUCCESS, VCS_REPO_LIST_FETCH_FAILURE,
-  VCS_BRANCH_LIST_FETCH_REQUEST, VCS_BRANCH_LIST_FETCH_SUCCESS, VCS_BRANCH_LIST_FETCH_FAILURE,
-  DOCKER_REPO_LIST_FETCH_REQUEST, DOCKER_REPO_LIST_FETCH_SUCCESS, DOCKER_REPO_LIST_FETCH_FAILURE,
-  DOCKER_TAG_LIST_FETCH_REQUEST, DOCKER_TAG_LIST_FETCH_SUCCESS, DOCKER_TAG_LIST_FETCH_FAILURE
-} from '../constants';
+  DOCKER_REPO_LIST_FETCH_FAILURE,
+  DOCKER_REPO_LIST_FETCH_REQUEST,
+  DOCKER_REPO_LIST_FETCH_SUCCESS,
+  DOCKER_TAG_LIST_FETCH_FAILURE,
+  DOCKER_TAG_LIST_FETCH_REQUEST,
+  DOCKER_TAG_LIST_FETCH_SUCCESS,
+  INTEGRATION_FETCH_FAILURE,
+  INTEGRATION_FETCH_REQUEST,
+  INTEGRATION_FETCH_SUCCESS,
+  TEMPLATE_LIST_FETCH_FAILURE,
+  TEMPLATE_LIST_FETCH_REQUEST,
+  TEMPLATE_LIST_FETCH_SUCCESS,
+  VCS_BRANCH_LIST_FETCH_FAILURE,
+  VCS_BRANCH_LIST_FETCH_REQUEST,
+  VCS_BRANCH_LIST_FETCH_SUCCESS,
+  VCS_REPO_LIST_FETCH_FAILURE,
+  VCS_REPO_LIST_FETCH_REQUEST,
+  VCS_REPO_LIST_FETCH_SUCCESS
+} from "../constants";
 
 const integrationState = {
   list: {},
@@ -97,6 +109,7 @@ export const vcs = createReducer(initialVCSState, {
         description: payload[key].description,
         private: payload[key].private,
         default_branch: payload[key].default_branch,
+        branches: [],
       };
     });
 
@@ -110,7 +123,7 @@ export const vcs = createReducer(initialVCSState, {
   },
   [VCS_BRANCH_LIST_FETCH_SUCCESS]: (state, payload) => {
     let newState = Object.assign({}, state);
-    newState.list[payload.repo].branches = payload.branches||[];
+    newState.list[payload.repo].branches = payload.branches || [];
     return newState;
   },
   [VCS_BRANCH_LIST_FETCH_FAILURE]: (state) => {
@@ -155,7 +168,7 @@ export const registry = createReducer(initialRegistryState, {
       ? payload.name
       : payload.owner + "/" + payload.name;
 
-    newState.list[id].tags = payload.tags||[];
+    newState.list[id].tags = payload.tags || [];
 
     return newState;
   },

@@ -21,12 +21,12 @@ import {request} from "../../utils";
 const api_host = process.env.REACT_APP_API_HOST;
 
 export function repos(vendor) {
-  let uri = [api_host, "vcs", vendor, "repos"].join("/");
+  let uri = [api_host, "vendor", vendor, "repos"].join("/");
   return request("GET", uri, null, true);
 }
 
 export function branches(vendor, repo) {
-  let uri = [api_host, "vcs", vendor, "branches"].join("/") + "?repo=" + repo;
+  let uri = [api_host, "vendor", vendor, "branches"].join("/") + "?repo=" + repo;
   return request("GET", uri, null, true);
 }
 

@@ -24,7 +24,7 @@ import {node, vendor} from "../settings/reducers";
 import service from "../service/reducers";
 import build from "../build/reducers";
 import volume from "../volume/reducers";
-import {registry, template, integration} from "../deploy/reducers";
+import {registry, template, vcs, integration} from "../deploy/reducers";
 import activity from "../activity/reducers";
 import {reducer as toastrReducer} from "react-redux-toastr";
 
@@ -38,6 +38,7 @@ function get() {
   reducers["build"] = build;
   reducers["volume"] = volume;
   reducers["template"] = template;
+  reducers["vcs"] = vcs;
   reducers["registry"] = registry;
   reducers["integration"] = integration;
   reducers["activity"] = activity;

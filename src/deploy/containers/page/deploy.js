@@ -79,7 +79,7 @@ class DeployCreatePage extends React.Component {
   };
 
   setUrl = (url, branch) => {
-    this.spec.url = !!url.length ? [url, branch || "master"].join("#") : "";
+    this.spec.url = (branch === "master") ? url : [url, branch].join("#");
     this.setState({spec: this.spec})
   };
 
@@ -141,7 +141,7 @@ class DeployCreatePage extends React.Component {
 
                 {
                   (this.state.tab === "push")
-                    ? <DeployGitPushContainer setUrl={this.setUrl} {...this.props}/>
+                    ? <DeployGitPushContainer {...this.props}/>
                     : ""
                 }
 
