@@ -25,13 +25,19 @@ import vendorActions from "../../actions/vendor";
 
 let vendors = {
   github: {
-    name: "GitHub"
+    name: "GitHub",
+    floatingLabelText: "Access token",
+    hintText: "access_token"
   },
   bitbucket: {
-    name: "Bitbucket"
+    name: "Bitbucket",
+    floatingLabelText: "Access token",
+    hintText: "bitbucket_user:access_token"
   },
   gitlab: {
-    name: "GitLab"
+    name: "GitLab",
+    floatingLabelText: "Access token",
+    hintText: "access_token"
   }
 };
 
@@ -103,7 +109,8 @@ class IntegrationsContainer extends React.Component {
                       : (this.state.selected === key)
                       ? (
                         <div>
-                          <TextField fullWidth={true} floatingLabelText="Access token" type="password"
+                          <TextField fullWidth={true} floatingLabelText={vendors[key].floatingLabelText}
+                                     hintText={vendors[key].hintText}
                                      ref={(val) => token = val}
                                      value={this.state.token}
                                      onChange={(e) => this.changeTokenHandler(e, token)}/>
