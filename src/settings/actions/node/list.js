@@ -40,7 +40,6 @@ export const ListActionCreators = (namespace) => (dispatch) => {
   return new Promise((resolve, reject) => {
     api.list(namespace)
       .then(response => {
-        console.log('>>>>>>>>>>>>', response);
         dispatch(SuccessAction(response));
         resolve(response);
       })

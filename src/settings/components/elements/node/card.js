@@ -19,7 +19,6 @@
 import React from "react";
 
 import Paper from "material-ui/Paper";
-import Timestamp from "react-timestamp";
 
 
 const NodeCard = (props) => {
@@ -28,21 +27,25 @@ const NodeCard = (props) => {
     <Paper className="node-card">
       <div className="container-fluid container-border-bottom">
         <div className="pull-right node-card-status">
-          <span className="badge" style={{background:"#4CAF50"}}>online</span>
+          <span className="badge" style={{background: "#4CAF50"}}>online</span>
         </div>
         <h3>{node.meta.hostname}</h3>
       </div>
       <div className="container-fluid container-border-bottom">
-        <div className="row">
-          <div className="col-xs-6">Memory</div>
-          <div className="col-xs-6" style={{textAlign: "right"}}>0 MB</div>
-        </div>
-        <div className="row">
-          <div className="col-xs-6">Last Updated</div>
-          <div className="col-xs-6" style={{textAlign: "right"}}>
-            <Timestamp time={new Date()}/>
-          </div>
-        </div>
+        <ul className="list-group">
+          <li className="list-group-item" style={{border: "none", padding: "3px 0"}}>
+            <span>Memory</span>
+            <span className="pull-right">{node.meta.memory.used} MB/{node.meta.memory.total} MB</span>
+          </li>
+          <li className="list-group-item" style={{border: "none", padding: "3px 0"}}>
+            <span>OS</span>
+            <span className="pull-right">{node.meta.os_name}</span>
+          </li>
+          <li className="list-group-item" style={{border: "none", padding: "3px 0"}}>
+            <span>Architecture</span>
+            <span className="pull-right">{node.meta.architecture}</span>
+          </li>
+        </ul>
       </div>
     </Paper>
   );

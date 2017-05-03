@@ -47,8 +47,7 @@ const initialNodeState = {
 
 function convert(payload) {
   return {
-    meta: payload.meta || {},
-    state: payload.state || {},
+    meta: payload.meta || {}
   };
 }
 
