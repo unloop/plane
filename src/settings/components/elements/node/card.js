@@ -27,16 +27,16 @@ const NodeCard = (props) => {
     <Paper className="node-card">
       <div className="container-fluid container-border-bottom">
         <div className="pull-right node-card-status">
-          <span className="badge" style={{background: "#4CAF50"}}>online</span>
+          {
+            (node.alive)
+              ? <span className="badge" style={{background: "#4CAF50"}}>online</span>
+              : <span className="badge" style={{background: "#607D8B"}}>offline</span>
+          }
         </div>
         <h3>{node.meta.hostname}</h3>
       </div>
       <div className="container-fluid container-border-bottom">
         <ul className="list-group">
-          <li className="list-group-item" style={{border: "none", padding: "3px 0"}}>
-            <span>Memory</span>
-            <span className="pull-right">{node.meta.memory.used} MB/{node.meta.memory.total} MB</span>
-          </li>
           <li className="list-group-item" style={{border: "none", padding: "3px 0"}}>
             <span>OS</span>
             <span className="pull-right">{node.meta.os_name}</span>
@@ -44,6 +44,18 @@ const NodeCard = (props) => {
           <li className="list-group-item" style={{border: "none", padding: "3px 0"}}>
             <span>Architecture</span>
             <span className="pull-right">{node.meta.architecture}</span>
+          </li>
+          <li className="list-group-item" style={{border: "none", padding: "3px 0"}}>
+            <span>Containers</span>
+            <span className="pull-right">{node.state.allocated.containers}/{node.state.capacity.containers}</span>
+          </li>
+          <li className="list-group-item" style={{border: "none", padding: "3px 0"}}>
+            <span>Pods</span>
+            <span className="pull-right">{node.state.allocated.pods}/{node.state.capacity.pods}</span>
+          </li>
+          <li className="list-group-item" style={{border: "none", padding: "3px 0"}}>
+            <span>Memory</span>
+            <span className="pull-right">{node.state.allocated.memory} MB/{node.state.capacity.memory} MB</span>
           </li>
         </ul>
       </div>
