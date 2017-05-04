@@ -24,15 +24,15 @@ import {
   NODES_FETCH_FAILURE,
   NODES_FETCH_REQUEST,
   NODES_FETCH_SUCCESS,
-  VENDORS_FETCH_FAILURE,
-  VENDORS_FETCH_REQUEST,
-  VENDORS_FETCH_SUCCESS,
   VENDOR_CONNECT_FETCH_FAILURE,
   VENDOR_CONNECT_FETCH_REQUEST,
   VENDOR_CONNECT_FETCH_SUCCESS,
   VENDOR_DISCONNECT_FETCH_FAILURE,
   VENDOR_DISCONNECT_FETCH_REQUEST,
-  VENDOR_DISCONNECT_FETCH_SUCCESS
+  VENDOR_DISCONNECT_FETCH_SUCCESS,
+  VENDORS_FETCH_FAILURE,
+  VENDORS_FETCH_REQUEST,
+  VENDORS_FETCH_SUCCESS
 } from "../constants";
 
 const initialNodeState = {
@@ -47,7 +47,12 @@ const initialNodeState = {
 
 function convert(payload) {
   return {
-    meta: payload.meta || {}
+    alive: payload.alive || false,
+    meta: payload.meta || {},
+    state: payload.state || {
+      capacity: {},
+      allocated: {}
+    }
   };
 }
 
