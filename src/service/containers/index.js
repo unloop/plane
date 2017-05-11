@@ -22,15 +22,15 @@ import ServiceOverviewContainer from "./partials/overview";
 import ServiceBuildsContainer from "./partials/builds";
 import ServiceDeployContainer from "./partials/deploy";
 import ServiceMetricsContainer from "./partials/metrics";
-import ServiceLogsContainer from "./partials/logs";
 import ServiceActivityContainer from "./partials/activity";
 import ServiceSettingsContainer from "./partials/settings";
 //Elements
 import ServiceCardList from "./elements/list";
+import ServiceLogsContainer from "./elements/logs";
 
 export {
   ServiceInfoPage,
   ServiceOverviewContainer, ServiceBuildsContainer, ServiceDeployContainer,
-  ServiceLogsContainer, ServiceMetricsContainer, ServiceActivityContainer, ServiceSettingsContainer,
-  ServiceCardList
+  ServiceMetricsContainer, ServiceActivityContainer, ServiceSettingsContainer,
+  ServiceCardList, ServiceLogsContainer
 }

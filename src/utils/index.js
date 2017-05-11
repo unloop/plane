@@ -156,7 +156,7 @@ export function sockets(store) {
   };
 }
 
-export function request(method, url, body, auth) {
+export function requestJSON(method, url, body) {
 
   let headers = {};
   headers["Content-Type"] = "application/json";
@@ -182,6 +182,26 @@ export function request(method, url, body, auth) {
       return response.json().then((e) => {
         throw e;
       });
+    });
+}
+
+export function request(method, url, headers, body) {
+
+  let opts = {};
+  opts.method = method;
+  opts.headers = headers || {};
+
+  if (!!body) {
+    opts.body = JSON.stringify(body);
+  }
+
+  return fetch(url, opts)
+    .then(response => {
+      return (response.status >= 200 && response.status < 300)
+        ? response
+        : response.then((e) => {
+          throw e
+        });
     });
 }
 

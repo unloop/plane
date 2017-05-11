@@ -16,23 +16,23 @@
 // from Last.Backend LLC.
 //
 
-import {request} from "../../utils";
+import {requestJSON} from "../../utils";
 
 const api_host = process.env.REACT_APP_API_HOST;
 
 export function create(namespace, service, spec) {
   let uri = [api_host, "namespace", namespace, "service", service, "spec"].join("/");
-  return request("GET", uri, spec, true);
+  return requestJSON("GET", uri, spec);
 }
 
 export function update(namespace, service, id, spec) {
   let uri = [api_host, "namespace", namespace, "service", service, "spec", id].join("/");
-  return request("PUT", uri, spec, true);
+  return requestJSON("PUT", uri, spec);
 }
 
 export function remove(namespace, service, id) {
   let uri = [api_host, "namespace", namespace, "service", service, "spec", id].join("/");
-  return request("DELETE", uri, null, true);
+  return requestJSON("DELETE", uri, null);
 }
 
 export default {create, update, remove}

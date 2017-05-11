@@ -22,6 +22,7 @@ import {connect} from "react-redux";
 import {PodCardList, ServiceDetailInfo, SpecCardList, SpecSettingsContainer} from "../../components";
 import {VolumeCardList} from "../../../volume/components";
 import specActions from "./../../actions/spec";
+import {ServiceLogsContainer} from "./../../containers";
 
 
 class ServiceOverviewContainer extends React.Component {
@@ -29,12 +30,17 @@ class ServiceOverviewContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      panel: "general",
       selected: null
     };
   }
 
   selectSpecHandler = (val) => {
-    this.setState({selected: val});
+    this.setState({panel: "settings", selected: val});
+  };
+
+  selectContainerHandler = (val) => {
+    this.setState({panel: "logs", selected: val});
   };
 
   changeMemoryHandler = (spec, memory) => {
@@ -48,47 +54,27 @@ class ServiceOverviewContainer extends React.Component {
   };
 
   refuseSpecHandler = () => {
-    this.setState({selected: null});
+    this.setState({panel: "general", selected: null});
   };
 
   render() {
     const {service, volume} = this.props;
-    console.log(service);
     return (
       <div className="container-fluid">
         <div className="row">
-          {
-            (!this.state.selected)
-              ? (
-
-              <div className="col-md-8">
-
-                <div className="overview-block">
-                  <PodCardList pods={service.pods}/>
-                </div>
-
-                <div className="overview-block">
-                  <SpecCardList spec={service.spec} 
-                                replicas={service.meta.replicas}
-                                changeMemoryHandler={this.changeMemoryHandler}
-                                selectCardHandler={this.selectSpecHandler}/>
-                </div>
-
-                <div className="overview-block">
-                  <VolumeCardList service={service} volume={volume}/>
-                </div>
-
-              </div>
-            )
-              : (
-              <div className="col-md-8">
-                <SpecSettingsContainer spec={this.state.selected}
-                                       applyHandler={this.applySpecHandler}
-                                       cancelHandler={this.refuseSpecHandler}/>
-              </div>
-            )
-          }
-
+          <div className="col-md-8">
+            <GetPanel params={this.props.params}
+                      panel={this.state.panel}
+                      selected={this.state.selected}
+                      service={service}
+                      volume={volume}
+                      applySpecHandler={this.applySpecHandler}
+                      refuseSpecHandler={this.refuseSpecHandler}
+                      changeMemoryHandler={this.changeMemoryHandler}
+                      selectCardHandler={this.selectSpecHandler}
+                      selectContainerHandler={this.selectContainerHandler}
+            />
+          </div>
           <div className="col-md-4">
             <ServiceDetailInfo service={service}/>
           </div>
@@ -97,6 +83,43 @@ class ServiceOverviewContainer extends React.Component {
     );
   }
 }
+
+const GetPanel = (props) => {
+  switch (props.panel) {
+    case "settings":
+      return <SpecSettingsContainer spec={props.selected}
+                                    applyHandler={props.applySpecHandler}
+                                    cancelHandler={props.refuseSpecHandler}/>;
+    case "logs":
+      let pod = props.service.pods.filter((pod)=> {
+        return pod.meta.id === props.selected.pod;
+      });
+      return <ServiceLogsContainer container={props.selected}
+                                   service={props.service}
+                                   containers={pod[0].containers}
+                                   cancelHandler={props.refuseSpecHandler}/>;
+    default:
+      return (
+        <div>
+          <div className="overview-block">
+            <PodCardList pods={props.service.pods}/>
+          </div>
+
+          <div className="overview-block">
+            <SpecCardList spec={props.service.spec}
+                          replicas={props.service.meta.replicas}
+                          changeMemoryHandler={props.changeMemoryHandler}
+                          selectCardHandler={props.selectCardHandler}
+                          selectContainerHandler={props.selectContainerHandler}/>
+          </div>
+
+          <div className="overview-block">
+            <VolumeCardList service={props.service} volume={props.volume}/>
+          </div>
+        </div>
+      )
+  }
+};
 
 const mapStateToProps = (state, props) => {
   return ({

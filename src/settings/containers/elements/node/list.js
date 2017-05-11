@@ -55,7 +55,7 @@ class NodeCardList extends React.Component {
               <div className="row">
                 {Object.keys(node.list).map((id) => {
                   return (
-                    <div key={id} className="col-xs-4">
+                    <div key={id} className="col-md-4 col-xs-12">
                       <NodeCard node={node.list[id]}/>
                     </div>
                   )

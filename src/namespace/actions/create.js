@@ -54,7 +54,7 @@ export const CreateActionCreators = (name, description) => (dispatch) => {
       .catch(error => {
 
         const header = "Namespace create failed!";
-        let content = error.message;
+        let content = error.logs;
 
         switch (error.status) {
           case "Unauthorized":
@@ -62,7 +62,7 @@ export const CreateActionCreators = (name, description) => (dispatch) => {
             break;
           case "Bad Parameter":
           case "Not Unique":
-            content = error.message;
+            content = error.logs;
             break;
           case "Incorrect json":
             content = getError('INVALID_INCOMING_JSON');

@@ -16,23 +16,23 @@
 // from Last.Backend LLC.
 //
 
-import {request} from "../../utils";
+import {requestJSON} from "../../utils";
 
 const api_host = process.env.REACT_APP_API_HOST;
 
 export function connect(vendor, token) {
   let uri = [api_host, "vendor", vendor, token].join("/");
-  return request("POST", uri, null, true);
+  return requestJSON("POST", uri, null);
 }
 
 export function disconnect(vendor) {
   let uri = [api_host, "vendor", vendor].join("/");
-  return request("DELETE", uri, null, true);
+  return requestJSON("DELETE", uri, null);
 }
 
 export function list() {
   let uri = [api_host, "vendor"].join("/");
-  return request("GET", uri, null, true);
+  return requestJSON("GET", uri, null);
 }
 
 export default {connect, disconnect, list}

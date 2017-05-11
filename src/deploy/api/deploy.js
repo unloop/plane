@@ -16,12 +16,12 @@
 // from Last.Backend LLC.
 //
 
-import {request} from "../../utils";
+import {requestJSON} from "../../utils";
 
 const api_host = process.env.REACT_APP_API_HOST;
 
 export default function deploy(namespace, data) {
   let uri = [api_host, "namespace", namespace, "service"].join("/");
-  return request("POST", uri, data, true);
+  return requestJSON("POST", uri, data);
 }
 

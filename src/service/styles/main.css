@@ -36,3 +36,15 @@
 .service-sources-action {
   margin-top: 30px;
 }
+
+.content-logs-wrapper {
+  color: white;
+  border: 0;
+  background: none;
+  font-size: 8px;
+  padding: 0 10px;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}

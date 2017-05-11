@@ -60,6 +60,7 @@ function convert(payload) {
   payload.pods && payload.pods.forEach(function (pod) {
     pod.containers && pod.containers.forEach(function (container) {
       if (!containers[container.spec]) containers[container.spec] = [];
+      container.pod = pod.meta.id;
       containers[container.spec].push(container);
     });
   });

@@ -47,7 +47,7 @@ export const ListActionCreators = () => (dispatch) => {
       })
       .catch(error => {
         const header = "Namespace list load!";
-        let content = error.message;
+        let content = error.logs;
 
         switch (error.status) {
           case "Unauthorized":

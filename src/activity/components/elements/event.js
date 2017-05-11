@@ -32,7 +32,7 @@ const ActivityListEvent = (props) => {
         <small><Timestamp time={event.created}/></small>
       </div>
       <div className="pull-left activity-message">
-        <span>{event.message}</span>
+        <span>{event.logs}</span>
       </div>
     </div>
   );

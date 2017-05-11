@@ -35,7 +35,6 @@ import {
   ServiceBuildsContainer,
   ServiceDeployContainer,
   ServiceInfoPage,
-  ServiceLogsContainer,
   ServiceMetricsContainer,
   ServiceOverviewContainer,
   ServiceSettingsContainer
@@ -71,7 +70,6 @@ export default () => {
         <IndexRoute component={ServiceOverviewContainer}/>
         <Route path="/ns/:namespace/s/:service/builds" component={ServiceBuildsContainer}/>
         <Route path="/ns/:namespace/s/:service/deploy" component={ServiceDeployContainer}/>
-        <Route path="/ns/:namespace/s/:service/logs" component={ServiceLogsContainer}/>
         <Route path="/ns/:namespace/s/:service/metrics" component={ServiceMetricsContainer}/>
         <Route path="/ns/:namespace/s/:service/activity" component={ServiceActivityContainer}/>
         <Route path="/ns/:namespace/s/:service/settings" component={ServiceSettingsContainer}/>
