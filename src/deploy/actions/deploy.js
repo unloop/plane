@@ -58,7 +58,7 @@ export const DeployActionCreators = (namespace, data) => (dispatch) => {
             break;
           case "Not Found":
           case "Bad Parameter":
-            content = error.message;
+            content = error.logs;
             break;
           case "Incorrect json":
             content = getError('INVALID_INCOMING_JSON');

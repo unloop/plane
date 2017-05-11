@@ -16,33 +16,33 @@
 // from Last.Backend LLC.
 //
 
-import {request} from "../../utils";
+import {request, requestJSON} from "../../utils";
 
 const api_host = process.env.REACT_APP_API_HOST;
 
 export function get(namespace, id) {
   let uri = [api_host, "namespace", namespace, "service", id].join("/");
-  return request("GET", uri, null, true);
+  return requestJSON("GET", uri, null);
 }
 
 export function list(namespace) {
   let uri = [api_host, "namespace", namespace, "service"].join("/");
-  return request("GET", uri, null, true);
+  return requestJSON("GET", uri, null);
 }
 
 export function update(namespace, service, data) {
   let uri = [api_host, "namespace", namespace, "service", service].join("/");
-  return request("PUT", uri, data, true);
+  return requestJSON("PUT", uri, data);
 }
 
 export function remove(namespace, service) {
   let uri = [api_host, "namespace", namespace, "service", service].join("/");
-  return request("DELETE", uri, null, true);
+  return requestJSON("DELETE", uri, null);
 }
 
-export function logs(namespace, service, pod) {
-  let uri = [api_host, "namespace", namespace, "service", service, "logs"].join("/") + "?spec=" + pod;
-  return request("GET", uri, null, true);
+export function logs(namespace, service, pod, container) {
+  let uri = [api_host, "namespace", namespace, "service", service, "logs"].join("/") + "?pod=" + pod + "&container=" + container;
+  return request("GET", uri, null, null);
 }
 
 export default {get, list, update, remove, logs}

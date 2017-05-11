@@ -16,18 +16,18 @@
 // from Last.Backend LLC.
 //
 
-import {request} from "../../utils";
+import {requestJSON} from "../../utils";
 
 const api_host = process.env.REACT_APP_API_HOST;
 
 export function repos(name) {
   let uri = [api_host, "vendor", "docker", "search"].join("/")+"?name="+name;
-  return request("GET", uri, null, false);
+  return requestJSON("GET", uri, null);
 }
 
 export function tags(owner, name) {
   let uri = [api_host, "vendor", "docker", "tags"].join("/")+"?owner="+owner+"&name="+name;
-  return request("GET", uri, null, false);
+  return requestJSON("GET", uri, null);
 }
 
 export default {repos, tags}

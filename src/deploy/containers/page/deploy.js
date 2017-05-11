@@ -23,7 +23,7 @@ import {Link} from "react-router";
 
 import deployActions from "./../../actions";
 import {DeployHeader} from "../../components";
-import {DeployDockerContainer, DeployGitContainer, DeployGitPushContainer, DeployTemplateContainer} from "../index";
+import {DeployDockerContainer, DeployGitContainer} from "../index";
 
 const initSpec = {
   name: "",
@@ -114,12 +114,12 @@ class DeployCreatePage extends React.Component {
 
               <div className="col-xs-8 col-md-offset-2 text-center">
                 {/*<RaisedButton style={{margin: "0 10px"}} buttonStyle={{width: "160px", height: "55px"}}*/}
-                              {/*onClick={e => this.tabChangeHandler(e, "template")}*/}
-                              {/*primary={this.state.tab === "template"}*/}
-                              {/*label="TEMPLATES"/>*/}
+                {/*onClick={e => this.tabChangeHandler(e, "template")}*/}
+                {/*primary={this.state.tab === "template"}*/}
+                {/*label="TEMPLATES"/>*/}
                 {/*<RaisedButton style={{margin: "0 10px"}} buttonStyle={{width: "160px", height: "55px"}}*/}
-                              {/*onClick={e => this.tabChangeHandler(e, "push")} primary={this.state.tab === "push"}*/}
-                              {/*label="GIT PUSH"/>*/}
+                {/*onClick={e => this.tabChangeHandler(e, "push")} primary={this.state.tab === "push"}*/}
+                {/*label="GIT PUSH"/>*/}
                 <RaisedButton style={{margin: "0 10px"}} buttonStyle={{width: "160px", height: "55px"}}
                               onClick={e => this.tabChangeHandler(e, "git")} primary={this.state.tab === "git"}
                               label="GIT REPOSITORIES"/>
@@ -134,15 +134,15 @@ class DeployCreatePage extends React.Component {
             <div className="row">
               <div className="container-fluid">
                 {/*{*/}
-                  {/*(this.state.tab === "template")*/}
-                    {/*? <DeployTemplateContainer setTemplate={this.setTemplate} {...this.props}/>*/}
-                    {/*: ""*/}
+                {/*(this.state.tab === "template")*/}
+                {/*? <DeployTemplateContainer setTemplate={this.setTemplate} {...this.props}/>*/}
+                {/*: ""*/}
                 {/*}*/}
 
                 {/*{*/}
-                  {/*(this.state.tab === "push")*/}
-                    {/*? <DeployGitPushContainer {...this.props}/>*/}
-                    {/*: ""*/}
+                {/*(this.state.tab === "push")*/}
+                {/*? <DeployGitPushContainer {...this.props}/>*/}
+                {/*: ""*/}
                 {/*}*/}
 
                 {

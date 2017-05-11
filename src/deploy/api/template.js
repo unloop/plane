@@ -16,13 +16,13 @@
 // from Last.Backend LLC.
 //
 
-import {request} from "../../utils";
+import {requestJSON} from "../../utils";
 
 const api_host = process.env.REACT_APP_API_HOST;
 
 export function list() {
   let uri = [api_host, "template"].join("/");
-  return request("GET", uri, null, false);
+  return requestJSON("GET", uri, null);
 }
 
 export default {list}

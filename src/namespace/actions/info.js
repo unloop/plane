@@ -49,11 +49,11 @@ export const InfoActionCreators = (id) => (dispatch) => {
       })
       .catch(error => {
         const header = "Namespace load!";
-        let content = error.message;
+        let content = error.logs;
 
         switch (error.status) {
           case "Not Found":
-            content = error.message;
+            content = error.logs;
             browserHistory.push("/");
             break;
           case "Unauthorized":

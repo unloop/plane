@@ -16,13 +16,14 @@
 // from Last.Backend LLC.
 //
 
-import React from 'react';
-import {connect} from 'react-redux';
+import React from "react";
+import {connect} from "react-redux";
 
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+// import SelectField from "material-ui/SelectField";
+// import MenuItem from "material-ui/MenuItem";
+import RaisedButton from "material-ui/RaisedButton";
 
-import * as api from '../../api'
+import * as api from "../../api/service";
 
 
 class ServiceLogsContainer extends React.Component {
@@ -31,20 +32,33 @@ class ServiceLogsContainer extends React.Component {
     super(props);
     this.state = {
       data: [],
-      pod: 0,
+      container: 0,
     };
+    this.changeContainerHandler = this.changeContainerHandler.bind(this);
   }
 
-  changePodHandler = (e, index, value) => {
-    e.preventDefault();
-    this.setState({pod: value});
-  };
+  scrollToBottom() {
+    const scrollHeight = this.logs.scrollHeight;
+    const height = this.logs.clientHeight;
+    const maxScrollTop = scrollHeight - height;
+    this.logs.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  changeContainerHandler(e, index, val) {
+    e.stopPropagation();
+    this.setState({container: val});
+  }
 
   render() {
     let self = this;
+    let {service, container} = this.props;
 
-    if (!!this.props.service.id && this.state.data.length === 0) {
-      api.logs(this.props.params.namespace, this.props.service.name, this.props.service.pods[this.state.pod].name)
+    if (this.state.data.length === 0) {
+      api.logs(service.meta.namespace, service.meta.name, container.pod, container.id)
         .then((res) => {
           const reader = res.body.getReader();
           const decoder = new TextDecoder();
@@ -56,7 +70,6 @@ class ServiceLogsContainer extends React.Component {
             self.setState({data: data});
             return reader.read().then(process);
           }).then(() => {
-            console.log('All done!');
           });
 
         })
@@ -69,15 +82,16 @@ class ServiceLogsContainer extends React.Component {
         <div className="row">
           <div className="col-xs-12">
             <div className="pull-right">
-              {/*<FlatButton label="download" default={true}/>*/}
-              <SelectField autoWidth={true} fullWidth={true} value={this.state.pod} style={{fontSize: "10px"}}
-                           onChange={this.changePodHandler}>
-                {
-                  Object.keys(this.props.service.pods).map((key, index) => {
-                    return <MenuItem key={index} value={index} primaryText={this.props.service.pods[key].name}/>
-                  })
-                }
-              </SelectField>
+              {/*<SelectField fullWidth={true} value={this.state.container} style={{fontSize: "10px"}}*/}
+                           {/*onChange={this.changeContainerHandler}>*/}
+                {/*{*/}
+                  {/*Object.keys(this.props.containers).map((key, index) => {*/}
+                    {/*return <MenuItem key={index} value={index}*/}
+                                     {/*primaryText={this.props.containers[key].id}/>*/}
+                  {/*})*/}
+                {/*}*/}
+              {/*</SelectField>*/}
+              <RaisedButton label="Back" secondary={true} onClick={this.props.cancelHandler} className="pull-right"/>
             </div>
             <h4>Logs</h4>
           </div>
@@ -85,8 +99,8 @@ class ServiceLogsContainer extends React.Component {
         <hr />
         <div className="row">
           <div className="col-xs-12">
-            <div className="logs-container">
-              <pre style={{color: "white", border: 0, background: "none", fontSize: "8px", padding: "0 10px"}}>
+            <div className="logs-container" ref={(div) => this.logs = div}>
+              <pre className="content-logs-wrapper">
               {
                 this.state.data.map(function (val, index) {
                   return <div key={index}>{val}</div>
@@ -101,10 +115,16 @@ class ServiceLogsContainer extends React.Component {
   }
 }
 
+ServiceLogsContainer.propTypes = {
+  cancelHandler: React.PropTypes.func.isRequired
+};
+
 const mapStateToProps = (state, props) => {
-  return {
-    service: state.service.list[props.params.service] || {pods: []},
-  }
+  return ({
+    service: props.service,
+    container: props.container,
+    containers: props.containers,
+  });
 };
 
 export default connect(mapStateToProps)(ServiceLogsContainer);

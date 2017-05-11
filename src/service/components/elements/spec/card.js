@@ -48,7 +48,8 @@ const GetContainers = (props) => {
               }
               spec.containers.old[i].state = "provision";
               return (
-                <GetContainer key={i} index={i} container={spec.containers.old[i]}/>
+                <GetContainer key={i} index={i} container={spec.containers.old[i]}
+                              selectContainerHandler={props.selectContainerHandler} />
               )
             })
           }
@@ -70,7 +71,8 @@ const GetContainers = (props) => {
                 }
               }
               return (
-                <GetContainer key={i} index={i} container={spec.containers.new[i]}/>
+                <GetContainer key={i} index={i} container={spec.containers.new[i]}
+                              selectContainerHandler={props.selectContainerHandler} />
               )
             })
           }
@@ -98,7 +100,7 @@ const GetContainer = (props) => {
         {container.state}
       </TableRowColumn>
       <TableRowColumn className="text-right" style={{width: "50px"}}>
-        <i className="fa fa-bars" aria-hidden="true"/>
+        <i className="fa fa-bars" aria-hidden="true" onClick={e => props.selectContainerHandler(e, container)}/>
       </TableRowColumn>
     </TableRow>
   )
@@ -112,15 +114,21 @@ const SpecCard = (props) => {
     props.changeMemoryHandler(spec, val);
   }
 
-  function selectHandler(e, val) {
+  function selectCardHandler(e, val) {
     e.stopPropagation();
-    props.selectHandler(val);
+    props.selectCardHandler(val);
   }
+
+  function selectContainerHandler(e, val) {
+    e.stopPropagation();
+    props.selectContainerHandler(val);
+  }
+
   return (
     <Paper className="card">
       <div className="container-fluid container-border-bottom">
         <div className="pull-right card-status">
-          <span onClick={e => selectHandler(e, spec)} className=" cursor-pointer pull-right">settings</span>
+          <span onClick={e => selectCardHandler(e, spec)} className=" cursor-pointer pull-right">settings</span>
         </div>
         <h3>
           <i className={"fa fa-" + ((!spec.ready) ? "refresh fa-spin" : "check")}
@@ -186,7 +194,7 @@ const SpecCard = (props) => {
       </div>
       <div className='container-fluid container-border-bottom'>
         <div className="row">
-          <GetContainers spec={spec} replicas={replicas} />
+          <GetContainers spec={spec} replicas={replicas} selectContainerHandler={selectContainerHandler}/>
         </div>
       </div>
     </Paper>
@@ -197,7 +205,8 @@ SpecCard.propTypes = {
   spec: React.PropTypes.object.isRequired,
   replicas: React.PropTypes.number.isRequired,
   changeMemoryHandler: React.PropTypes.func.isRequired,
-  selectHandler: React.PropTypes.func.isRequired
+  selectCardHandler: React.PropTypes.func.isRequired,
+  selectContainerHandler: React.PropTypes.func.isRequired
 };
 
 export default SpecCard;

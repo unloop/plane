@@ -54,11 +54,11 @@ export const UpdateActionCreators = (service, spec) => (dispatch) => {
         resolve(response)
       })
       .catch(error => {
-        let content = error.message;
+        let content = error.logs;
 
         switch (error.status) {
           case "Not Found":
-            content = error.message;
+            content = error.logs;
             browserHistory.push("/ns/" + service.meta.namespace);
             break;
           case "Unauthorized":
