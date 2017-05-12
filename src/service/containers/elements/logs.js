@@ -19,8 +19,8 @@
 import React from "react";
 import {connect} from "react-redux";
 
-// import SelectField from "material-ui/SelectField";
-// import MenuItem from "material-ui/MenuItem";
+import SelectField from "material-ui/SelectField";
+import MenuItem from "material-ui/MenuItem";
 import RaisedButton from "material-ui/RaisedButton";
 
 import * as api from "../../api/service";
@@ -29,10 +29,36 @@ import * as api from "../../api/service";
 class ServiceLogsContainer extends React.Component {
 
   constructor(props) {
+
+    let pod = 0;
+    let container = 0;
+    let pods = props.service.pods || [];
+    let containers = (!!pods.length) ? pods[0].containers : [];
+
+    if (!!props.pod) {
+      for (let i = 0; i <= pods.length - 1; i++) {
+        if (pods[i].meta.id === props.pod.meta.id) {
+          pod = i;
+          containers = pods[i].containers;
+          break;
+        }
+      }
+    }
+
+    if (!!props.container) {
+      for (let i = 0; i <= containers.length - 1; i++) {
+        if (containers[i].meta.id === props.container.id) {
+          container = i;
+          break;
+        }
+      }
+    }
+
     super(props);
     this.state = {
-      data: [],
-      container: 0,
+      messages: [],
+      pod: pod,
+      container: container,
     };
     this.changeContainerHandler = this.changeContainerHandler.bind(this);
   }
@@ -48,16 +74,22 @@ class ServiceLogsContainer extends React.Component {
     this.scrollToBottom();
   }
 
+  changePodHandler(e, index, val) {
+    e.stopPropagation();
+    this.setState({messages: [], pod: val});
+  }
+
   changeContainerHandler(e, index, val) {
     e.stopPropagation();
-    this.setState({container: val});
+    this.setState({messages: [], container: val});
   }
 
   render() {
     let self = this;
-    let {service, container} = this.props;
+    let {service} = this.props;
 
-    if (this.state.data.length === 0) {
+    if (this.state.messages.length === 0) {
+      let container = this.props.service.pods[this.state.pod].containers[this.state.container];
       api.logs(service.meta.namespace, service.meta.name, container.pod, container.id)
         .then((res) => {
           const reader = res.body.getReader();
@@ -66,11 +98,10 @@ class ServiceLogsContainer extends React.Component {
           reader.read().then(function process(result) {
             if (result.done) return;
             const text = decoder.decode(result.value, {stream: true});
-            let data = self.state.data.concat(text);
-            self.setState({data: data});
+            let messages = self.state.messages.concat(text);
+            self.setState({messages: messages});
             return reader.read().then(process);
-          }).then(() => {
-          });
+          })
 
         })
         .catch((err) => {
@@ -81,28 +112,45 @@ class ServiceLogsContainer extends React.Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-xs-12">
-            <div className="pull-right">
-              {/*<SelectField fullWidth={true} value={this.state.container} style={{fontSize: "10px"}}*/}
-                           {/*onChange={this.changeContainerHandler}>*/}
-                {/*{*/}
-                  {/*Object.keys(this.props.containers).map((key, index) => {*/}
-                    {/*return <MenuItem key={index} value={index}*/}
-                                     {/*primaryText={this.props.containers[key].id}/>*/}
-                  {/*})*/}
-                {/*}*/}
-              {/*</SelectField>*/}
-              <RaisedButton label="Back" secondary={true} onClick={this.props.cancelHandler} className="pull-right"/>
+            <div className="row">
+              <div className="col-sm-2">
+                <h4>Logs</h4>
+              </div>
+              <div className="col-sm-4">
+                <SelectField fullWidth={true} value={this.state.pod} style={{fontSize: "10px"}}
+                             onChange={this.changePodHandler.bind(this)}>
+                  {
+                    Object.keys(this.props.service.pods).map((key, index) => {
+                      return <MenuItem key={index} value={index}
+                                       primaryText={this.props.service.pods[key].meta.id}/>
+                    })
+                  }
+                </SelectField>
+              </div>
+              <div className="col-sm-4">
+                <SelectField fullWidth={true} value={this.state.container} style={{fontSize: "10px"}}
+                             onChange={this.changeContainerHandler.bind(this)}>
+                  {
+                    Object.keys(this.props.service.pods[this.state.pod].containers).map((key, index) => {
+                      return <MenuItem key={index} value={index}
+                                       primaryText={this.props.service.pods[this.state.pod].containers[key].id}/>
+                    })
+                  }
+                </SelectField>
+              </div>
+              <div className="col-sm-2">
+                <RaisedButton label="Back" secondary={true} onClick={this.props.cancelHandler} className="pull-right"/>
+              </div>
             </div>
-            <h4>Logs</h4>
           </div>
         </div>
-        <hr />
+
         <div className="row">
           <div className="col-xs-12">
             <div className="logs-container" ref={(div) => this.logs = div}>
               <pre className="content-logs-wrapper">
               {
-                this.state.data.map(function (val, index) {
+                this.state.messages.map(function (val, index) {
                   return <div key={index}>{val}</div>
                 })
               }
@@ -116,14 +164,15 @@ class ServiceLogsContainer extends React.Component {
 }
 
 ServiceLogsContainer.propTypes = {
-  cancelHandler: React.PropTypes.func.isRequired
+  cancelHandler: React.PropTypes.func.isRequired,
+  service: React.PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state, props) => {
   return ({
     service: props.service,
-    container: props.container,
-    containers: props.containers,
+    pod: props.pod,
+    container: props.container
   });
 };
 

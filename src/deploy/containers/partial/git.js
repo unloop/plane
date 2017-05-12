@@ -51,7 +51,6 @@ class DeployGitContainer extends React.Component {
   }
 
   changeTabHandler = (e, value) => {
-    console.log("value", value);
     e.stopPropagation();
     this.setState({tab: value});
   };
