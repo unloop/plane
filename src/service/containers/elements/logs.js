@@ -47,7 +47,7 @@ class ServiceLogsContainer extends React.Component {
 
     if (!!props.container) {
       for (let i = 0; i <= containers.length - 1; i++) {
-        if (containers[i].meta.id === props.container.id) {
+        if (containers[i].id === props.container.id) {
           container = i;
           break;
         }
