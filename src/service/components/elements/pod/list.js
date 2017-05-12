@@ -53,7 +53,7 @@ const PodCardList = (props) => {
                        style={{color: getStateColor(status)}}
                        aria-hidden="true"></i>
                   }
-                  <span style={{paddingLeft: "5px"}}>{pod.meta.id}</span>
+                  <span style={{paddingLeft: "5px"}}>{pod.meta.name}</span>
                 </TableRowColumn>
                 <TableRowColumn
                   style={{textAlign: "right", color: getStateColor(status)}}>

@@ -37,7 +37,7 @@ class ServiceLogsContainer extends React.Component {
 
     if (!!props.pod) {
       for (let i = 0; i <= pods.length - 1; i++) {
-        if (pods[i].meta.id === props.pod.meta.id) {
+        if (pods[i].meta.name === props.pod.meta.name) {
           pod = i;
           containers = pods[i].containers;
           break;
@@ -122,7 +122,7 @@ class ServiceLogsContainer extends React.Component {
                   {
                     Object.keys(this.props.service.pods).map((key, index) => {
                       return <MenuItem key={index} value={index}
-                                       primaryText={this.props.service.pods[key].meta.id}/>
+                                       primaryText={this.props.service.pods[key].meta.name}/>
                     })
                   }
                 </SelectField>
