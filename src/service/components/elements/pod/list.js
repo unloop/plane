@@ -32,6 +32,11 @@ const PodCardList = (props) => {
     }
   }
 
+  function selectPodHandler(e, val) {
+    e.stopPropagation();
+    props.selectPodHandler(val);
+  }
+
   const {pods} = props;
   return (
     <div>
@@ -54,6 +59,9 @@ const PodCardList = (props) => {
                   style={{textAlign: "right", color: getStateColor(status)}}>
                   {status}
                 </TableRowColumn>
+                <TableRowColumn className="text-right" style={{width: "50px"}}>
+                  <i className="fa fa-bars" aria-hidden="true" onClick={e => selectPodHandler(e, pod)}/>
+                </TableRowColumn>
               </TableRow>
             )
           })}
@@ -65,7 +73,8 @@ const PodCardList = (props) => {
 
 
 PodCardList.propTypes = {
-  pods: React.PropTypes.array.isRequired
+  pods: React.PropTypes.array.isRequired,
+  selectPodHandler: React.PropTypes.func.isRequired
 };
 
 

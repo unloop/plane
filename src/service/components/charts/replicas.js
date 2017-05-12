@@ -63,8 +63,6 @@ const ServiceReplicasChart = (props) => {
   arcs.created  = {start: arcs.stopped.end, end: arcs.stopped.end + created * len};
   arcs.errored  = {start: arcs.created.end, end: arcs.created.end + errored * len};
 
-  console.log(arcs);
-
   return (
     <svg width="160px" height="150px" viewBox="0 0 160 150">
       <circle cx="55" cy="75" r="50" fill="transparent" strokeWidth="10" stroke="grey"/>

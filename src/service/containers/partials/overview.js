@@ -31,16 +31,22 @@ class ServiceOverviewContainer extends React.Component {
     super(props);
     this.state = {
       panel: "general",
-      selected: null
+      spec: null,
+      pod: null,
+      container: null
     };
   }
 
   selectSpecHandler = (val) => {
-    this.setState({panel: "settings", selected: val});
+    this.setState({panel: "settings", pod: null, container: null, spec: val});
   };
 
   selectContainerHandler = (val) => {
-    this.setState({panel: "logs", selected: val});
+    this.setState({panel: "logs", pod: null, container: val, spec: null});
+  };
+
+  selectPodHandler = (val) => {
+    this.setState({panel: "logs", pod: val, container: null, spec: null});
   };
 
   changeMemoryHandler = (spec, memory) => {
@@ -65,14 +71,17 @@ class ServiceOverviewContainer extends React.Component {
           <div className="col-md-8">
             <GetPanel params={this.props.params}
                       panel={this.state.panel}
-                      selected={this.state.selected}
+                      spec={this.state.spec}
+                      container={this.state.container}
+                      pod={this.state.pod}
                       service={service}
                       volume={volume}
                       applySpecHandler={this.applySpecHandler}
                       refuseSpecHandler={this.refuseSpecHandler}
                       changeMemoryHandler={this.changeMemoryHandler}
-                      selectCardHandler={this.selectSpecHandler}
+                      selectSpecHandler={this.selectSpecHandler}
                       selectContainerHandler={this.selectContainerHandler}
+                      selectPodHandler={this.selectPodHandler}
             />
           </div>
           <div className="col-md-4">
@@ -87,29 +96,26 @@ class ServiceOverviewContainer extends React.Component {
 const GetPanel = (props) => {
   switch (props.panel) {
     case "settings":
-      return <SpecSettingsContainer spec={props.selected}
+      return <SpecSettingsContainer spec={props.spec}
                                     applyHandler={props.applySpecHandler}
                                     cancelHandler={props.refuseSpecHandler}/>;
     case "logs":
-      let pod = props.service.pods.filter((pod)=> {
-        return pod.meta.id === props.selected.pod;
-      });
-      return <ServiceLogsContainer container={props.selected}
+      return <ServiceLogsContainer container={props.container}
+                                   pod={props.pod}
                                    service={props.service}
-                                   containers={pod[0].containers}
                                    cancelHandler={props.refuseSpecHandler}/>;
     default:
       return (
         <div>
           <div className="overview-block">
-            <PodCardList pods={props.service.pods}/>
+            <PodCardList pods={props.service.pods} selectPodHandler={props.selectPodHandler} />
           </div>
 
           <div className="overview-block">
             <SpecCardList spec={props.service.spec}
                           replicas={props.service.meta.replicas}
                           changeMemoryHandler={props.changeMemoryHandler}
-                          selectCardHandler={props.selectCardHandler}
+                          selectSpecHandler={props.selectSpecHandler}
                           selectContainerHandler={props.selectContainerHandler}/>
           </div>
 

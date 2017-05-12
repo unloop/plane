@@ -31,7 +31,7 @@ const SpecCardList = (props) => {
           return <SpecCard key={index} spec={spec[index]} parent={spec[index].meta.parent || {containers: []}}
                            replicas={props.replicas}
                            changeMemoryHandler={props.changeMemoryHandler}
-                           selectCardHandler={props.selectCardHandler}
+                           selectSpecHandler={props.selectSpecHandler}
                            selectContainerHandler={props.selectContainerHandler}/>;
         })
       }
@@ -44,7 +44,7 @@ SpecCardList.propTypes = {
   spec: React.PropTypes.array.isRequired,
   replicas: React.PropTypes.number.isRequired,
   changeMemoryHandler: React.PropTypes.func.isRequired,
-  selectCardHandler: React.PropTypes.func.isRequired,
+  selectSpecHandler: React.PropTypes.func.isRequired,
   selectContainerHandler: React.PropTypes.func.isRequired
 };
 

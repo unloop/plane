@@ -114,9 +114,9 @@ const SpecCard = (props) => {
     props.changeMemoryHandler(spec, val);
   }
 
-  function selectCardHandler(e, val) {
+  function selectSpecHandler(e, val) {
     e.stopPropagation();
-    props.selectCardHandler(val);
+    props.selectSpecHandler(val);
   }
 
   function selectContainerHandler(e, val) {
@@ -128,7 +128,7 @@ const SpecCard = (props) => {
     <Paper className="card">
       <div className="container-fluid container-border-bottom">
         <div className="pull-right card-status">
-          <span onClick={e => selectCardHandler(e, spec)} className=" cursor-pointer pull-right">settings</span>
+          <span onClick={e => selectSpecHandler(e, spec)} className=" cursor-pointer pull-right">settings</span>
         </div>
         <h3>
           <i className={"fa fa-" + ((!spec.ready) ? "refresh fa-spin" : "check")}
@@ -205,7 +205,7 @@ SpecCard.propTypes = {
   spec: React.PropTypes.object.isRequired,
   replicas: React.PropTypes.number.isRequired,
   changeMemoryHandler: React.PropTypes.func.isRequired,
-  selectCardHandler: React.PropTypes.func.isRequired,
+  selectSpecHandler: React.PropTypes.func.isRequired,
   selectContainerHandler: React.PropTypes.func.isRequired
 };
 

@@ -51,13 +51,11 @@ export default createReducer(initialState, {
     return newState;
   },
   [SOCKETS_DISCONNECTED]: (state) => {
-    console.log(state);
     let newState = Object.assign({}, state);
     newState.socket.connected = false;
     return newState;
   },
   [SOCKETS_MESSAGE_RECEIVING]: (state) => {
-    console.log(state);
     let newState = Object.assign({}, state);
     newState.socket.connected = true;
     return newState;
