@@ -16,7 +16,6 @@
 // from Last.Backend LLC.
 //
 // Charts
-import ServiceCostChart from "./charts/cost";
 import ServiceMemoryChart from "./charts/memory";
 import ServiceReplicasChart from "./charts/replicas";
 // Elements
@@ -39,7 +38,6 @@ import ServiceSpecPortsForm from "./forms/spec/settings/ports";
 
 
 export {
-  ServiceCostChart,
   ServiceMemoryChart,
   ServiceReplicasChart,
   ActivityItemElement,

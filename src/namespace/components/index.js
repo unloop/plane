@@ -22,7 +22,6 @@ import NamespaceCard from './elements/card'
 import NamespaceDetailInfo from './elements/detail'
 
 // Charts
-import NamespaceCostChart from './charts/cost'
 import NamespaceMemoryChart from './charts/memory'
 
 // Forms
@@ -30,6 +29,6 @@ import NamespaceCreateForm from './forms/create'
 
 export {
   NamespaceHeader, NamespaceCard, NamespaceDetailInfo,
-  NamespaceMemoryChart, NamespaceCostChart,
+  NamespaceMemoryChart,
   NamespaceCreateForm
 }
