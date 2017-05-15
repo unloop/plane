@@ -22,7 +22,6 @@ import Paper from "material-ui/Paper";
 import {Link} from "react-router";
 
 import NamespaceMemoryChart from "../charts/memory";
-import NamespaceCostChart from "../charts/cost";
 
 
 const NamespaceCard = (props) => {
@@ -41,7 +40,6 @@ const NamespaceCard = (props) => {
           </div>
           <div className="col-md-6 col-xs-12 namespace-card-charts">
             <NamespaceMemoryChart memory={namespace.meta.memory || 0}/>
-            <NamespaceCostChart cost={namespace.cost || 0}/>
           </div>
         </div>
       </Paper>

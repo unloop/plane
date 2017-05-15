@@ -89,8 +89,14 @@ class ServiceLogsContainer extends React.Component {
     let {service} = this.props;
 
     if (this.state.messages.length === 0) {
-      let container = this.props.service.pods[this.state.pod].containers[this.state.container];
-      api.logs(service.meta.namespace, service.meta.name, container.pod, container.id)
+
+      let pod = this.props.service.pods[this.state.pod];
+      if (!pod) return;
+
+      let container = pod.containers[this.state.container];
+      let cid = !!container ?container.id : null;
+
+      api.logs(service.meta.namespace, service.meta.name, pod.meta.name, cid)
         .then((res) => {
           const reader = res.body.getReader();
           const decoder = new TextDecoder();

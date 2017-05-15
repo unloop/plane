@@ -32,11 +32,6 @@ class ServiceGeneralForm extends React.Component {
     }
   }
 
-  changeNameHandler(e, name) {
-    e.preventDefault();
-    this.setState({name: name.input.value});
-  }
-
   changeDescriptionHandler(e, desc) {
     e.preventDefault();
     this.setState({desc: desc.input.value});
@@ -54,7 +49,7 @@ class ServiceGeneralForm extends React.Component {
   }
 
   render() {
-    let name, desc;
+    let desc;
     return (
       <div className="row">
 
@@ -65,9 +60,8 @@ class ServiceGeneralForm extends React.Component {
 
         <div className="col-md-8 col-xs-12">
           <TextField fullWidth={true} floatingLabelText="Service name" hintText="name"
-                     ref={(val) => name = val}
-                     value={this.state.name}
-                     onChange={(e) => this.changeNameHandler(e, name)}/>
+                     disabled={true}
+                     value={this.state.name}/>
 
           <br/>
 

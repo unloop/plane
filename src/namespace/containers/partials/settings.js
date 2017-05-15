@@ -39,11 +39,6 @@ class NamespaceSettingsContainer extends React.Component {
     this.props.dispatch(namespaceActions.update.ClearAction)
   }
 
-  changeNameHandler(e, name) {
-    e.preventDefault();
-    this.setState({name: name.input.value})
-  }
-
   changeDescHandler(e, desc) {
     e.preventDefault();
     this.setState({desc: desc.input.value})
@@ -57,7 +52,7 @@ class NamespaceSettingsContainer extends React.Component {
 
   render() {
     let err = this.props.namespace.action.update.error;
-    let name, desc;
+    let desc;
     return (
       <div className="container-fluid">
         <div className="row settings-block-item">
@@ -66,10 +61,10 @@ class NamespaceSettingsContainer extends React.Component {
             <desc>Main namespace settings</desc>
           </div>
           <div className="col-md-8 col-xs-12">
-            <TextField ref={val => name = val} floatingLabelText="Namespace name" hintText="name"
+            <TextField floatingLabelText="Namespace name" hintText="name"
                        errorText={err.name} fullWidth={true}
-                       value={this.state.name}
-                       onChange={(e) => this.changeNameHandler(e, name)}/>
+                       disabled={true}
+                       value={this.state.name}/>
             <br />
             <TextField ref={val => desc = val} fullWidth={true} floatingLabelText="Namespace description"
                        hintText="description" errorText={err.description}
