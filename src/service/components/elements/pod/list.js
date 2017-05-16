@@ -59,8 +59,8 @@ const PodCardList = (props) => {
                   style={{textAlign: "right", color: getStateColor(status)}}>
                   {status}
                 </TableRowColumn>
-                <TableRowColumn className="text-right" style={{width: "50px"}}>
-                  <i className="fa fa-bars" aria-hidden="true" onClick={e => selectPodHandler(e, pod)}/>
+                <TableRowColumn className="text-right" style={{width: "50px", overflow: "visible"}}>
+                  <i className="fa fa-list-alt cursor-pointer" onClick={e => selectPodHandler(e, pod)}></i>
                 </TableRowColumn>
               </TableRow>
             )

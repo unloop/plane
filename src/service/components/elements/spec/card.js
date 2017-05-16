@@ -49,7 +49,7 @@ const GetContainers = (props) => {
               spec.containers.old[i].state = "provision";
               return (
                 <GetContainer key={i} index={i} container={spec.containers.old[i]}
-                              selectContainerHandler={props.selectContainerHandler} />
+                              selectContainerHandler={props.selectContainerHandler}/>
               )
             })
           }
@@ -72,7 +72,7 @@ const GetContainers = (props) => {
               }
               return (
                 <GetContainer key={i} index={i} container={spec.containers.new[i]}
-                              selectContainerHandler={props.selectContainerHandler} />
+                              selectContainerHandler={props.selectContainerHandler}/>
               )
             })
           }
@@ -88,19 +88,16 @@ const GetContainer = (props) => {
     <TableRow key={index}>
       <TableRowColumn className="text-left">
 
-        <i className={"fa fa-" + ((container.state === "provision") ?
-          "refresh fa-spin" : "circle")}
-           style={{color: getStateColor(container.state)}}
-           aria-hidden="true"/>
+        <i className={"fa fa-" + ((container.state === "provision") ? "refresh fa-spin" : "circle")}
+           style={{color: getStateColor(container.state)}} aria-hidden="true"/>
 
         <span> {container.id.substring(0, 12)}</span>
       </TableRowColumn>
-      <TableRowColumn className="text-center"
-                      style={{width: "120px", color: getStateColor(container.state)}}>
+      <TableRowColumn className="text-center" style={{width: "120px", color: getStateColor(container.state)}}>
         {container.state}
       </TableRowColumn>
-      <TableRowColumn className="text-right" style={{width: "50px"}}>
-        <i className="fa fa-bars" aria-hidden="true" onClick={e => props.selectContainerHandler(e, container)}/>
+      <TableRowColumn className="text-right" style={{width: "50px", overflow: "visible"}}>
+        <i className="fa fa-list-alt cursor-pointer" onClick={e => props.selectContainerHandler(e, container)}></i>
       </TableRowColumn>
     </TableRow>
   )
@@ -128,7 +125,7 @@ const SpecCard = (props) => {
     <Paper className="card">
       <div className="container-fluid container-border-bottom">
         <div className="pull-right card-status">
-          <span onClick={e => selectSpecHandler(e, spec)} className=" cursor-pointer pull-right">settings</span>
+          <span onClick={e => selectSpecHandler(e, spec)} className=" cursor-pointer text-right">settings</span>
         </div>
         <h3>
           <i className={"fa fa-" + ((!spec.ready) ? "refresh fa-spin" : "check")}
@@ -172,8 +169,8 @@ const SpecCard = (props) => {
                 {
                   (!!spec.ports && !!Object.keys(spec.ports).length)
                     ? Object.keys(spec.ports).map((key) => {
-                      return <Chip key={key} style={{float: "left", marginRight: "5px"}}>
-                        {spec.ports[key].external + "/" + spec.ports[key].protocol}</Chip>;
+                    return <Chip key={key} style={{float: "left", marginRight: "5px"}}>
+                      {spec.ports[key].external + "/" + spec.ports[key].protocol}</Chip>;
                   })
                     : "-"
                 }
