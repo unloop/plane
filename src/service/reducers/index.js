@@ -55,9 +55,10 @@ const initialState = {
 };
 
 function convert(payload) {
-
+  let data = Object.assign({}, payload);
   let containers = {};
-  payload.pods && payload.pods.forEach(function (pod) {
+
+  data.pods && data.pods.forEach(function (pod) {
     pod.containers && pod.containers.forEach(function (container) {
       if (!containers[container.spec]) containers[container.spec] = [];
       container.pod = pod.meta.name;
@@ -65,8 +66,7 @@ function convert(payload) {
     });
   });
 
-  let spec = payload.spec || [];
-
+  let spec = data.spec || [];
   for (let key in spec) {
     spec[key].containers = {
       old: containers[spec[key].meta.parent] || [],
@@ -76,11 +76,11 @@ function convert(payload) {
   }
 
   return {
-    meta: payload.meta,
-    dns: payload.dns || {},
-    sources: payload.sources || {},
-    pods: payload.pods || [],
-    state: payload.state || {replicas:{}, resources:{}},
+    meta: data.meta,
+    dns: data.dns || {},
+    sources: data.sources || {},
+    pods: data.pods || [],
+    state: data.state || {replicas: {}, resources: {}},
     spec: spec
   };
 }
