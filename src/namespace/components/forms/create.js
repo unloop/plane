@@ -16,49 +16,62 @@
 // from Last.Backend LLC.
 //
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import {Link} from 'react-router'
-import TextField from 'material-ui/TextField';
-import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import {Link} from "react-router";
+import TextField from "material-ui/TextField";
+import FlatButton from "material-ui/FlatButton";
+import RaisedButton from "material-ui/RaisedButton";
 
-const NamespaceCreateForm = (props) => {
-  let err = props.namespace.action.create.error;
-  let name, desc;
-  return (
-    <container>
-      <div className="container text-center">
-        <h1>Welcome to Last.Backend!</h1>
-        <div>Last.Backend cloud allows you deploy and manage apps.</div>
-        <div>Here you can create namespace for your apps.</div>
-      </div>
-      <div className="container text-center">
-        <form className="create-namespace"
-              onSubmit={(e) => props.createHandler(e, name.input.value, desc.input.value)}>
-          <div className="row">
-            <TextField ref={ (val) => name = val } fullWidth={true} errorText={err.name}
-                       floatingLabelText="Namespace name" hintText="name"/>
-            <br />
-            <TextField ref={ (val) => desc = val } fullWidth={true} errorText={err.description}
-                       floatingLabelText="Namespace description"
-                       hintText="description"/>
-            <br />
-          </div>
-          <div className="row">
-            <br />
-            <RaisedButton disabled={props.namespace.action.create.pending} label="Create Namespace" className="float-right"
-                          type="submit" primary={true}/>
-            <br />
-            <br />
-            <FlatButton containerElement={<Link to="/"/>} label="Cancel"/>
-          </div>
-        </form>
-      </div>
-    </container>
-  )
-};
+class NamespaceCreateForm extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {}
+  }
+
+  componentDidMount(){
+    this.nameInput.focus();
+  }
+
+  render() {
+
+    let err = this.props.namespace.action.create.error;
+
+    return (
+      <container>
+        <div className="container text-center">
+          <h1>Welcome to Last.Backend!</h1>
+          <div>Last.Backend cloud allows you deploy and manage apps.</div>
+          <div>Here you can create namespace for your apps.</div>
+        </div>
+        <div className="container text-center">
+          <form className="create-namespace"
+                onSubmit={(e) => this.props.createHandler(e, this.nameInput.input.value, this.descInput.input.value)}>
+            <div className="row">
+              <TextField ref={(input) => this.nameInput = input} fullWidth={true} errorText={err.name}
+                         floatingLabelText="Namespace name" hintText="name"/>
+              <br />
+              <TextField ref={ (input) => this.descInput = input } fullWidth={true} errorText={err.description}
+                         floatingLabelText="Namespace description"
+                         hintText="description"/>
+              <br />
+            </div>
+            <div className="row">
+              <br />
+              <RaisedButton disabled={this.props.namespace.action.create.pending} label="Create Namespace"
+                            className="float-right" type="submit" primary={true}/>
+              <br />
+              <br />
+              <FlatButton containerElement={<Link to="/"/>} label="Cancel"/>
+            </div>
+          </form>
+        </div>
+      </container>
+    );
+  }
+}
 
 NamespaceCreateForm.propTypes = {
   createHandler: PropTypes.func.isRequired

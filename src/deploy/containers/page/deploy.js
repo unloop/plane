@@ -25,12 +25,14 @@ import deployActions from "./../../actions";
 import {DeployHeader} from "../../components";
 import {DeployDockerContainer, DeployGitContainer} from "../index";
 
-const initSpec = {
+const initData = {
   name: "",
-  memory: 128,
   template: "",
   image: "",
   url: "",
+  spec: {
+    memory: 128
+  }
 };
 
 class DeployCreatePage extends React.Component {
@@ -39,63 +41,63 @@ class DeployCreatePage extends React.Component {
     super(props);
     this.state = {
       tab: 'git',
-      spec: initSpec,
+      data: initData,
     };
   }
 
-  spec = Object.assign({}, initSpec);
+  data = Object.assign({}, initData);
 
   tabChangeHandler = (e, value) => {
     e.stopPropagation();
-    this.spec = Object.assign({}, initSpec);
+    this.data = Object.assign({}, initData);
     this.setState({
       tab: value,
     });
   };
 
   setName = (name) => {
-    this.spec.name = name;
-    this.setState({spec: this.spec})
+    this.data.name = name;
+    this.setState({data: this.data})
   };
 
   setMemory = (memory) => {
-    this.spec.memory = memory;
-    this.setState({spec: this.spec})
+    this.data.spec.memory = memory;
+    this.setState({data: {spec: this.data}})
   };
 
   setResource = (resource) => {
-    this.spec.resource = resource;
-    this.setState({spec: this.spec})
+    this.data.resource = resource;
+    this.setState({data: this.data})
   };
 
   setTemplate = (template, version) => {
-    this.spec.template = template + ":" + (version || "latest");
-    this.setState({spec: this.spec})
+    this.data.template = template + ":" + (version || "latest");
+    this.setState({data: this.data})
   };
 
   setImage = (owner, image, version) => {
-    this.spec.image = (owner || "library") + "/" + image + ":" + (version || "latest");
-    this.setState({spec: this.spec})
+    this.data.image = (owner || "library") + "/" + image + ":" + (version || "latest");
+    this.setState({data: this.data})
   };
 
   setUrl = (url, branch) => {
-    this.spec.url = (branch === "master") ? url : [url, branch].join("#");
-    this.setState({spec: this.spec})
+    this.data.url = (branch === "master") ? url : [url, branch].join("#");
+    this.setState({data: this.data})
   };
 
   onClickToDeploy = () => {
     if (this.checkDisableDeployHandler()) return;
-    this.props.dispatch(deployActions.deploy.DeployActionCreators(this.props.namespace, this.spec))
+    this.props.dispatch(deployActions.deploy.DeployActionCreators(this.props.namespace, this.data))
   };
 
   checkDisableDeployHandler() {
     switch (this.state.tab) {
       case "template":
-        return !this.spec.template;
+        return !this.data.template;
       case "git":
-        return !this.spec.url;
+        return !this.data.url;
       case "docker":
-        return !this.spec.image;
+        return !this.data.image;
       default:
         return true;
     }

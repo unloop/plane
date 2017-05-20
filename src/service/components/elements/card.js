@@ -31,13 +31,9 @@ const ServiceCard = (props) => {
 
   function changeReplicasHandler(e, value) {
     e.preventDefault();
+    if (service.state.state == "destroyed") return;
     props.dispatch(serviceActions.update.UpdateActionCreators(service, {replicas: value}));
   }
-
-  // function changeMemoryHandler(e, value) {
-  //   e.preventDefault();
-  //   props.dispatch(serviceActions.update.UpdateActionCreators(service, {spec: {memory: value}}));
-  // }
 
   return (
     <Paper className="card">
@@ -51,10 +47,22 @@ const ServiceCard = (props) => {
           }
         </div>
 
-        <Link to={`/ns/${service.meta.namespace}/s/${service.meta.name}`}>
-          <h3> {service.meta.name} </h3>
-        </Link>
-        <Link target={'blank'} to={service.dns.primary}> {service.dns.primary} </Link>
+        {
+          (service.state.state != "destroyed")
+            ? (
+            <div>
+              <Link to={`/ns/${service.meta.namespace}/s/${service.meta.name}`}>
+                <h3> {service.meta.name} </h3>
+              </Link>
+              <Link target={'blank'} to={service.dns.primary}> {service.dns.primary} </Link>
+            </div>
+          )
+            : (
+            <div>
+              <h3> {service.meta.name} </h3>
+              <p>{service.dns.primary}</p>
+            </div>)
+        }
       </div>
       {
         (!!service.build)
@@ -81,7 +89,6 @@ const ServiceCard = (props) => {
           <div className="col-md-6 col-xs-12">
             <ServiceReplicasChart up={changeReplicasHandler} down={changeReplicasHandler}
                                   value={service.meta.replicas} state={service.state.replicas}/>
-            {/*<ServiceMemoryChart up={changeMemoryHandler} down={changeMemoryHandler} replicas={service.meta.replicas} value={service.spec.memory}/>*/}
           </div>
           <div className="col-md-6 col-xs-12">
             <table className="table card-table">

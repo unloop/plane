@@ -32,6 +32,10 @@ class DeployCreateForm extends React.Component {
     };
   }
 
+  componentDidMount(){
+    this.nameInput.focus();
+  }
+
   changeResourceHandler = (e, val) => {
     e.preventDefault();
     this.setState({memory: val});
@@ -43,7 +47,8 @@ class DeployCreateForm extends React.Component {
       <div>
         <div className="row">
           <div className="col-md-8 col-md-offset-2 col-xs-12">
-            <TextField fullWidth={true} floatingLabelText="Service name" hintText="Name"
+            <TextField ref={(input) => this.nameInput = input}
+                       fullWidth={true} floatingLabelText="Service name" hintText="Name"
                        onChange={e => this.props.setName(e.target.value)}/>
           </div>
 
