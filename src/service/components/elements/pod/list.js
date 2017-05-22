@@ -55,12 +55,8 @@ const PodCardList = (props) => {
                        style={{color: getStateColor(status)}}
                        aria-hidden="true"></i>
                   }
-                  <span style={{paddingLeft: "5px"}}>{pod.meta.name}</span>
-                </TableRowColumn>
-                <TableRowColumn>
-                  <span className="cursor-pointer">
-                    <i className="fa fa-globe" aria-hidden="true"/>&nbsp;
-                    <Link target={'blank'} to={"http://"+pod.meta.endpoint}>{pod.meta.endpoint}</Link>
+                  <span className="cursor-pointer" style={{paddingLeft: "5px"}}>
+                    <Link target={'blank'} to={"http://" + pod.meta.endpoint}>{pod.meta.endpoint}</Link>
                   </span>
                 </TableRowColumn>
                 <TableRowColumn
