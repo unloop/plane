@@ -20,6 +20,7 @@ import React from "react";
 import FloatingActionButton from "material-ui/FloatingActionButton";
 import ContentSettings from "material-ui/svg-icons/action/settings-applications";
 import CommonBreadcrumbsHeader from "./breadcrumbs";
+import {Link} from "react-router";
 
 const CommonHeader = (props) => {
   return (
@@ -31,9 +32,11 @@ const CommonHeader = (props) => {
               (!props.settings)
                 ? (
                 <div className="header-logout pull-right">
-                  <FloatingActionButton href={"/settings"}>
-                    <ContentSettings />
-                  </FloatingActionButton>
+                  <Link to={`/settings`}>
+                    <FloatingActionButton>
+                      <ContentSettings />
+                    </FloatingActionButton>
+                  </Link>
                 </div>
               )
                 : ""

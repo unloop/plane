@@ -17,9 +17,11 @@
 //
 
 import React from "react";
-import {getStateColor} from "./../../../../utils";
+import {Link} from "react-router";
 
 import {Table, TableBody, TableRow, TableRowColumn} from "material-ui/Table";
+
+import {getStateColor} from "./../../../../utils";
 
 const PodCardList = (props) => {
 
@@ -54,6 +56,12 @@ const PodCardList = (props) => {
                        aria-hidden="true"></i>
                   }
                   <span style={{paddingLeft: "5px"}}>{pod.meta.name}</span>
+                </TableRowColumn>
+                <TableRowColumn>
+                  <span className="cursor-pointer">
+                    <i className="fa fa-globe" aria-hidden="true"/>&nbsp;
+                    <Link target={'blank'} to={"http://"+pod.meta.endpoint}>{pod.meta.endpoint}</Link>
+                  </span>
                 </TableRowColumn>
                 <TableRowColumn
                   style={{textAlign: "right", color: getStateColor(status)}}>

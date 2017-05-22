@@ -44,9 +44,9 @@ const ServiceHeader = (props) => {
                 {
                   (!!service.dns.primary)
                     ? (
-                    <p>
-                      <i className="fa fa-globe" aria-hidden="true"/>
-                      <Link target={'blank'} to={service.dns.primary}> {service.dns.primary} </Link>
+                    <p className="cursor-pointer">
+                      <i className="fa fa-globe" aria-hidden="true"/>&nbsp;
+                      <Link target={'blank'} to={"http://"+service.dns.primary}>{service.dns.primary}</Link>
                     </p>
                   )
                     : ""
