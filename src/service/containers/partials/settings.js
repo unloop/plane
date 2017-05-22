@@ -60,7 +60,7 @@ const NamespaceSettingsContainer = (props) => {
           </div>
 
           <div className="col-md-8 col-xs-12">
-            <pre style={{marginTop: "25px"}}>{hook_url}</pre>
+            <pre style={{marginTop: "30px"}}>POST {hook_url}</pre>
           </div>
         </div>
       </div>
