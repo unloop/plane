@@ -1,5 +1,6 @@
 
 export default {
+  "NAMESPACE_NOT_EMPTY": "Namespace have any services",
   "NAME_CANNOT_BE_BLANK": "Name cannot be blank",
   "NAME_FORMAT_INVALID": "Name may only contain alphanumeric characters or single hyphens or underscore, and cannot begin or end with a hyphen or underscore",
   "NAME_TO_SHORT": "Name is too short (minimum is 4 characters)",

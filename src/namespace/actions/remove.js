@@ -16,9 +16,12 @@
 // from Last.Backend LLC.
 //
 
-import * as api from '../api';
+import {toastr} from 'react-redux-toastr'
 import {browserHistory} from 'react-router'
 import {NAMESPACE_REMOVE_REQUEST, NAMESPACE_REMOVE_SUCCESS, NAMESPACE_REMOVE_FAILURE} from '../constants';
+
+import * as api from '../api';
+import {getError} from '../../utils';
 
 export const RequestAction = {
   type: NAMESPACE_REMOVE_REQUEST
@@ -47,7 +50,30 @@ export const RemoveActionCreators = (name) => (dispatch) => {
       })
       .catch(error => {
         dispatch(FailureAction(error));
-        reject(error)
+        const header = "Namespace remove!";
+        let content = error.logs;
+
+        switch (error.status) {
+          case "Not Found":
+            content = error.logs;
+            browserHistory.push("/");
+            break;
+          case "Forbidden":
+            content = getError('NAMESPACE_NOT_EMPTY');
+            break;
+          case "Unauthorized":
+          case "Unknown":
+          case "Internal Server Error":
+            content = getError('INTERNAL_SERVER_ERROR');
+            break;
+          default:
+            content = getError('INTERNAL_SERVER_ERROR');
+        }
+
+        toastr.error(header, content);
+
+        dispatch(FailureAction({}));
+        reject(error);
       });
   });
 };
