@@ -27,7 +27,7 @@ class DeployGitPushContainer extends React.Component {
   render() {
     return (
       <div className="row">
-        <div className="col-xs-8 col-xs-offset-2">
+        <div className="col-md-8 col-md-offset-2 col-xs-12">
           <p> Install the Last.Backend CLI</p>
           <p>Download and install the <a href="#" title="Last.Backend CLI">Last.Backend CLI</a>.</p>
 

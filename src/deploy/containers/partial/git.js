@@ -58,7 +58,7 @@ class DeployGitContainer extends React.Component {
   render() {
     return (
       <div className="row">
-        <div className="col-xs-8 col-md-offset-2 text-center">
+        <div className="col-md-8 col-md-offset-2 col-xs-12">
 
           <FloatingActionButton style={{margin: "0 10px"}} onClick={e => this.changeTabHandler(e, "url")}
                                 backgroundColor={(this.state.tab === "url") ? "#2275dc" : "#afafaf"}>

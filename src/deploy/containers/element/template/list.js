@@ -64,7 +64,7 @@ class TemplateList extends React.Component {
   render() {
     return (
       <div className="row">
-        <div className="col-xs-8 col-md-offset-2">
+        <div className="col-md-8 col-md-offset-2 col-xs-12">
           {
             (!!Object.keys(this.props.template.list).length)
               ? (
@@ -79,7 +79,7 @@ class TemplateList extends React.Component {
         </div>
         <br />
         <br />
-        <div className="row">
+        <div className="col-xs-12 text-center">
           {
             (this.state.template === null)
               ? Object.keys(this.props.template.list).map((key, index) => {

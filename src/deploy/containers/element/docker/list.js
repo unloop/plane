@@ -94,15 +94,15 @@ class SourcesDockerImagesList extends React.Component {
 
     return (
       <div className="row">
-        <div className="col-xs-8 col-md-offset-2">
+        <div className="col-md-8 col-md-offset-2 col-xs-12">
           <TextField disabled={this.state.pending} floatingLabelText={"Search image to the docker hub"} fullWidth={true}
             onChange={searchReposHandler} />
         </div>
         <br />
-        <div className="row">
+        <div className="col-xs-12 text-center">
           {
             (this.state.pending)
-              ? <CircularProgress style={{ left: "50%" }} />
+              ? <CircularProgress />
               : (this.state.image === null)
                 ? Object.keys(this.props.registry.list).map((key, index) => {
                   return (<div className="col-xs-6 col-md-4" key={index}

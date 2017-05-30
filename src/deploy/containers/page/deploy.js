@@ -114,7 +114,7 @@ class DeployCreatePage extends React.Component {
           <div className="container">
             <div className="row">
 
-              <div className="col-xs-8 col-md-offset-2 text-center">
+              <div className="col-xs-12 text-center">
                 {/*<RaisedButton style={{margin: "0 10px"}} buttonStyle={{width: "160px", height: "55px"}}*/}
                 {/*onClick={e => this.tabChangeHandler(e, "template")}*/}
                 {/*primary={this.state.tab === "template"}*/}
@@ -134,53 +134,57 @@ class DeployCreatePage extends React.Component {
             <br/>
 
             <div className="row">
-              <div className="container-fluid">
-                {/*{*/}
-                {/*(this.state.tab === "template")*/}
-                {/*? <DeployTemplateContainer setTemplate={this.setTemplate} {...this.props}/>*/}
-                {/*: ""*/}
-                {/*}*/}
+              <div className="col-xs-12 text-center">
+                <div className="container-fluid">
+                  {/*{*/}
+                  {/*(this.state.tab === "template")*/}
+                  {/*? <DeployTemplateContainer setTemplate={this.setTemplate} {...this.props}/>*/}
+                  {/*: ""*/}
+                  {/*}*/}
 
-                {/*{*/}
-                {/*(this.state.tab === "push")*/}
-                {/*? <DeployGitPushContainer {...this.props}/>*/}
-                {/*: ""*/}
-                {/*}*/}
+                  {/*{*/}
+                  {/*(this.state.tab === "push")*/}
+                  {/*? <DeployGitPushContainer {...this.props}/>*/}
+                  {/*: ""*/}
+                  {/*}*/}
 
-                {
-                  (this.state.tab === "git")
-                    ? <DeployGitContainer setUrl={this.setUrl} {...this.props}/>
-                    : ""
-                }
+                  {
+                    (this.state.tab === "git")
+                      ? <DeployGitContainer setUrl={this.setUrl} {...this.props}/>
+                      : ""
+                  }
 
-                {
-                  (this.state.tab === "docker")
-                    ? <DeployDockerContainer setImage={this.setImage} {...this.props}/>
-                    : ""
-                }
+                  {
+                    (this.state.tab === "docker")
+                      ? <DeployDockerContainer setImage={this.setImage} {...this.props}/>
+                      : ""
+                  }
+                </div>
               </div>
             </div>
 
             <div className="row">
-              <div className="settings-block-item text-center">
-                {
-                  (this.state.tab !== "push")
-                    ? (
-                    <div>
-                      <RaisedButton label="Deploy" primary={true} style={{margin: "0 10px"}}
-                                    disabled={this.checkDisableDeployHandler()}
-                                    onClick={this.onClickToDeploy}/>
+              <div className="col-xs-12 text-center">
+                <div className="settings-block-item text-center">
+                  {
+                    (this.state.tab !== "push")
+                      ? (
+                      <div>
+                        <RaisedButton label="Deploy" primary={true} style={{margin: "0 10px"}}
+                                      disabled={this.checkDisableDeployHandler()}
+                                      onClick={this.onClickToDeploy}/>
 
-                      <RaisedButton label="Cancel" style={{margin: "0 10px"}}
+                        <RaisedButton label="Cancel" style={{margin: "0 10px"}}
+                                      containerElement={<Link to={`/ns/${namespace}`}/>}/>
+                      </div>
+                    )
+                      : (
+                      <RaisedButton label="Back" style={{margin: "0 10px"}}
                                     containerElement={<Link to={`/ns/${namespace}`}/>}/>
-                    </div>
-                  )
-                    : (
-                    <RaisedButton label="Back" style={{margin: "0 10px"}}
-                                  containerElement={<Link to={`/ns/${namespace}`}/>}/>
-                  )
-                }
+                    )
+                  }
 
+                </div>
               </div>
             </div>
 
