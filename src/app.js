@@ -16,39 +16,34 @@
 // from Last.Backend LLC.
 //
 
-import React, {} from 'react';
+import React from "react";
+import injectTapEventPlugin from "react-tap-event-plugin";
+import {Header} from "./layouts";
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-
-import './app.css';
-import './common/styles/main.css';
-import './deploy/styles/main.css';
-import './namespace/styles/main.css';
-import './service/styles/main.css';
-import './settings/styles/main.css';
-
-const MainThemeStyles = () => getMuiTheme({
-  palette: {
-    fontWeight: 300,
-    textColor: '#737373',
-    primary1Color: '#2275dc'
-  }
-});
+import "./app.css";
 
 injectTapEventPlugin();
 
-const App = (props) => {
-  return (
-    <div>
-      <MuiThemeProvider muiTheme={MainThemeStyles()}>
-        <div className="container-fluid container-wrapper">
-          {props.content}
-        </div>
-      </MuiThemeProvider>
-    </div>
-  );
-};
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <div>
+        <header className="header">
+          <div className="container">
+            <Header/>
+          </div>
+        </header>
+        <section>
+          {this.props.children}
+        </section>
+      </div>
+    );
+  }
+}
 
 export default App;

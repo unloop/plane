@@ -1,0 +1,97 @@
+/**
+// Last.Backend LLC CONFIDENTIAL
+// __________________
+//
+// [2014] - [2017] Last.Backend LLC
+// All Rights Reserved.
+//
+// NOTICE:  All information contained herein is, and remains
+// the property of Last.Backend LLC and its suppliers,
+// if any.  The intellectual and technical concepts contained
+// herein are proprietary to Last.Backend LLC
+// and its suppliers and may be covered by Russian Federation and Foreign Patents,
+// patents in process, and are protected by trade secret or copyright law.
+// Dissemination of this information or reproduction of this material
+// is strictly forbidden unless prior written permission is obtained
+// from Last.Backend LLC.
+//
+*/
+
+.tabs-panel {
+  border-bottom: 1px solid #1D242C;
+}
+
+.tab {
+  position: relative;
+  display: inline-block;
+  min-width: 110px;
+  padding: 0 15px;
+  line-height: 32px;
+  margin-bottom: -1px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+  cursor: pointer;
+}
+.tab:before,
+.tab:after {
+  position: absolute;
+  z-index: 0;
+  content: " ";
+  display: block;
+  bottom: 0;
+  width: 50%;
+  height: 100%;
+}
+
+.tab:before {
+  left: 5px;
+  border-width: 1px 0 0 1px;
+  border-radius: 5px 0 0 0;
+  transform: skewX(-15deg);
+}
+
+.tab:after {
+  right: 5px;
+  border-width: 1px 1px 0 0;
+  border-radius: 0 5px 0 0;
+  transform: skewX(15deg);
+}
+
+.tab:not([disabled]) {
+  cursor: pointer;
+}
+
+.tab:hover,
+.tab:focus,
+.tab:active,
+.tab.active {
+  border-bottom: none;
+}
+
+.tab.active > div {
+  background-color: #262e38;
+  border-top: 1px solid #1D242C;
+  box-shadow: inset 0px 1px 0 0 #3a4350;
+}
+
+.tab.active:before,
+.tab.active:after {
+  border: 1px solid #10141a;
+  background-color: #262e38;
+  border-bottom: none;
+}
+
+.tab.active:before {
+  box-shadow: inset 1px 1px 0 0 #3a4350;
+}
+
+.tab.active:after {
+  box-shadow: inset -1px 1px 0 0 #3a4350;
+}
+
+.tab>div {
+  position: relative;
+  z-index: 1;
+}

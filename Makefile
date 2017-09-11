@@ -16,8 +16,9 @@ clean:
 start:
 	echo "start new docker dashboard image"
 	docker run -i -t -d --name=dashboard \
-		-v /opt/src/github.com/lastbackend/dashboard/src:/opt/dashboard/src:rw \
-		-v /opt/src/github.com/lastbackend/dashboard/public:/opt/dashboard/public:rw \
+		-v /opt/src/github.com/lastbackend/control-plane/src:/opt/control-plane/src:rw \
+		-v /opt/src/github.com/lastbackend/control-plane/public:/opt/control-plane/public:rw \
+		-v /opt/src/github.com/lastbackend/control-plane/.env:/opt/control-plane/.env:rw \
 	  --restart=always --net=host -p 3000:3000 lastbackend/dashboard npm start
 
 stop:

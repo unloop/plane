@@ -1,0 +1,359 @@
+/*
+//
+// Last.Backend LLC CONFIDENTIAL
+// __________________
+//
+// [2014] - [2017] Last.Backend LLC
+// All Rights Reserved.
+//
+// NOTICE:  All information contained herein is, and remains
+// the property of Last.Backend LLC and its suppliers,
+// if any.  The intellectual and technical concepts contained
+// herein are proprietary to Last.Backend LLC
+// and its suppliers and may be covered by Russian Federation and Foreign Patents,
+// patents in process, and are protected by trade secret or copyright law.
+// Dissemination of this information or reproduction of this material
+// is strictly forbidden unless prior written permission is obtained
+// from Last.Backend LLC.
+//
+ */
+
+/* ============================================================================= */
+/* ============================= Reset css section ============================= */
+/* ============================================================================= */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+fieldset, img {
+  border: 0;
+}
+
+address, caption, cite, code, dfn, em, th, var {
+  font-style: normal;
+  font-weight: normal;
+}
+
+caption, th {
+  text-align: left;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+a:active, a:focus, img, input:active, input:focus {
+  outline: none;
+  border-color: transparent;
+}
+
+/* ============================================================================= */
+/* ============================ Main template styles =========================== */
+/* ============================================================================= */
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: #262E38;
+  font-family: Roboto, sans-serif;
+  color: #9DACC0;
+  height: 100vh;
+  font-weight: 300;
+  font-size: 14px;
+}
+
+body.blank .content {
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-align: left;
+  font-weight: normal;
+  color: #ffffff;
+}
+
+h1 {
+  font-size: 22px;
+  line-height: 30px;
+}
+
+h2 {
+  font-size: 20px;
+  line-height: 30px;
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 28px;
+}
+
+h4 {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+h5 {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+h6 {
+  font-size: 12px;
+  line-height: 18px;
+  margin: 0;
+}
+
+p, span, small {
+  color: #9DACC0;
+}
+
+b {
+  font-weight: bold;
+}
+
+strong {
+  font-weight: bold;
+}
+
+i, em {
+  font-style: italic;
+}
+
+u {
+  text-decoration: underline;
+}
+
+a {
+  color: rgba(0, 0, 0, .5);
+  text-decoration: none;
+}
+
+a:hover {
+  color: #0275d8;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:link,
+a:active,
+a:visited,
+a:hover {
+  text-decoration: none !important;
+}
+
+button {
+  cursor: pointer;
+}
+
+hr {
+  border-top: 1px solid #414C5A;
+}
+
+/* ============================================================================= */
+/* =============================== Content styles ============================== */
+/* ============================================================================= */
+
+.content {
+  padding: 25px;
+  -webkit-transition: margin-top 0.35s ease, opacity 0.2s;
+  -o-transition: margin-top 0.35s ease, opacity 0.2s;
+  transition: margin-top 0.35s ease, opacity 0.2s;
+  max-width: none;
+  width: auto;
+  opacity: 1
+}
+
+.content.hiding {
+  opacity: 0
+}
+
+.lb-auxiliary-nav {
+  background-color: #1f262c;
+  border-bottom: 1px solid black;
+}
+
+.vertical-center {
+  min-height: calc(100% - 72px); /* Fallback for browsers do NOT support vh unit */
+  min-height: calc(100vh - 72px); /* These two lines are counted as one :-)*/
+  display: flex;
+  align-items: center;
+}
+
+.header {
+  width: 100%;
+  height: 60px;
+  background-color: #2F3844;
+  border-bottom: 1px solid #1D242C;
+}
+
+.header a.nav-link {
+  color: #7287a2 !important;
+  font-size: 14px !important;
+}
+
+.header .navbar-collapse {
+  z-index: 99999;
+  background-color: #2F3844;
+}
+
+.sub-header {
+  background-color: #34404E;
+  padding-top: 30px;
+  min-height: 80px;
+  border-bottom: 1px solid #1D242C;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.partial-header {
+  font-size: 1.125rem;
+  color: #64768D;
+  font-weight: 300;
+}
+
+.card {
+  background-color: #323D4C;
+  border: 1px solid #0E1927;
+  border-radius: 6px;
+  font-weight: 300;
+  overflow: hidden;
+}
+
+.card-body {
+  background-color: #262e38;
+  min-height: 32px;
+}
+
+.card dt {
+  font-weight: 300;
+}
+
+.card small {
+  font-weight: 300;
+}
+
+.card-title {
+  color: #ffffff;
+  font-size: 1.325rem;
+  margin-bottom: 0;
+}
+
+.card-description {
+  color: #7387A1;
+  font-size: 1rem;
+}
+
+.card-footer {
+  background-color: #3A4552;
+  border-top: 1px solid #64768D;
+}
+
+.active-build {
+  background-color: #1B2129;
+  color: #7387A1 !important;
+}
+
+.tree, .tree ul {
+  margin: 0;
+  padding: 0;
+  list-style: none
+}
+
+.tree ul {
+  margin-left: 0.4em;
+  position: relative
+}
+
+.tree ul:before {
+  content: "";
+  display: block;
+  width: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  border-left: 1px solid
+}
+
+.tree li {
+  line-height: 2em;
+  position: relative;
+  margin: 0;
+  padding: 0 0 0 1em;
+}
+
+.tree ul li:before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 0;
+  border-top: 1px solid;
+  margin-top: -1px;
+  position: absolute;
+  top: 1em;
+  left: 0
+}
+
+.tree ul li:last-child:before {
+  background: #262E38;
+  height: auto;
+  top: 1em;
+  bottom: 0
+}
+
+.header-with-line {
+  /* чтобы линии не выходили за ширину блока заголовка */
+  overflow: hidden;
+}
+
+.header-with-line:before,
+.header-with-line:after {
+  content: '';
+
+  /* делаем линию строчно-блочной */
+  display: inline-block;
+
+  /* выравниваем вертикально по середине */
+  vertical-align: middle;
+
+  /* не позволяем ширине превысить 100% (будет добавлен бордюр) */
+  box-sizing: border-box;
+
+  /* установка ширины в 100% делает линию равной ширине тега заголовка
+  ** благодаря этому линия заполнит все свободное пространство
+  ** слева и справа от текста
+  */
+  width: 100%;
+  height: 1px;
+  background: #34404E;
+
+  /* добавляем к линии левый и правый бордюр цветом основного фона заголовка
+  ** благодаря этому создается нужный отступ между линиями и текстом
+  */
+  border: solid #262E38;
+  border-width: 0 10px;
+}
+
+.header-with-line:before {
+  /* смещаем левую линию влево отрицательным отступом, равным 100% ширины
+  ** благодаря этому линия встает слева от текста
+  */
+  margin-left: -100%;
+}
+
+.header-with-line:after {
+  /* смещаем правую линию вправо отрицательным отступом, равным 100% ширины
+  ** благодаря этому линия встает справа от текста
+  */
+  margin-right: -100%;
+}

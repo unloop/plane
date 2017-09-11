@@ -1,0 +1,67 @@
+/*
+//
+// Last.Backend LLC CONFIDENTIAL
+// __________________
+//
+// [2014] - [2017] Last.Backend LLC
+// All Rights Reserved.
+//
+// NOTICE:  All information contained herein is, and remains
+// the property of Last.Backend LLC and its suppliers,
+// if any.  The intellectual and technical concepts contained
+// herein are proprietary to Last.Backend LLC
+// and its suppliers and may be covered by Russian Federation and Foreign Patents,
+// patents in process, and are protected by trade secret or copyright law.
+// Dissemination of this information or reproduction of this material
+// is strictly forbidden unless prior written permission is obtained
+// from Last.Backend LLC.
+//
+ */
+
+/********************/
+/* Background color */
+/********************/
+
+.lb-bg-dark {
+  background-color: #000000;
+}
+
+.lb-bg-gray {
+  background-color: #414C5A;
+}
+
+.lb-bg-light-gray {
+  background-color: #9DACC0;
+}
+
+.lb-bg-blue {
+  background-color: #80ADE9;
+}
+
+.lb-bg-white {
+  background-color: #FFFFFF;
+}
+
+/********************/
+/**** Text color ****/
+/********************/
+
+.lb-text-dark {
+  color: #000000;
+}
+
+.lb-text-gray {
+  color: #414C5A;
+}
+
+.lb-text-light-gray {
+  color: #9DACC0;
+}
+
+.lb-text-blue {
+  color: #80ADE9;
+}
+
+.lb-text-white {
+  color: #FFFFFF;
+}

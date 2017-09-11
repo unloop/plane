@@ -15,83 +15,89 @@
 // is strictly forbidden unless prior written permission is obtained
 // from Last.Backend LLC.
 //
+
 import React from "react";
+import {IndexRoute, Redirect, Route} from "react-router";
 
 import App from "./app";
-import {IndexRoute, Redirect, Route} from "react-router";
-// Import namespace containers
-import {
-  NamespaceAccessContainer,
-  NamespaceActivityContainer,
-  NamespaceCreatePage,
-  NamespaceInfoPage,
-  NamespaceListPage,
-  NamespaceOverviewContainer,
-  NamespaceSettingsContainer
-} from "./namespace/containers";
-// Import service containers
-import {
-  ServiceActivityContainer,
-  ServiceBuildsContainer,
-  ServiceDeployContainer,
-  ServiceInfoPage,
-  ServiceMetricsContainer,
-  ServiceOverviewContainer,
-  ServiceSettingsContainer
-} from "./service/containers";
-// Import settings containers
-import {IntegrationContainer, SettingsInfoPage, NodeOverviewContainer} from "./settings/containers";
-// Import build containers
-import {BuildInfoPage, BuildLogsContainer, BuildOverviewContainer} from "./build/containers";
-
-import {VolumeInfoPage, VolumeOverviewContainer} from "./volume/containers";
-
-import {DeployCreatePage} from "./deploy/containers";
-
-import NotFoundPage from "./404";
+// Import dashboard containers
+import * as layout from "./layouts";
 
 export default () => {
+
   return (
     <Route path="/" component={App}>
-      <IndexRoute components={{content: NamespaceListPage}}/>
+      <IndexRoute component={layout.PageDashboardInfo}/>
 
-      <Route path="/ns/new" components={{content: NamespaceCreatePage}}/>
+      {/*************** Apps **************/}
 
-      <Route path="/ns/:namespace" components={{content: NamespaceInfoPage}}>
-        <IndexRoute component={NamespaceOverviewContainer}/>
-        <Route path="/ns/:namespace/access" component={NamespaceAccessContainer}/>
-        <Route path="/ns/:namespace/activity" component={NamespaceActivityContainer}/>
-        <Route path="/ns/:namespace/settings" component={NamespaceSettingsContainer}/>
+      <Route path="/app/new" component={layout.PageAppCreate}/>
+
+      <Route path="/app" component={layout.PageAppList}/>
+
+      <Route path="/app/:app" component={layout.PageAppInfo}>
+        <IndexRoute component={layout.AppPartialDashboard}/>
+        <Route path="/app/:app/settings" component={layout.AppPartialSettings}/>
+        <Route path="/app/:app/envs" component={layout.AppPartialEnvs}/>
       </Route>
 
-      <Route path="/ns/:namespace/deploy" components={{content: DeployCreatePage}}/>
+      <Route path="/app/:app/:service" component={layout.PageAppList}>
+        <IndexRoute components={{
+          main: layout.AppPartialDashboard, sidebar: layout.AppPartialDetails
+        }}/>
 
-      <Route path="/ns/:namespace/s/:service" components={{content: ServiceInfoPage}}>
-        <IndexRoute component={ServiceOverviewContainer}/>
-        <Route path="/ns/:namespace/s/:service/builds" component={ServiceBuildsContainer}/>
-        <Route path="/ns/:namespace/s/:service/deploy" component={ServiceDeployContainer}/>
-        <Route path="/ns/:namespace/s/:service/metrics" component={ServiceMetricsContainer}/>
-        <Route path="/ns/:namespace/s/:service/activity" component={ServiceActivityContainer}/>
-        <Route path="/ns/:namespace/s/:service/settings" component={ServiceSettingsContainer}/>
+
+        <Route path="/app/:app/:service/settings" components={{
+          main: layout.AppPartialDashboard, sidebar: layout.ServicePartialSettings
+        }}/>
+
+        <Route path="/app/:app/:service/logs" components={{
+          main: layout.AppPartialDashboard, sidebar: layout.ServicePartialLogs
+        }}/>
+
       </Route>
 
-      <Route path="/s/:service/b/:build" components={{content: BuildInfoPage}}>
-        <IndexRoute component={BuildOverviewContainer}/>
-        <Route path="/s/:service/b/:build" component={BuildOverviewContainer}/>
-        <Route path="/s/:service/b/:build/logs" component={BuildLogsContainer}/>
+      {/*************** Repositories **************/}
+
+      <Route path="/r/new" component={layout.PageRepoCreate}/>
+      <Route path="/r" component={layout.PageRepoList}/>
+      <Route path="/r/:owner/:name" component={layout.PageRepoInfo}/>
+
+      {/*************** infrastructure **************/}
+
+      <Route path="/i/new" component={layout.PageInfrastructureCreate}/>
+
+      <Route path="/i" component={layout.PageAppList}>
+
+        <IndexRoute components={{
+          main: layout.AppPartialDashboard, sidebar: layout.AppPartialDetails
+        }}/>
+
+        <Route path="/i" components={{
+          header: layout.InfrastructureHeader,
+          main: layout.InfrastructurePartialDashboard, sidebar: layout.InfrastructurePartialDetails
+        }}/>
+
+        <Route path="/i/:infrastructure/new" components={{
+          header: layout.InfrastructureHeader,
+          main: layout.NodePartialCreate, sidebar: layout.NodePartialHelp
+        }}/>
+
+        <Route path="/i/:infrastructure/n/:node" components={{
+          header: layout.InfrastructureHeader,
+          main: layout.InfrastructurePartialDashboard, sidebar: layout.NodePartialDetails
+        }}/>
+
+        <Route path="/i/:infrastructure/n/:node/settings" components={{
+          header: layout.InfrastructureHeader,
+          main: layout.InfrastructurePartialDashboard, sidebar: layout.NodePartialSettings
+        }}/>
+
       </Route>
 
-      <Route path="/settings" components={{content: SettingsInfoPage}}>
-        <IndexRoute component={NodeOverviewContainer}/>
-        <Route path="/settings/integrations" component={IntegrationContainer}/>
-      </Route>
+      {/*************** Default **************/}
 
-      <Route path="/ns/:namespace/v/:volume" components={{content: VolumeInfoPage}}>
-        <IndexRoute component={VolumeOverviewContainer}/>
-        <Route path="/ns/:namespace/v/:volume" component={VolumeOverviewContainer}/>
-      </Route>
-
-      <Route path='/404' components={{content: NotFoundPage}}/>
+      <Route path='/404' component={layout.NotFoundPage}/>
       <Redirect from='*' to='/404'/>
     </Route>
   );

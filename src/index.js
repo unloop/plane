@@ -20,29 +20,17 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {Router} from 'react-router';
 import {browserHistory} from 'react-router';
-import ReduxToastr from 'react-redux-toastr';
 
 import routes from './routes';
 
-import {sockets, configureStore} from './utils';
+import {configureStore} from './utils';
 import getStore from './store';
 
 const store = configureStore(getStore());
-sockets(store);
 
 ReactDOM.render(
   <Provider store={store}>
-    <div>
-      <Router history={browserHistory} routes={routes(store)}/>
-      <ReduxToastr
-        timeOut={2000}
-        newestOnTop={false}
-        preventDuplicates={true}
-        position="top-right"
-        transitionIn="fadeIn"
-        transitionOut="fadeOut"
-        progressBar/>
-    </div>
+    <Router history={browserHistory} routes={routes(store)}/>
   </Provider>,
   document.getElementById('root')
 );

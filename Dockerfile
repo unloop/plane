@@ -18,16 +18,15 @@
 
 FROM node:slim
 
-ADD . /opt/dashboard
+ADD . /opt/control-plane
 
-WORKDIR /opt/dashboard
+WORKDIR /opt/control-plane
 
 ENV NODE_ENV='development'
 
 RUN npm install -g create-react-app
 
 RUN npm install
-
 
 EXPOSE 3000
 

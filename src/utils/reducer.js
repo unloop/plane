@@ -18,31 +18,14 @@
 
 import {combineReducers} from "redux";
 
-import common from "../common/reducers";
-import namespace from "../namespace/reducers";
-import {node, vendor} from "../settings/reducers";
-import service from "../service/reducers";
-import build from "../build/reducers";
-import volume from "../volume/reducers";
-import {registry, template, vcs, integration} from "../deploy/reducers";
-import activity from "../activity/reducers";
-import {reducer as toastrReducer} from "react-redux-toastr";
+import * as reducer from "../reducers";
 
 function get() {
   let reducers = {};
-  reducers["common"] = common;
-  reducers["namespace"] = namespace;
-  reducers["node"] = node;
-  reducers["vendor"] = vendor;
-  reducers["service"] = service;
-  reducers["build"] = build;
-  reducers["volume"] = volume;
-  reducers["template"] = template;
-  reducers["vcs"] = vcs;
-  reducers["registry"] = registry;
-  reducers["integration"] = integration;
-  reducers["activity"] = activity;
-  reducers["toastr"] = toastrReducer;
+  reducers["app"] = reducer.app;
+  reducers["node"] = reducer.node;
+  reducers["repo"] = reducer.repo;
+  reducers["service"] = reducer.service;
   return reducers;
 }
 

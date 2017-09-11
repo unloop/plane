@@ -19,19 +19,10 @@
 import {applyMiddleware, compose, createStore} from "redux";
 import thunkMiddleware from "redux-thunk";
 import createLogger from "redux-logger";
-import fetch from "isomorphic-fetch";
 
 import rootReducer from "./reducer";
 import errMessages from "./error";
-
-import commonActions from "./../common/actions";
-
-export function createConstants(...constants) {
-  return constants.reduce((acc, constant) => {
-    acc[constant] = constant;
-    return acc;
-  }, {});
-}
+import {WS} from "./websockets"
 
 export function createReducer(initialState, reducerMap) {
   return (state = initialState, action) => {
@@ -136,30 +127,10 @@ export function configureStore() {
   );
 }
 
-export function sockets(store) {
-
-  store.dispatch(commonActions.sockets.SocketsConnectAction);
-
-  const wss_host = process.env.REACT_APP_WSS_HOST;
-  let ws = new WebSocket([wss_host, "events"].join("/"));
-  store.dispatch(commonActions.sockets.SocketsConnectedAction);
-
-  ws.onopen = e => store.dispatch(commonActions.sockets.SocketsConnectedAction);
-  ws.onmessage = e => store.dispatch(commonActions.sockets.SocketsReceiveMessage(JSON.parse(e.data)));
-
-  ws.onerror = e => this.setState({error: 'WebSocket error'});
-  ws.onclose = e => {
-    store.dispatch(commonActions.sockets.SocketsDisconnectedAction(e));
-    setTimeout(function () {
-      sockets(store);
-    }, 1000);
-  };
-}
-
 export function requestJSON(method, url, body) {
 
   let headers = {};
-  headers["Content-Type"] = "application/json";
+  headers["Content-Type"] = "app/json";
 
   let opts = {};
   opts.method = method;
@@ -186,6 +157,8 @@ export function requestJSON(method, url, body) {
 }
 
 export function request(method, url, headers, body) {
+
+  headers = headers || {};
 
   let opts = {};
   opts.method = method;
@@ -234,3 +207,5 @@ export function getStateColor(status) {
 export function getError(code) {
   return errMessages[code] || "";
 }
+
+export {WS}

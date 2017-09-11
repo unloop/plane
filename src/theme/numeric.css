@@ -1,0 +1,42 @@
+/*
+//
+// Last.Backend LLC CONFIDENTIAL
+// __________________
+//
+// [2014] - [2017] Last.Backend LLC
+// All Rights Reserved.
+//
+// NOTICE:  All information contained herein is, and remains
+// the property of Last.Backend LLC and its suppliers,
+// if any.  The intellectual and technical concepts contained
+// herein are proprietary to Last.Backend LLC
+// and its suppliers and may be covered by Russian Federation and Foreign Patents,
+// patents in process, and are protected by trade secret or copyright law.
+// Dissemination of this information or reproduction of this material
+// is strictly forbidden unless prior written permission is obtained
+// from Last.Backend LLC.
+//
+ */
+
+.numeric-input-group .numeric-button {
+  min-width: 20px;
+  max-width: 50px;
+  height: 31px;
+  line-height: 31px;
+  padding: 0 12px;
+  font-size: 12px;
+  border-radius: 3px;
+  text-decoration: none;
+  outline: 0;
+  background-image: linear-gradient(rgba(6, 0, 20, 0) 0%, rgba(6, 0, 20, 0.12) 100%);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.numeric-input-group .numeric-input {
+  height: 31px;
+  font-size: 12px;
+  border-radius: 5px;
+  border: 1px solid #38414e;
+  background: #1d242d;
+  color: #fafafa;
+}
